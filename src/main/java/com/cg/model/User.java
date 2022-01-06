@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 @Getter
@@ -32,16 +33,19 @@ public class User extends BaseEntity{
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
-    @NotBlank(message = "Tên không được trống")
+    @NotBlank(message = "Name can't not be blank!")
+    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Name must be between 2 and 50 character without special character!")
     private String name;
 
-    @NotBlank(message = "Địa chỉ không được trống")
+    @NotBlank(message = "Address can't not be blank!")
     private String address;
 
-    @NotBlank(message = "Số điện thoại không được trống")
+    @NotBlank(message = "Phone can't not be blank!")
+    @Pattern(regexp = "^[0][1-9][0-9]{8,9}$", message = "phone number length must be 10 or 11 and start with 0!")
     private String phone;
 
-    @NotBlank(message = "Email không được trống")
+    @NotBlank(message = "Email can't not be blank!")
+    @Pattern(regexp = "^[a-z][a-z0-9_\\\\.]{3,32}@[a-z0-9]{2,}(\\\\.[a-z0-9]{2,7}){1,7}$", message = "Email is invalid!")
     private String email;
 
 

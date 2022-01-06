@@ -26,8 +26,8 @@ public class CategoryGroup extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Tên nhóm danh mục không được trống")
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên nhóm danh mục phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
+    @NotBlank(message = "Category group name can't not be blank")
+    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Category group name must be between 2 and 50 character without special character!")
     @Column(unique = true)
     private String name;
 
@@ -38,7 +38,7 @@ public class CategoryGroup extends BaseEntity{
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "categoryGroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "categoryGroup", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Product> products;
 

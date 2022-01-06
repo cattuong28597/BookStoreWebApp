@@ -38,7 +38,7 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Minton</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">MainMenu</a></li>
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>
@@ -75,13 +75,15 @@
                                             <tr>
                                                 <td th:text="${item.id}"></td>
                                                 <td th:text="${item.name}"></td>
+
+
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-secondary" th:href="@{/cp/categories/edit/__${item.id}__ }">
+                                                    <a class="btn btn-outline-secondary" th:href="@{/cp/categories/activation/__${item.id}__ }">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-danger" th:href="@{/categories/delete/__${item.id}__ }">
+                                                    <a class="btn btn-outline-danger" th:href="@{/categories/disable/__${item.id}__ }">
                                                         <i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
@@ -90,12 +92,12 @@
                                     </tbody>
                                 </table>
 
-                            </div> <!-- end card body-->
-                        </div> <!-- end card -->
-                    </div><!-- end col-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div> <!-- container -->
+            </div>
 
         </div> <!-- content -->
 
@@ -139,12 +141,8 @@
 <script src="/cp/assets/libs/datatables/dataTables.select.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/pdfmake.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/vfs_fonts.js"></script>
-<!-- third party js ends -->
-
-<!-- Datatables init -->
 <script src="/cp/assets/js/pages/datatables.init.js"></script>
 
-<!-- App js -->
 <script src="/cp/assets/js/app.min.js"></script>
 
 <script src="/cp/assets/js/cp-app.js"></script>

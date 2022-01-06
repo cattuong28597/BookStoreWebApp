@@ -27,25 +27,25 @@ public class Product extends BaseEntity{
     private Long id;
 
     @Column(unique = true)
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên sản phẩm phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
-    @NotBlank(message = "Tên sản phẩm không được trống")
+    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Name must be between 2 and 50 character without special character!")
+    @NotBlank(message = "Name can't not be blank!")
     private String name;
 
     @Column(unique = true)
     private String slug;
 
-    @NotBlank(message = "Tên tác giả không được trống")
+    @NotBlank(message = "Name of author can't not be blank!")
     private String author;
 
     private int quantity = 0;
 
-    @NotBlank(message = "Tên công ty không được trống")
+    @NotBlank(message = "Publishing company can't not be blank!")
     private String publishingCompany;
 
     private Date publicationDate;
 
-    @NotBlank(message = "Số trang không được trống")
-    @Min(value = 1, message = "Số trang không được nhỏ hơn 1")
+    @NotBlank(message = "Number of page can't not be blank!")
+    @Min(value = 1, message = "Number of page can't be less than 1")
     private int page;
 
     private double vote;
@@ -57,13 +57,13 @@ public class Product extends BaseEntity{
     private BigDecimal price = BigDecimal.valueOf(0);
 
     @Digits(integer = 3, fraction = 0)
-    @Min(value = 0, message = "Giảm giá không được âm")
-    @Max(value = 100, message = "Giảm giá không được quá 100%")
+    @Min(value = 0, message = "Percentage discount can't be under 0%")
+    @Max(value = 100, message = "Percentage discount can't be over 100%")
     @Column(name = "percentage_discount", nullable= false)
     private BigDecimal percentageDiscount = BigDecimal.valueOf(0);
 
     @Digits(integer = 12, fraction = 2)
-    @Min(value = 0, message = "Giảm giá không được âm")
+    @Min(value = 0, message = "Discount amount can't be less than 0")
     @Column(name = "discount_amount", nullable= false)
     private BigDecimal discountAmount = BigDecimal.valueOf(0);
 

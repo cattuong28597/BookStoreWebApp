@@ -25,7 +25,7 @@ public class Role {
     private String code;
     private String name;
 
-    @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY)
     private List<User> users;
 
 }
