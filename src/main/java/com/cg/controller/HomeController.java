@@ -14,7 +14,7 @@ public class HomeController {
     public ModelAndView showHomePage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store ";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -23,7 +23,7 @@ public class HomeController {
     public ModelAndView showLoginPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/login-register");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -32,7 +32,7 @@ public class HomeController {
     public ModelAndView showProductDetailPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/product-detail");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -41,7 +41,7 @@ public class HomeController {
     public ModelAndView listCustomers() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/my-account");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store ";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -50,7 +50,7 @@ public class HomeController {
     public ModelAndView showCartPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/cart");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -59,7 +59,7 @@ public class HomeController {
     public ModelAndView showOrderCompletePage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/order-complete");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store";
         modelAndView.addObject("title", title);
         return modelAndView;
     }
@@ -68,7 +68,7 @@ public class HomeController {
     public ModelAndView showCheckoutPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("checkout");
-        String title = "Pustok - Book Store HTML Template";
+        String title = "SunRise - Book Store ";
         modelAndView.addObject("title", title);
         return modelAndView;
     }

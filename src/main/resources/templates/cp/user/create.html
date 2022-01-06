@@ -45,6 +45,73 @@
                 <!-- end page title -->
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <a href="/cp/user">
+                                <button class="btn btn-success waves-effect waves-light">
+                                    <i class="fas fa-arrow-alt-circle-left"></i> Back to list
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Creat User</h4>
+
+                            <form th:object="${user}" method="post">
+                                <div class="form-group">
+                                    <label class="col-form-label">Role user</label>
+                                    <select th:field="*{role}" class="form-control select2">
+                                        <th:block th:each="item : ${roles}">
+                                            <option th:value="${item.id}"
+                                                    th:text="${item.name}"></option>
+                                        </th:block>
+                                        </optgroup>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Name</label>
+                                        <input type="text" th:field="*{name}" class="form-control"
+                                               placeholder="I'll Give You Truth About...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Address</label>
+                                        <input type="text" th:field="*{address}" value="0" class=" form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Phone</label>
+                                        <input type="text" th:field="*{phone}"
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Email</label>
+                                        <input type="text" th:field="*{email}" placeholder="Email" class=" form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Username</label>
+                                        <input type="text" th:field="*{usename}" value="0" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Password</label>
+                                        <input type="password" th:field="*{password}"  class=" form-control">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-4">
+                                    <i class="fas fa-plus-circle"></i> Create
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
 
                 </div>
 
