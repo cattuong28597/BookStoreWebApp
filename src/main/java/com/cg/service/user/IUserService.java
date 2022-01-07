@@ -5,6 +5,7 @@ import com.cg.model.dto.UserDTO;
 import com.cg.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserService extends IGeneralService<User>, UserDetailsService {
@@ -16,5 +17,7 @@ public interface IUserService extends IGeneralService<User>, UserDetailsService 
 //    UserDTO findUserDTOByUsername(String username);
 
     Optional<UserDTO> findUserDTOByUsername(String username);
+
+    List<User> findAllByDeletedIsFalse() ;
 
 }

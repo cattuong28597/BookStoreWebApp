@@ -31,6 +31,18 @@ public class UserDTO {
     @Size(max = 30, message = "Maximum password length 30 characters")
     private String password;
 
+    private String name;
+
+    //    @NotBlank(message = "Địa chỉ không được trống")
+    private String address;
+
+    //    @NotBlank(message = "Số điện thoại không được trống")
+    private String phone;
+
+    //    @NotBlank(message = "Email không được trống")
+    private String email;
+
+
     @Valid
     private RoleDTO role;
 
@@ -44,6 +56,10 @@ public class UserDTO {
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
+        user.setName(name);
+        user.setAddress(address);
+        user.setPhone(phone);
+        user.setEmail(email);
         user.setRole(role.toRole());
         return user ;
     }

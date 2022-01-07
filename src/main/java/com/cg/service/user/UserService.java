@@ -59,6 +59,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public List<User> findAllByDeletedIsFalse() {
+        return userRepository.findAllByDeletedIsFalse();
+    }
+
+    @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
