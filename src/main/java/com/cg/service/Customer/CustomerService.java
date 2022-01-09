@@ -8,4 +8,5 @@ public interface CustomerService extends IGeneralService<Customer> {
     Boolean existsByUsernameEquals(String slug);
 
     Boolean existsByUsernameEqualsAndIdIsNot(String slug, long id);
+
 }

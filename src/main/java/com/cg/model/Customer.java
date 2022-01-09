@@ -27,7 +27,7 @@ public class Customer extends BaseEntity{
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @Pattern(regexp = "^^[a-z][a-z0-9_]{6,16}$", message = "Username must be between 6 and 16 character and start with word!")
+    @Pattern(regexp = "^[a-z][a-z0-9_]{6,16}$", message = "Username must be between 6 and 16 character and start with word!")
     private String username;
 
     @Column(nullable = false)

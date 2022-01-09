@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Admin DashBoard</title>
+  <th:block th:replace="/cp/layout/head"/>
+</head>
+
+<body>
+
+<div id="wrapper">
+  <th:block th:replace="/cp/layout/top-bar"/>
+  <th:block th:replace="/cp/layout/left-side-menu"/>
+
+  <div class="content-page">
+    <div class="content">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">MainMenu</a></li>
+                </ol>
+              </div>
+              <h4 class="page-title">Welcome !</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+<!--          code here-->
+
+        </div>
+
+      </div>
+    </div>
+
+    <th:block th:replace="/cp/layout/footer"/>
+
+  </div>
+
+</div>
+
+<th:block th:replace="/cp/layout/right-bar"/>
+<div class="rightbar-overlay"></div>
+
+<th:block th:replace="/cp/layout/script"/>
+
+</body>
+</html>

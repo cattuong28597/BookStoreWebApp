@@ -55,20 +55,22 @@ public class CustomerCPController {
         if (customerOptional.isPresent()) {
             redirectView.setUrl("/cp/customers");
             String message;
-
             Customer customer = customerOptional.get();
+            Customer customerUpdate = new Customer();
+            customerUpdate.setId(customer.getId());
             if (customer.isDeleted()) {
-                customer.setDeleted(false);
+                customerUpdate.setDeleted(false);
                 message = "Disable customer " + customer.getName() + " with Id: " + customer.getId() + " success";
             } else {
-                customer.setDeleted(true);
+                customerUpdate.setDeleted(true);
                 message = "Activation customer " + customer.getName() + " with Id: " + customer.getId() + " success";
             }
-            redirectAttributes.addFlashAttribute("success", message);
             customerService.save(customer);
-        }
-        else {
+            redirectAttributes.addFlashAttribute("success", message);
+
+        } else {
             redirectView.setUrl("/error");
+            redirectAttributes.addFlashAttribute("errorType", "404");
             redirectAttributes.addFlashAttribute("errorMsg", "Http Error Code: 404. Resource not found");
         }
         return redirectView;
