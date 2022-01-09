@@ -38,14 +38,134 @@
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">... !</h4>
+                            <h4 class="page-title">Edit a product</h4>
                         </div>
                     </div>
                 </div>
                 <!-- end page title -->
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <a href="./">
+                                <button class="btn btn-success waves-effect waves-light">
+                                    <i class="fas fa-arrow-alt-circle-left"></i> Back to list
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Product information</h4>
 
+                            <form th:object="${product}" method="post">
+                                <div class="form-group">
+                                    <label class="col-form-label">Category group name</label>
+                                    <select th:field="*{categoryGroup}" class="selectpicker show-tick"
+                                            data-style="btn-light">
+                                        <th:block th:each="item : ${categoryGroups}">
+                                            <option th:value="${item.id}" th:text="${item.name}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Name</label>
+                                        <input type="text" th:field="*{name}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Author</label>
+                                        <input type="text" th:field="*{author}" class=" form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">Publishing Company</label>
+                                        <input type="text" th:field="*{publishingCompany}" class="form-control">
+
+                                        <label class="col-form-label">Publication Date</label>
+                                        <!--                                        <input type="date" th:field="*{publicationDate}" id = "tempDate" data-date="" data-date-format="MM DD YYYY" value="2015-08-09" class="form-control">-->
+                                        <input type="date" th:field="*{publicationDate}" class="form-control">
+                                        <!--                                        <input  th:field="*{publicationDate}"  class="col-sm-8 form-control ng-pristine ng-valid ng-touched" name="startDate" type="date">-->
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Price</label>
+                                        <input type="text" th:field="*{price}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Percentage Discount</label>
+                                        <input type="number" th:field="*{percentageDiscount}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Quantity</label>
+                                        <input type="text" th:field="*{quantity}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Reward point</label>
+                                        <input type="number" th:field="*{rewardPoint}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Views</label>
+                                        <input type="text" th:field="*{views}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Vote</label>
+                                        <input type="number" th:field="*{vote}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Page</label>
+                                        <input type="number" th:field="*{page}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Link Avatar</label>
+                                        <input type="text" th:field="*{avatar}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">Description</label>
+                                        <!--                                        <div id="summernote-editor" name="description">-->
+                                        <!--                                        </div>-->
+                                        <textarea th:field="*{description}" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">Comment</label>
+                                        <!--                                        <div id="summernote-editor" name="description">-->
+                                        <!--                                        </div>-->
+                                        <textarea th:field="*{comment}" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-4">
+                                    <i class="fas fa-pencil-alt"></i> Update
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
 
             </div> <!-- container -->

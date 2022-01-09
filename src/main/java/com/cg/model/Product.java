@@ -1,6 +1,7 @@
 package com.cg.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +11,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -42,15 +42,15 @@ public class Product extends BaseEntity{
     @NotBlank(message = "Tên công ty không được trống")
     private String publishingCompany;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss Z", timezone = "Asia/Ho_Chi_Minh")
     private Date publicationDate;
 
-    @NotBlank(message = "Số trang không được trống")
     @Min(value = 1, message = "Số trang không được nhỏ hơn 1")
-    private int page;
+    private int page = 1;
 
-    private double vote;
+    private double vote = 0;
 
-    private String comment;
+    private String comment = "";
 
     @Digits(integer = 12, fraction = 2)
     @Column(name = "price", nullable= false)
@@ -96,4 +96,6 @@ public class Product extends BaseEntity{
     @JsonIgnore
     @OneToMany(targetEntity = ProductImage.class, mappedBy = "product")
     private List<ProductImage> productImages;
+
+
 }

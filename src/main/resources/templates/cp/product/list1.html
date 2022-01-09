@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-box">
-                            <a href="/cp/category-groups/create">
+                            <a href="/cp/products/create">
                                 <button class="btn btn-success waves-effect waves-light">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </button>
@@ -66,28 +66,69 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Created At</th>
+                                        <th>Created By</th>
+                                        <th>Updated At</th>
+                                        <th>Updated By</th>
+                                        <th>Delete</th>
+                                        <th>Author</th>
+                                        <th>Avatar</th>
+                                        <th>Comment</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Percentage Discount</th>
+                                        <th>Discount Amount</th>
+                                        <th>Last Price</th>
+                                        <th>Page</th>
+                                        <th>Publication Date</th>
+                                        <th>Publishing Company</th>
+                                        <th>Quantity</th>
+                                        <th>Reward Point</th>
+                                        <th>Slug</th>
+                                        <th>Views</th>
+                                        <th>Vote</th>
                                         <th>Group Name</th>
                                         <th>Category Name</th>
-                                        <th>Price</th>
                                         <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <th:block th:each="item : ${products}">
+                                        <div style="display: none" th:text="${item.avatar}"></div>
                                         <tr>
                                             <td th:text="${item.id}"></td>
                                             <td th:text="${item.name}"></td>
+                                            <td th:text="${item.createdAt}"></td>
+                                            <td th:text="${item.createdBy}"></td>
+                                            <td th:text="${item.updatedAt}"></td>
+                                            <td th:text="${item.updatedBy}"></td>
+                                            <td th:text="${item.deleted}"></td>
+                                            <td th:text="${item.author}"></td>
+                                            <td th:text="${item.avatar}"></td>
+                                            <td th:text="${item.comment}"></td>
+                                            <td th:text="${item.description}"></td>
+                                            <td th:text="${item.price}"></td>
+                                            <td th:text="${item.percentageDiscount}"></td>
+                                            <td th:text="${item.discountAmount}"></td>
+                                            <td th:text="${item.lastPrice}"></td>
+                                            <td th:text="${item.page}"></td>
+                                            <td th:text="${item.publicationDate}"></td>
+                                            <td th:text="${item.publishingCompany}"></td>
+                                            <td th:text="${item.quantity}"></td>
+                                            <td th:text="${item.rewardPoint}"></td>
+                                            <td th:text="${item.slug}"></td>
+                                            <td th:text="${item.views}"></td>
+                                            <td th:text="${item.vote}"></td>
                                             <td th:text="${item.categoryGroup.name}"></td>
                                             <td th:text="${item.categoryGroup.category.name}"></td>
-                                            <td th:text="${item.price}"></td>
                                             <td class="text-center">
                                                 <a class="btn btn-outline-secondary" th:href="@{/cp/products/edit/__${item.id}__ }">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center">
-                                                <a class="btn btn-outline-danger" th:href="@{/category-groups/delete/__${item.id}__ }">
+                                                <a class="btn btn-outline-danger" th:href="@{/cp/products/delete/__${item.id}__ }">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
                                             </td>
@@ -116,6 +157,35 @@
     <!-- ============================================================== -->
 
 
+</div>
+
+<div class="footer-error">
+    <div id="message-alert">
+        <th:block th:if="${success}">
+            <div class="alert-success">
+                <h5><span th:text="${success}"></span></h5>
+            </div>
+            <span id="close">X</span>
+            <script th:inline="javascript">
+                $("#close").on("click", function () {
+                    $(".footer-error").css("height", 0);
+                    $("#message-alert").empty();
+                });
+
+                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
+                    $(".footer-error").css("height", 0);
+                    $("#message-alert").empty();
+                });
+            </script>
+        </th:block>
+        <th:block th:if="${error}">
+            <div class="alert-danger">
+                <ul>
+                    <li th:text="${error}"></li>
+                </ul>
+            </div>
+        </th:block>
+    </div>
 </div>
 <!-- END wrapper -->
 
