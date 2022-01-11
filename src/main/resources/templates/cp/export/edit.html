@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Edit Product</title>
+    <title>Edit Export</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,7 +62,7 @@
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Edit a product</h4>
+                            <h4 class="page-title">Edit a export</h4>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-box">
-                            <a href="/cp/products">
+                            <a href="/cp/exports">
                                 <button class="btn btn-success waves-effect waves-light">
                                     <i class="fas fa-arrow-alt-circle-left"></i> Back to list
                                 </button>
@@ -80,103 +80,24 @@
                     </div>
                     <div class="col-md-12">
                         <div class="card-box">
-                            <h4 class="header-title">Product information</h4>
+                            <h4 class="header-title">Export information</h4>
 
-                            <form th:object="${product}" method="post">
-                                <div class="form-group">
-                                    <label class="col-form-label">Category group name</label>
-                                    <select th:field="*{categoryGroup}" class="btn dropdown-toggle btn-light show-tick" data-style="btn-light">
-                                        <th:block th:each="item : ${categoryGroups}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Name</label>
-                                        <input type="text" th:field="*{name}" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Author</label>
-                                        <input type="text" th:field="*{author}" class=" form-control">
+                            <form th:object="${export}" method="post">
+                                <div class="form-group" style="height: 150px">
+                                    <label class="col-form-label">Product</label>
+                                    <div>
+                                        <select th:field="*{productExport}" class="custom-select show-tick" data-style="btn-light">
+                                            <th:block th:each="item : ${products}">
+                                                <option th:value="${item.id}" th:text="${(item.getName() + ' - ' + item.getAuthor())}"></option>
+                                            </th:block>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col-md-12">
-                                        <label class="col-form-label">Publishing Company</label>
-                                        <input type="text" th:field="*{publishingCompany}" class="form-control">
-
-                                        <label class="col-form-label">Publication Date</label>
-                                        <input type="date" th:field="*{publicationDate}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Price</label>
-                                        <input type="number" th:field="*{price}" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Percentage Discount</label>
-                                        <input type="number" th:field="*{percentageDiscount}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-6">
                                         <label class="col-form-label">Quantity</label>
                                         <input type="number" th:field="*{quantity}" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Reward point</label>
-                                        <input type="number" th:field="*{rewardPoint}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Views</label>
-                                        <input type="number" th:field="*{views}" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Vote</label>
-                                        <input type="number" th:field="*{vote}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Page</label>
-                                        <input type="number" th:field="*{page}" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="col-form-label">Link Avatar</label>
-                                        <input type="text" th:field="*{avatar}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-form-label">Description</label>
-                                        <!--                                        <div id="summernote-editor" name="description">-->
-                                        <!--                                        </div>-->
-                                        <textarea th:field="*{description}" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-form-label">Comment</label>
-                                        <!--                                        <div id="summernote-editor" name="description">-->
-                                        <!--                                        </div>-->
-                                        <textarea th:field="*{comment}" class="form-control"></textarea>
                                     </div>
                                 </div>
 
@@ -248,7 +169,7 @@
             <div class="alert-danger">
                 <h5>Please correct errors below:</h5>
                 <ul>
-                    <li th:each="err : ${#fields.errors('product.*')}" th:text="${err}"></li>
+                    <li th:each="err : ${#fields.errors('export.*')}" th:text="${err}"></li>
                 </ul>
             </div>
             <span id="close">X</span>
@@ -302,9 +223,6 @@
         </th:block>
     </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
 
 </body>
 </html>

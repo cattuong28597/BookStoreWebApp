@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Getter
 @Setter
@@ -23,5 +24,6 @@ public class Export extends BaseEntity{
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productExport;
 
+    @Min(value = 1, message = "Số lượng không được nhỏ hơn 1")
     private int quantity;
 }

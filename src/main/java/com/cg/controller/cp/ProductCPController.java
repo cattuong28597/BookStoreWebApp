@@ -33,7 +33,7 @@ public class ProductCPController {
         List<Product> products = productService.findAll();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", products);
-        modelAndView.setViewName("cp/product/list1");
+        modelAndView.setViewName("cp/product/list");
         return modelAndView;
     }
 
@@ -67,12 +67,10 @@ public class ProductCPController {
         ModelAndView modelAndView = new ModelAndView();
 
         List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-
         modelAndView.addObject("categoryGroups", categoryGroups);
 
         if (bindingResult.hasFieldErrors()) {
             modelAndView.addObject("script", true);
-            modelAndView.addObject("error1", "Invalid data, please contact system administrator");
         } else {
 
             String slug = "A";
@@ -80,7 +78,6 @@ public class ProductCPController {
             try {
                 product.setSlug(slug);
                 productService.save(product);
-
                 Optional<Product> productCheck = productService.findBySlugAndIdIsNot(slug, 0L);
 
                 Product product1 = productCheck.get();
@@ -92,8 +89,10 @@ public class ProductCPController {
                 modelAndView.addObject("product", new Product());
                 modelAndView.addObject("success", "Successfully added new product");
             } catch (Exception e) {
-                e.printStackTrace();
-                modelAndView.addObject("error", "Invalid data, please contact system administrator");
+                if (!(bindingResult.hasFieldErrors())){
+                    e.printStackTrace();
+                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
+                }
             }
         }
 
@@ -108,28 +107,37 @@ public class ProductCPController {
         ModelAndView modelAndView = new ModelAndView();
 
         Optional<Product> product = productService.findById(id);
+        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
 
         if (product.isPresent()) {
-            modelAndView.addObject("product", product);
+            Product product1 = product.get();
+            if (product1.isDeleted()){
+                List<Product> products = productService.findAll();
+                modelAndView.addObject("products", products);
+                modelAndView.addObject("error", "Deleted product");
+                modelAndView.setViewName("cp/product/list");
+                return modelAndView;
+            }else {
+                modelAndView.addObject("product", product);
+                modelAndView.addObject("categoryGroups", categoryGroups);
+                modelAndView.setViewName("cp/product/edit");
+                return modelAndView;
+            }
         } else {
-            modelAndView.addObject("product", new Product());
-            modelAndView.addObject("script", false);
-            modelAndView.addObject("success", false);
-            modelAndView.addObject("error", "Invalid product information");
+            List<Product> products = productService.findAll();
+            modelAndView.addObject("products", products);
+            modelAndView.setViewName("cp/product/list");
+            return modelAndView;
         }
-
-        modelAndView.setViewName("cp/product/edit");
-
-        return modelAndView;
     }
 
     @PostMapping(value = "/edit/{id}")
-    public ModelAndView update(@PathVariable long id, @Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
+    public ModelAndView update(@Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-
         modelAndView.addObject("categoryGroups", categoryGroups);
+        Boolean deleted = productService.findById(product.getId()).get().isDeleted();
 
         if (bindingResult.hasFieldErrors()) {
             modelAndView.addObject("script", true);
@@ -140,14 +148,16 @@ public class ProductCPController {
 
             try {
                 product.setSlug(slugTemp1);
+                product.setDeleted(deleted);
                 productService.save(product);
 
                 modelAndView.addObject("success", "Product has been successfully updated");
             } catch (Exception e) {
-                e.printStackTrace();
-                modelAndView.addObject("error", "Invalid data, please contact system administrator");
+                if (!(bindingResult.hasFieldErrors())){
+                    e.printStackTrace();
+                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
+                }
             }
-
         }
 
         modelAndView.setViewName("cp/product/edit");
@@ -156,37 +166,62 @@ public class ProductCPController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable long id, @Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
+    public ModelAndView showDelete(@PathVariable long id) {
+
         ModelAndView modelAndView = new ModelAndView();
 
-        Optional<Product> productCheck = productService.findById(id);
+        Optional<Product> product = productService.findById(id);
+        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
 
-        if(productCheck.isPresent()){
-            try {
-
-                Product product1 = productCheck.get();
-
-                product1.setDeleted(true);
-                productService.save(product1);
+        if (product.isPresent()) {
+            if (product.get().isDeleted()){
                 List<Product> products = productService.findAll();
                 modelAndView.addObject("products", products);
-
-                modelAndView.addObject("success", "Product has been successfully deleted");
-            } catch (Exception e) {
-                e.printStackTrace();
-                List<Product> products = productService.findAll();
-                modelAndView.addObject("products", products);
-                modelAndView.addObject("error", "Invalid data, please contact system administrator");
+                modelAndView.addObject("error", "Deleted product");
+                modelAndView.setViewName("cp/product/list");
+                return modelAndView;
+            }else {
+                modelAndView.addObject("product", product);
+                modelAndView.addObject("categoryGroups", categoryGroups);
+                modelAndView.setViewName("cp/product/delete");
+                return modelAndView;
             }
-        }else {
+        } else {
+            modelAndView.setViewName("cp/product/list");
             List<Product> products = productService.findAll();
             modelAndView.addObject("products", products);
-            modelAndView.addObject("error", "Product does not exist");
+            return modelAndView;
         }
+    }
 
-        modelAndView.setViewName("cp/product/list1");
+    @PostMapping(value = "/delete/{id}")
+    public ModelAndView delete(@PathVariable long id) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
+
+        modelAndView.addObject("categoryGroups", categoryGroups);
+
+        Product product = productService.findById(id).get();
+        modelAndView.addObject("product", product);
+
+            try {
+                if (product.isDeleted()){
+                    modelAndView.addObject("error", "Deleted product");
+                }else {
+                    product.setDeleted(true);
+                    productService.save(product);
+                    modelAndView.addObject("success", "Product has been successfully deleted");
+                }
+
+            } catch (Exception e) {
+                    e.printStackTrace();
+                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
+            }
+
+        modelAndView.setViewName("cp/product/delete");
 
         return modelAndView;
     }
-
 }
