@@ -24,13 +24,13 @@
             <th:block th:include="layout/site-header/header-bottom-index" />
         </div>
     </div>
+
     <div class="site-mobile-menu">
         <header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
             <div class="container">
                 <div class="row align-items-sm-end align-items-center">
                     <div class="col-md-4 col-7">
                         <a href="index.html" class="site-brand">
-<!--                            <img src="/assets/image/logo.png" alt="">-->
                             <img src="/assets/image/logoProject.png" alt="" width="100%" height="100%">
                         </a>
                     </div>
@@ -41,106 +41,120 @@
                                         class="fa fa-bars"></i>Browse
                                     categories</a>
                                 <ul class="category-menu">
-                                    <li class="cat-item has-children">
-                                        <a href="#">Arts & Photography</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Bags & Cases</a></li>
-                                            <li><a href="#">Binoculars & Scopes</a></li>
-                                            <li><a href="#">Digital Cameras</a></li>
-                                            <li><a href="#">Film Photography</a></li>
-                                            <li><a href="#">Lighting & Studio</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children mega-menu"><a href="#">Biographies</a>
-                                        <ul class="sub-menu">
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Business & Money</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Calendars</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Children's Books</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Comics</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item"><a href="#">Perfomance Filters</a></li>
-                                    <li class="cat-item has-children"><a href="#">Cookbooks</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item "><a href="#">Accessories</a></li>
-                                    <li class="cat-item "><a href="#">Education</a></li>
-                                    <li class="cat-item hidden-menu-item"><a href="#">Indoor Living</a></li>
-                                    <li class="cat-item"><a href="#" class="js-expand-hidden-menu">More
-                                        Categories</a></li>
+
+                                    <th:block  th:each= "categorie : ${categories}">
+                                        <li class="cat-item has-children">
+                                            <a th:href="@{/categorie/__${categorie.slug}__}" th:text="${categorie.name}"></a>
+                                            <ul class="sub-menu">
+                                                <th:block th:each = "categoryGroup : ${categoryGroups}">
+                                                    <th:block th:if = "${categoryGroup.getCategory().getId() == categorie.getId()}">
+                                                        <li><a th:href= "@{/categoryGroup/__${categoryGroup.slug}__}" th:text="${categoryGroup.name}"></a></li>
+                                                    </th:block>
+                                                </th:block>
+                                            </ul>
+                                        </li>
+                                    </th:block>
+
+<!--                                    <li class="cat-item has-children">-->
+<!--                                        <a href="#">Arts & Photography</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Bags & Cases</a></li>-->
+<!--                                            <li><a href="#">Binoculars & Scopes</a></li>-->
+<!--                                            <li><a href="#">Digital Cameras</a></li>-->
+<!--                                            <li><a href="#">Film Photography</a></li>-->
+<!--                                            <li><a href="#">Lighting & Studio</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item has-children mega-menu"><a href="#">Biographies</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li class="single-block">-->
+<!--                                                <h3 class="title">WHEEL SIMULATORS</h3>-->
+<!--                                                <ul>-->
+<!--                                                    <li><a href="#">Bags & Cases</a></li>-->
+<!--                                                    <li><a href="#">Binoculars & Scopes</a></li>-->
+<!--                                                    <li><a href="#">Digital Cameras</a></li>-->
+<!--                                                    <li><a href="#">Film Photography</a></li>-->
+<!--                                                    <li><a href="#">Lighting & Studio</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                            <li class="single-block">-->
+<!--                                                <h3 class="title">WHEEL SIMULATORS</h3>-->
+<!--                                                <ul>-->
+<!--                                                    <li><a href="#">Bags & Cases</a></li>-->
+<!--                                                    <li><a href="#">Binoculars & Scopes</a></li>-->
+<!--                                                    <li><a href="#">Digital Cameras</a></li>-->
+<!--                                                    <li><a href="#">Film Photography</a></li>-->
+<!--                                                    <li><a href="#">Lighting & Studio</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                            <li class="single-block">-->
+<!--                                                <h3 class="title">WHEEL SIMULATORS</h3>-->
+<!--                                                <ul>-->
+<!--                                                    <li><a href="#">Bags & Cases</a></li>-->
+<!--                                                    <li><a href="#">Binoculars & Scopes</a></li>-->
+<!--                                                    <li><a href="#">Digital Cameras</a></li>-->
+<!--                                                    <li><a href="#">Film Photography</a></li>-->
+<!--                                                    <li><a href="#">Lighting & Studio</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                            <li class="single-block">-->
+<!--                                                <h3 class="title">WHEEL SIMULATORS</h3>-->
+<!--                                                <ul>-->
+<!--                                                    <li><a href="#">Bags & Cases</a></li>-->
+<!--                                                    <li><a href="#">Binoculars & Scopes</a></li>-->
+<!--                                                    <li><a href="#">Digital Cameras</a></li>-->
+<!--                                                    <li><a href="#">Film Photography</a></li>-->
+<!--                                                    <li><a href="#">Lighting & Studio</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item has-children"><a href="#">Business & Money</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Brake Tools</a></li>-->
+<!--                                            <li><a href="#">Driveshafts</a></li>-->
+<!--                                            <li><a href="#">Emergency Brake</a></li>-->
+<!--                                            <li><a href="#">Spools</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item has-children"><a href="#">Calendars</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Brake Tools</a></li>-->
+<!--                                            <li><a href="#">Driveshafts</a></li>-->
+<!--                                            <li><a href="#">Emergency Brake</a></li>-->
+<!--                                            <li><a href="#">Spools</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item has-children"><a href="#">Children's Books</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Brake Tools</a></li>-->
+<!--                                            <li><a href="#">Driveshafts</a></li>-->
+<!--                                            <li><a href="#">Emergency Brake</a></li>-->
+<!--                                            <li><a href="#">Spools</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item has-children"><a href="#">Comics</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Brake Tools</a></li>-->
+<!--                                            <li><a href="#">Driveshafts</a></li>-->
+<!--                                            <li><a href="#">Emergency Brake</a></li>-->
+<!--                                            <li><a href="#">Spools</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item"><a href="#">Perfomance Filters</a></li>-->
+<!--                                    <li class="cat-item has-children"><a href="#">Cookbooks</a>-->
+<!--                                        <ul class="sub-menu">-->
+<!--                                            <li><a href="#">Brake Tools</a></li>-->
+<!--                                            <li><a href="#">Driveshafts</a></li>-->
+<!--                                            <li><a href="#">Emergency Brake</a></li>-->
+<!--                                            <li><a href="#">Spools</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                    <li class="cat-item "><a href="#">Accessories</a></li>-->
+<!--                                    <li class="cat-item "><a href="#">Education</a></li>-->
+<!--                                    <li class="cat-item hidden-menu-item"><a href="#">Indoor Living</a></li>-->
+<!--                                    <li class="cat-item"><a href="#" class="js-expand-hidden-menu">More-->
+<!--                                        Categories</a></li>-->
                                 </ul>
                             </div>
                         </nav>
@@ -330,6 +344,8 @@
         </aside>
         <!--Off Canvas Navigation End-->
     </div>
+<!--    show browse categories-->
+
     <div class="sticky-init fixed-header common-sticky">
         <div class="container d-none d-lg-block">
             <div class="row align-items-center">
@@ -461,9 +477,8 @@
             </div>
         </div>
     </div>
-    <!--=================================
-        Hero Area
-    ===================================== -->
+<!--    menu-->
+
     <section class="hero-area hero-slider-4 ">
         <div class="container">
             <div class="row">
@@ -510,9 +525,8 @@
             </div>
         </div>
     </section>
-    <!--=================================
-        Home Features Section
-    ===================================== -->
+<!--    not change-->
+
     <section class="mb--30">
         <h2 class="sr-only">Feature Section</h2>
         <div class="container">
@@ -546,7 +560,7 @@
                         </div>
                         <div class="text">
                             <h5>Cash On Delivery</h5>
-                            <p>Lorem ipsum dolor amet</p>
+                            <p>Check Product Then Pay</p>
                         </div>
                     </div>
                 </div>
@@ -564,9 +578,9 @@
             </div>
         </div>
     </section>
-    <!--=================================
-        Home Category Gallery
-    ===================================== -->
+<!--    store information working-->
+
+
     <section class="section-margin">
         <h2 class="sr-only">Category Gallery Section</h2>
         <div class="container">
@@ -591,9 +605,8 @@
             </div>
         </div>
     </section>
-    <!--=================================
-        Home Two Column Section
-    ===================================== -->
+<!--    category by image-->
+
     <section class="section-margin">
         <h1 class="sr-only">Promotion Section</h1>
         <div class="container">
@@ -618,6 +631,34 @@
                                             {"breakpoint":575, "settings": {"slidesToShow": 1} },
                                             {"breakpoint":490, "settings": {"slidesToShow": 1} }
                                         ]'>
+
+                                <th:block th:each = "item : ${BestSellers}">
+                                    <div class="single-slide">
+                                        <div class="product-card card-style-list">
+                                            <div class="card-image">
+                                                <img th:src="${item.avatar}">
+                                            </div>
+                                            <div class="product-card--body">
+                                                <div class="product-header">
+                                                    <a class="author" th:text="${item.author}">
+                                                    </a>
+                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                </div>
+                                                <div class="price-block">
+                                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                                        <span class="price" th:text="${item.price}"></span>
+                                                    </th:block>
+                                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                                        <del class="price-old" th:text="${item.price}"></del>
+                                                        <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+
                                 <div class="single-slide">
                                     <div class="product-card card-style-list">
                                         <div class="card-image">
@@ -628,8 +669,9 @@
                                                 <a href="#" class="author">
                                                     Fpple
                                                 </a>
-                                                <h3><a href="product-details.html">Get Through To Your
-                                                    BOOK</a></h3>
+                                                <h3><a href="product-details.html">
+                                                    Get Through To Your BOOK
+                                                </a></h3>
                                             </div>
                                             <div class="price-block">
                                                 <span class="price">£51.20</span>
@@ -871,11 +913,14 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-block text-center">
                             <a href="#" class="promo-image home-sidebar-promo promo-overlay">
                                 <img src="/assets/image/others/home-side-promo.jpg" alt="">
                             </a>
                         </div>
+<!--                        not change-->
+
                         <div class="single-block text-center">
                             <h3 class="home-sidebar-title style-2">
                                 Special offer
@@ -893,6 +938,50 @@
                                             {"breakpoint":575, "settings": {"slidesToShow": 1} },
                                             {"breakpoint":490, "settings": {"slidesToShow": 1} }
                                         ]'>
+
+                                <th:block th:each = "item : ${SpecialOffer}">
+                                    <div class="single-slide">
+                                        <div class="product-card">
+                                            <div class="product-header">
+                                                <a class="author" th:text="${item.author}"></a>
+                                                <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                            </div>
+                                            <div class="product-card--body">
+                                                <div class="card-image">
+                                                    <img th:src="${item.avatar}" alt="">
+                                                    <div class="hover-contents">
+                                                        <a href="product-details.html" class="hover-image">
+                                                            <img th:src="${item.avatar}" alt="">
+                                                        </a>
+                                                        <div class="hover-btns">
+                                                            <a href="cart.html" class="single-btn">
+                                                                <i class="fas fa-shopping-basket"></i>
+                                                            </a>
+                                                            <a href="#" data-toggle="modal" data-target="#quickModal"
+                                                               class="single-btn">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="price-block">
+                                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                                        <span class="price" th:text="${item.price}"></span>
+                                                    </th:block>
+                                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                                        <del class="price-old" th:text="${item.price}"></del>
+                                                        <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                    </th:block>
+                                                </div>
+                                                <div class="count-down-block">
+                                                    <div class="product-countdown" data-countdown="01/05/2020"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+
                                 <div class="single-slide">
                                     <div class="product-card">
                                         <div class="product-header">
@@ -1161,6 +1250,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-block">
                             <h3 class="home-sidebar-title">
                                 CLIENT TESTIMONIALS
@@ -1264,8 +1354,11 @@
                                 </div>
                             </div>
                         </div>
+<!--                        not change-->
+
                     </div>
                 </div>
+
                 <div class="col-lg-8">
                     <div class="home-right-side">
                         <div class="single-block">
@@ -1279,8 +1372,8 @@
                                         <span class="arrow-icon"></span>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="men-tab" data-toggle="tab" href="#men" role="tab"
-                                           aria-controls="men" aria-selected="true">
+                                        <a class="nav-link" id="men-tab" data-toggle="tab" href="#men"
+                                           role="tab" aria-controls="men" aria-selected="true">
                                             New Arrivals
                                         </a>
                                         <span class="arrow-icon"></span>
@@ -1288,14 +1381,13 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="woman-tab" data-toggle="tab" href="#woman"
                                            role="tab" aria-controls="woman" aria-selected="false">
-                                            Most view products
+                                            Most Choice
                                         </a>
                                         <span class="arrow-icon"></span>
                                     </li>
                                 </ul>
                                 <div class="tab-content space-db--30" id="myTabContent">
-                                    <div class="tab-pane show active" id="shop" role="tabpanel"
-                                         aria-labelledby="shop-tab">
+                                    <div class="tab-pane active" id="shop" role="tabpanel" aria-labelledby="shop-tab">
                                         <div class="product-slider multiple-row slider-border-multiple-row  sb-slick-slider"
                                              data-slick-setting='{
                         "autoplay": true,
@@ -1309,6 +1401,47 @@
                         {"breakpoint":480, "settings": {"slidesToShow": 1} },
                         {"breakpoint":320, "settings": {"slidesToShow": 1} }
                     ]'>
+
+                                            <th:block th:each = "item : ${FeaturedProducts}">
+                                                <div class="single-slide">
+                                                    <div class="product-card">
+                                                        <div class="product-header">
+                                                            <a class="author" th:text="${item.author}"></a>
+                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                        </div>
+                                                        <div class="product-card--body">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}" alt="">
+                                                                <div class="hover-contents">
+                                                                    <a href="product-details.html" class="hover-image">
+                                                                        <img th:src="${item.avatar}" alt="">
+                                                                    </a>
+                                                                    <div class="hover-btns">
+                                                                        <a href="cart.html" class="single-btn">
+                                                                            <i class="fas fa-shopping-basket"></i>
+                                                                        </a>
+                                                                        <a href="#" data-toggle="modal" data-target="#quickModal"
+                                                                           class="single-btn">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="price-block">
+                                                                <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                    <span class="price" th:text="${item.price}"></span>
+                                                                </th:block>
+                                                                <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                    <span class="price" th:text="${item.lastPrice}"></span>
+                                                                    <del class="price-old" th:text="${item.price}"></del>
+                                                                    <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+
                                             <div class="single-slide">
                                                 <div class="product-card">
                                                     <div class="product-header">
@@ -1830,6 +1963,46 @@
                             {"breakpoint":480, "settings": {"slidesToShow": 1} },
                             {"breakpoint":320, "settings": {"slidesToShow": 1} }
                         ]'>
+                                            <th:block th:each = "item : ${NewArrivals}">
+                                                <div class="single-slide">
+                                                    <div class="product-card">
+                                                        <div class="product-header">
+                                                            <a class="author" th:text="${item.author}"></a>
+                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                        </div>
+                                                        <div class="product-card--body">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}" alt="">
+                                                                <div class="hover-contents">
+                                                                    <a href="product-details.html" class="hover-image">
+                                                                        <img th:src="${item.avatar}" alt="">
+                                                                    </a>
+                                                                    <div class="hover-btns">
+                                                                        <a href="cart.html" class="single-btn">
+                                                                            <i class="fas fa-shopping-basket"></i>
+                                                                        </a>
+                                                                        <a href="#" data-toggle="modal" data-target="#quickModal"
+                                                                           class="single-btn">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="price-block">
+                                                                <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                    <span class="price" th:text="${item.price}"></span>
+                                                                </th:block>
+                                                                <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                    <span class="price" th:text="${item.lastPrice}"></span>
+                                                                    <del class="price-old" th:text="${item.price}"></del>
+                                                                    <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+
                                             <div class="single-slide">
                                                 <div class="product-card">
                                                     <div class="product-header">
@@ -2350,6 +2523,46 @@
                                         {"breakpoint":480, "settings": {"slidesToShow": 1} },
                                         {"breakpoint":320, "settings": {"slidesToShow": 1} }
                                     ]'>
+
+                                            <th:block th:each = "item : ${MostChoice}">
+                                                <div class="single-slide">
+                                                    <div class="product-card">
+                                                        <div class="product-header">
+                                                            <a class="author" th:text="${item.author}"></a>
+                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                        </div>
+                                                        <div class="product-card--body">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}" alt="">
+                                                                <div class="hover-contents">
+                                                                    <a href="product-details.html" class="hover-image">
+                                                                        <img th:src="${item.avatar}" alt="">
+                                                                    </a>
+                                                                    <div class="hover-btns">
+                                                                        <a href="cart.html" class="single-btn">
+                                                                            <i class="fas fa-shopping-basket"></i>
+                                                                        </a>
+                                                                        <a href="#" data-toggle="modal" data-target="#quickModal"
+                                                                           class="single-btn">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="price-block">
+                                                                <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                    <span class="price" th:text="${item.price}"></span>
+                                                                </th:block>
+                                                                <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                    <span class="price" th:text="${item.lastPrice}"></span>
+                                                                    <del class="price-old" th:text="${item.price}"></del>
+                                                                    <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
                                             <div class="single-slide">
                                                 <div class="product-card">
                                                     <div class="product-header">
@@ -2859,6 +3072,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-block">
                             <div class="row space-db--30">
                                 <div class="col-lg-8 mb--30">
@@ -2873,6 +3087,8 @@
                                 </div>
                             </div>
                         </div>
+<!--                        not change-->
+
                         <div class="single-block">
                             <div class="home-right-block bg-white">
                                 <div class="sb-custom-tab text-lg-left text-center">
@@ -2880,19 +3096,19 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" id="shop-tab2" data-toggle="tab"
                                                href="#shop2" role="tab" aria-controls="shop2" aria-selected="true">
-                                                ARTS & PHOTOGRAPHY
+                                                Category 1
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="men-tab2" data-toggle="tab" href="#men2"
                                                role="tab" aria-controls="men2" aria-selected="true">
-                                                CHILDREN'S BOOKS
+                                                Catergory 2
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="woman-tab2" data-toggle="tab" href="#woman2"
                                                role="tab" aria-controls="woman2" aria-selected="false">
-                                                BIOGRAPHIES
+                                                Catergory 3
                                             </a>
                                         </li>
                                     </ul>
@@ -2911,6 +3127,34 @@
 
                                                         {"breakpoint":768, "settings": {"slidesToShow": 1} }
                                                     ]'>
+
+                                                <th:block th:each = "item : ${Category1}">
+                                                    <div class="single-slide">
+                                                        <div class="product-card card-style-list">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}">
+                                                            </div>
+                                                            <div class="product-card--body">
+                                                                <div class="product-header">
+                                                                    <a class="author" th:text="${item.author}">
+                                                                    </a>
+                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                </div>
+                                                                <div class="price-block">
+                                                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                        <span class="price" th:text="${item.price}"></span>
+                                                                    </th:block>
+                                                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                                                        <del class="price-old" th:text="${item.price}"></del>
+                                                                        <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                    </th:block>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+
                                                 <div class="single-slide">
                                                     <div class="product-card card-style-list">
                                                         <div class="card-image">
@@ -3265,6 +3509,34 @@
 
                                                         {"breakpoint":768, "settings": {"slidesToShow": 1} }
                                                     ]'>
+
+                                                <th:block th:each = "item : ${Category2}">
+                                                    <div class="single-slide">
+                                                        <div class="product-card card-style-list">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}">
+                                                            </div>
+                                                            <div class="product-card--body">
+                                                                <div class="product-header">
+                                                                    <a class="author" th:text="${item.author}">
+                                                                    </a>
+                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                </div>
+                                                                <div class="price-block">
+                                                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                        <span class="price" th:text="${item.price}"></span>
+                                                                    </th:block>
+                                                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                                                        <del class="price-old" th:text="${item.price}"></del>
+                                                                        <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                    </th:block>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+
                                                 <div class="single-slide">
                                                     <div class="product-card card-style-list">
                                                         <div class="card-image">
@@ -3620,6 +3892,34 @@
 
                                                             {"breakpoint":768, "settings": {"slidesToShow": 1} }
                                                         ]'>
+
+                                                <th:block th:each = "item : ${Category3}">
+                                                    <div class="single-slide">
+                                                        <div class="product-card card-style-list">
+                                                            <div class="card-image">
+                                                                <img th:src="${item.avatar}">
+                                                            </div>
+                                                            <div class="product-card--body">
+                                                                <div class="product-header">
+                                                                    <a class="author" th:text="${item.author}">
+                                                                    </a>
+                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                </div>
+                                                                <div class="price-block">
+                                                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                                                        <span class="price" th:text="${item.price}"></span>
+                                                                    </th:block>
+                                                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                                                        <del class="price-old" th:text="${item.price}"></del>
+                                                                        <span class="price-discount" th:text="${item.percentageDiscount}"></span>
+                                                                    </th:block>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+
                                                 <div class="single-slide">
                                                     <div class="product-card card-style-list">
                                                         <div class="card-image">
@@ -3965,6 +4265,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="single-block">
                             <div class="blog-slider sb-slick-slider slider-one-column" data-slick-setting='{
                         "autoplay": false,
@@ -4064,11 +4365,14 @@
                                 </div>
                             </div>
                         </div>
+<!--                        not change-->
                     </div>
                 </div>
             </div>
         </div>
     </section>
+<!--    product selection-->
+
     <!-- Modal -->
     <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
          aria-labelledby="quickModal" aria-hidden="true">
@@ -4203,19 +4507,13 @@
             </div>
         </div>
     </div>
-    <!--=================================
-    Footer
-===================================== -->
+
 </div>
-<!--=================================
-  Brands Slider
-===================================== -->
+
 <section class="section-margin">
     <th:block th:include="layout/brand-slider" />
 </section>
-<!--=================================
-    Footer Area
-===================================== -->
+
 <th:block th:include="layout/footer" />
 
 <th:block th:include="layout/script" />

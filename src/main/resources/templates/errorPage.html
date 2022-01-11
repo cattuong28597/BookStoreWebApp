@@ -17,10 +17,20 @@
 </head>
 <body>
 <div class="container-fluid text-center">
-  <img src="/assets/image/ErrorPicture.png" class="img-fluid">
-  <h1 th:text="${errorType}" style="position: relative; top: 80px; left: 50px"></h1>
+  <th:block th:switch = "${errorType}">
+    <img th:case="400" src="/assets/image/Error/Error400.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+    <img th:case="401" src="/assets/image/Error/Error401.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+    <img th:case="404" src="/assets/image/Error/Error404.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+    <img th:case="405" src="/assets/image/Error/Error405.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+    <img th:case="409" src="/assets/image/Error/Error409.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+    <img th:case="500" src="/assets/image/Error/Error500.png" class="mdi-image-filter-hdr" style="height: 85%; width: 90%">
+  </th:block>
   <br>
   <h1 th:text="${errorMsg}"></h1>
+  <button  type="button" class="btn btn-secondary btn-lg" onclick="javascript:history.back()">
+    <i class="fas fa-step-backward"></i>
+    Turn Back
+  </button>
 </div>
 
 

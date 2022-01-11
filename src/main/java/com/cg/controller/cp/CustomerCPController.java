@@ -3,6 +3,7 @@ package com.cg.controller.cp;
 import com.cg.model.Category;
 import com.cg.model.Customer;
 import com.cg.service.Customer.CustomerService;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,9 @@ public class CustomerCPController {
         if (customer.isPresent()) {
             modelAndView.addObject("customer", customer.get());
             modelAndView.setViewName("cp/customer/changeActive");
-        } else {
+        }
+        else {
+            modelAndView.addObject("errorType", "404");
             modelAndView.addObject("errorMsg", "Http Error Code: 404. Resource not found");
             modelAndView.setViewName("errorPage");
         }

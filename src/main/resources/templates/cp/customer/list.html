@@ -66,7 +66,7 @@
                                             <td th:text="${item.email}"></td>
 
                                             <th:block th:if="!${item.deleted}">
-                                                <td>Valid</td>
+                                                <td>Active</td>
                                                 <td class="text-center">
                                                     <a class="btn btn-outline-danger" th:href="@{/cp/customers/changeActive/__${item.id}__ }">
                                                         <i class="fas fa-user-times"></i>
@@ -75,7 +75,7 @@
                                             </th:block>
 
                                             <th:block th:if="${item.deleted}">
-                                                <td>Invalid</td>
+                                                <td>Disable</td>
                                                 <td class="text-center">
                                                     <a class="btn btn-outline-success" th:href="@{/cp/customers/changeActive/__${item.id}__ }">
                                                         <i class="fas fa-user-check"></i>
