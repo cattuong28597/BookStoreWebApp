@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>List of Export</title>
+    <title>List of Cart</title>
     <link href="/cp/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
     <link href="/cp/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css">
     <link href="/cp/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css">
@@ -22,10 +22,6 @@
     <th:block th:replace="/cp/layout/left-side-menu"/>
     <!-- Left Sidebar End -->
 
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
-
     <div class="content-page">
         <div class="content">
 
@@ -42,22 +38,13 @@
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Export list</h4>
+                            <h4 class="page-title">Cart list</h4>
                         </div>
                     </div>
                 </div>
                 <!-- end page title -->
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-box">
-                            <a href="/cp/exports/create">
-                                <button class="btn btn-success waves-effect waves-light">
-                                    <i class="fas fa-plus-circle"></i> Add new
-                                </button>
-                            </a>
-                        </div>
-                    </div>
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -65,38 +52,27 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Quantity</th>
-                                        <th>Create at</th>
-                                        <th>Create by</th>
-                                        <th>Update at</th>
-                                        <th>Update by</th>
-                                        <th>Delete</th>
+                                        <th>Cart</th>
+                                        <th>Created At</th>
+                                        <th>Created By</th>
+                                        <th>Updated At</th>
+                                        <th>Updated By</th>
                                         <th>Product Name</th>
-<!--                                        <th class="text-center">Edit</th>-->
-<!--                                        <th class="text-center">Delete</th>-->
+                                        <th>Quantity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <th:block th:each="item : ${exports}">
+                                    <th:block th:each="item : ${imports}">
                                         <tr>
                                             <td th:text="${item.id}"></td>
-                                            <td th:text="${item.quantity}"></td>
+                                            <td th:text="${item.cart.id}"></td>
                                             <td th:text="${item.createdAt}"></td>
                                             <td th:text="${item.createdBy}"></td>
                                             <td th:text="${item.updatedAt}"></td>
                                             <td th:text="${item.updatedBy}"></td>
                                             <td th:text="${item.deleted}"></td>
-                                            <td th:text="${item.productExport.name}"></td>
-<!--                                            <td class="text-center">-->
-<!--                                                <a class="btn btn-outline-secondary" th:href="@{/cp/exports/edit/__${item.id}__ }">-->
-<!--                                                    <i class="fas fa-pencil-alt"></i>-->
-<!--                                                </a>-->
-<!--                                            </td>-->
-<!--                                            <td class="text-center">-->
-<!--                                                <a class="btn btn-outline-danger" th:href="@{/cp/exports/delete/__${item.id}__ }">-->
-<!--                                                    <i class="far fa-trash-alt"></i>-->
-<!--                                                </a>-->
-<!--                                            </td>-->
+                                            <td th:text="${item.product.name}"></td>
+                                            <td th:text="${item.quantity}"></td>
                                         </tr>
                                     </th:block>
                                     </tbody>
@@ -116,11 +92,6 @@
         <!-- end Footer -->
 
     </div>
-
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
-
 
 </div>
 

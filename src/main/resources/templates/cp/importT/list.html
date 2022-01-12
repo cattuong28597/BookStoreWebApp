@@ -72,8 +72,8 @@
                                         <th>Update by</th>
                                         <th>Delete</th>
                                         <th>Product Name</th>
-                                        <th class="text-center">Edit</th>
-                                        <th class="text-center">Delete</th>
+<!--                                        <th class="text-center">Edit</th>-->
+<!--                                        <th class="text-center">Delete</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -87,16 +87,16 @@
                                             <td th:text="${item.updatedBy}"></td>
                                             <td th:text="${item.deleted}"></td>
                                             <td th:text="${item.productImport.name}"></td>
-                                            <td class="text-center">
-                                                <a class="btn btn-outline-secondary" th:href="@{/cp/imports/edit/__${item.id}__ }">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                <a class="btn btn-outline-danger" th:href="@{/cp/imports/delete/__${item.id}__ }">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
+<!--                                            <td class="text-center">-->
+<!--                                                <a class="btn btn-outline-secondary" th:href="@{/cp/imports/edit/__${item.id}__ }">-->
+<!--                                                    <i class="fas fa-pencil-alt"></i>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
+<!--                                            <td class="text-center">-->
+<!--                                                <a class="btn btn-outline-danger" th:href="@{/cp/imports/delete/__${item.id}__ }">-->
+<!--                                                    <i class="far fa-trash-alt"></i>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
                                         </tr>
                                     </th:block>
                                     </tbody>

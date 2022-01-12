@@ -62,8 +62,10 @@ public class ImportCPController {
             try {
                 importService.save(importT);
                 Product product = productService.findById(importT.getProductImport().getId()).get();
-
-                product.setQuantity(importT.getQuantity());
+                int quan =importService.sumQuatityWithIdProduct(product.getId());
+                int quanE =exportService.sumQuatityWithIdProduct(product.getId());
+                product.setQuantity(quan - quanE);
+                productService.save(product);
 
                 modelAndView.addObject("import", new Import());
                 modelAndView.addObject("success", "Successfully added new product");
@@ -126,7 +128,7 @@ public class ImportCPController {
                 importT.setDeleted(deleted);
                 importService.save(importT);
                 Product product = productService.findById(importT.getProductImport().getId()).get();
-                product.setQuantity(importT.getQuantity());
+                product.setQuantity(importService.sumQuatityWithIdProduct(importT.getId()));
 
                 modelAndView.addObject("success", "Import has been successfully updated");
             } catch (Exception e) {

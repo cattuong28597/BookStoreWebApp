@@ -41,4 +41,13 @@ public class ExportServiceImpl implements ExportService {
     public void remove(Long id) {
 
     }
+
+    @Override
+    public Integer sumQuatityWithIdProduct(Long id) {
+        try{
+            return exportRepository.sumQuatityWithIdProduct(id);
+        }catch (Exception e){
+            return 0;
+        }
+    }
 }

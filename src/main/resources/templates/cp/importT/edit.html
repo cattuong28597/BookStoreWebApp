@@ -86,7 +86,7 @@
                                 <div class="form-group" style="height: 150px">
                                     <label class="col-form-label">Product</label>
                                     <div>
-                                        <select th:field="*{productImport}" class="custom-select show-tick" data-style="btn-light">
+                                        <select th:field="*{productImport}" class="form-control select2" data-style="btn-light">
                                             <th:block th:each="item : ${products}">
                                                 <option th:value="${item.id}" th:text="${(item.getName() + ' - ' + item.getAuthor())}"></option>
                                             </th:block>

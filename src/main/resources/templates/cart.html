@@ -482,77 +482,96 @@
                                         <th class="pro-price">Price</th>
                                         <th class="pro-quantity">Quantity</th>
                                         <th class="pro-subtotal">Total</th>
-                                        <th class="pro-remove"></th>
+                                        <th class="pro-remove" colspan="2">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
 
                                     <!-- Product Row -->
-                                    <tr>
-                                        </td>
-                                        <td class="pro-thumbnail"><a href="#"><img
-                                                src="/assets/image/products/product-1.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>
-                                        <td class="pro-price"><span>$395.00</span></td>
-                                        <td class="pro-quantity">
-                                            <div class="pro-qty">
-                                                <div class="count-input-block">
-                                                    <input type="number" class="form-control text-center"
-                                                           value="1">
+                                    <th:block th:each="item : ${cartDetails}" >
+                                        <tr>
+<!--                                            <td class="pro-thumbnail"><a href="#"><img-->
+<!--                                                    src="/assets/image/products/product-1.jpg" alt="Product"></a></td>-->
+<!--&lt;!&ndash;                                            <td class="pro-title"><a href="#">Rinosin Glasses</a></td>&ndash;&gt;-->
+<!--                                            <td th:text="${item.product.name}"></td>-->
+<!--                                            <td th:text="${item.product.lastPrice}"></td>-->
+<!--                                            <td th:text="${item.quantity}"></td>-->
+<!--                                            <td th:text="${item.quantity}*${item.product.lastPrice}"></td>-->
+<!--                                            <td class="text-center">-->
+<!--                                                <a class="btn btn-outline-secondary" th:href="@{/cp/cart-details/edit/__${item.id}__ }">-->
+<!--                                                    <i class="fas fa-pencil-alt"></i>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
+<!--                                            <td class="text-center">-->
+<!--                                                <a class="btn btn-outline-danger" th:href="@{/cp/cart-details/delete/__${item.id}__ }">-->
+<!--                                                    <i class="far fa-trash-alt"></i>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
+
+                                            <td class="pro-thumbnail"><a href="#"><img
+                                                    src="/assets/image/products/product-1.jpg" alt="Product"></a></td>
+                                            <td class="pro-title" th:text="${item.product.name}"><a href="#"></a></td>
+                                            <td class="pro-price" th:text="${item.product.lastPrice}"><span></span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <div class="count-input-block">
+                                                        <input type="number" class="form-control text-center"
+                                                               th:value="${item.quantity}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="pro-subtotal"><span>$395.00</span></td>
-                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>
-                                    </tr>
+                                            </td>
+                                            <td class="pro-subtotal" th:text="${item.quantity}*${item.product.lastPrice}"><span></span></td>
+                                            <td class="pro-remove"><a href="@{/cp/cart-details/delete/__${item.id}__ }"><i class="far fa-trash-alt"></i></a>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="pro-subtotal" th:text="${item.quantity}*${item.product.lastPrice}"><span></span></td>
+                                        </tr>
+
+                                    </th:block>
                                     <!-- Product Row -->
-                                    <tr>
-                                        </td>
-                                        <td class="pro-thumbnail"><a href="#"><img
-                                                src="/assets/image/products/product-2.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>
-                                        <td class="pro-price"><span>$395.00</span></td>
-                                        <td class="pro-quantity">
-                                            <div class="pro-qty">
-                                                <div class="count-input-block">
-                                                    <input type="number" class="form-control text-center"
-                                                           value="1">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="pro-subtotal"><span>$395.00</span></td>
-                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>
-                                    </tr>
-
-
-
-
-
+<!--                                    <tr>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-thumbnail"><a href="#"><img-->
+<!--                                                src="/assets/image/products/product-2.jpg" alt="Product"></a></td>-->
+<!--                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>-->
+<!--                                        <td class="pro-price"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-quantity">-->
+<!--                                            <div class="pro-qty">-->
+<!--                                                <div class="count-input-block">-->
+<!--                                                    <input type="number" class="form-control text-center"-->
+<!--                                                           value="1">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-subtotal"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>-->
+<!--                                    </tr>-->
 
                                     <!-- Discount Row  -->
-                                    <tr>
-                                        <td colspan="6" class="actions">
-                                            <div class="coupon-block">
-                                                <div class="coupon-text">
-                                                    <label for="coupon_code">Coupon:</label>
-                                                    <input type="text" name="coupon_code" class="input-text"
-                                                           id="coupon_code" value="" placeholder="Coupon code">
-                                                </div>
-                                                <div class="coupon-btn">
-                                                    <input type="submit" class="btn btn-outlined"
-                                                           name="apply_coupon" value="Apply coupon">
-                                                </div>
-                                            </div>
-                                            <div class="update-block text-right">
-                                                <input type="submit" class="btn btn-outlined" name="update_cart"
-                                                       value="Update cart">
-                                                <input type="hidden" id="_wpnonce" name="_wpnonce"
-                                                       value="05741b501f"><input type="hidden"
-                                                                                 name="_wp_http_referer" value="/petmark/cart/">
-                                            </div>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td colspan="6" class="actions">-->
+<!--                                            <div class="coupon-block">-->
+<!--                                                <div class="coupon-text">-->
+<!--                                                    <label for="coupon_code">Coupon:</label>-->
+<!--                                                    <input type="text" name="coupon_code" class="input-text"-->
+<!--                                                           id="coupon_code" value="" placeholder="Coupon code">-->
+<!--                                                </div>-->
+<!--                                                <div class="coupon-btn">-->
+<!--                                                    <input type="submit" class="btn btn-outlined"-->
+<!--                                                           name="apply_coupon" value="Apply coupon">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="update-block text-right">-->
+<!--                                                <input type="submit" class="btn btn-outlined" name="update_cart"-->
+<!--                                                       value="Update cart">-->
+<!--                                                <input type="hidden" id="_wpnonce" name="_wpnonce"-->
+<!--                                                       value="05741b501f"><input type="hidden"-->
+<!--                                                                                 name="_wp_http_referer" value="/petmark/cart/">-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                     </tbody>
                                 </table>
                             </div>

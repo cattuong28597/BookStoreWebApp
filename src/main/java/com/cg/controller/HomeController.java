@@ -28,7 +28,7 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/products/details")
+    @GetMapping("/product-details.html")
     public ModelAndView showProductDetailPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/product-detail");

@@ -3,6 +3,7 @@ package com.cg.controller.cp;
 import com.cg.model.Export;
 import com.cg.model.Product;
 import com.cg.service.export.ExportService;
+import com.cg.service.importT.ImportService;
 import com.cg.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/cp/exports")
 public class ExportCPController {
+    @Autowired
+    private ImportService importService;
+
     @Autowired
     private ExportService exportService;
 
@@ -60,8 +64,11 @@ public class ExportCPController {
             try {
                 Product product = productService.findById(export.getProductExport().getId()).get();
                 if(product.getQuantity() >= export.getQuantity()){
-                    product.setQuantity(product.getQuantity() - export.getQuantity());
+                    int quan = importService.sumQuatityWithIdProduct(product.getId());
+                    int quanE = exportService.sumQuatityWithIdProduct(product.getId());
+                    product.setQuantity(quan - quanE);
                     exportService.save(export);
+                    productService.save(product);
 
                     modelAndView.addObject("success", "Export has been successfully updated");
                 }else {

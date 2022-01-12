@@ -42,6 +42,10 @@ public class ImportServiceImpl implements ImportService {
 
     @Override
     public Integer sumQuatityWithIdProduct(Long id_product) {
-        return importRepository.sumQuatityWithIdProduct(id_product);
+        try{
+            return importRepository.sumQuatityWithIdProduct(id_product);
+        }catch (Exception e){
+            return 0;
+        }
     }
 }

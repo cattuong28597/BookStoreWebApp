@@ -85,7 +85,7 @@
                             <form th:object="${import}" method="post">
                                 <div class="form-group">
                                     <label class="col-form-label">Product</label>
-                                    <select th:field="*{productImport}" class="custom-select show-tick" data-style="btn-light">
+                                    <select th:field="*{productImport}" class="form-control select2" data-style="btn-light">
                                         <th:block th:each="item : ${products}">
                                             <option th:value="${item.id}" th:text="${(item.getName() + ' - ' + item.getAuthor())}"></option>
                                         </th:block>
@@ -97,7 +97,6 @@
                                         <label class="col-form-label">Quantity</label>
                                         <input type="number" th:field="*{quantity}" class="form-control">
                                     </div>
-
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mt-4">
