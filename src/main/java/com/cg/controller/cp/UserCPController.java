@@ -1,10 +1,11 @@
 package com.cg.controller.cp;
 
-import com.cg.model.Product;
 import com.cg.model.Role;
+import com.cg.model.Staff;
 import com.cg.model.User;
-import com.cg.service.role.IRoleService;
-import com.cg.service.user.IUserService;
+import com.cg.service.role.RoleService;
+import com.cg.service.staff.StaffService;
+import com.cg.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,13 @@ import java.util.List;
 public class UserCPController {
 
     @Autowired
-    private IUserService userService ;
+    private UserService userService ;
 
     @Autowired
-    private IRoleService roleService;
+    private StaffService staffService ;
+
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("")
     public ModelAndView showAllUser(){
@@ -30,12 +34,17 @@ public class UserCPController {
         modelAndView.addObject("userList",userList);
         return modelAndView;
     }
+
     @GetMapping("/create")
     public ModelAndView createUser(){
         ModelAndView modelAndView = new ModelAndView("cp/user/create") ;
-        List<Role> roleList = roleService.findAll();
+        List<Role> roleList = roleService.findAllByIdIsNot(3L);// 3 la id Customer
+
+        List<Staff> staffList = staffService.findAllByDeletedIsFalseAndUserIdIsNull();
+
         modelAndView.addObject("roleList",roleList);
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("staffList", staffList);
 
         return modelAndView ;
     }

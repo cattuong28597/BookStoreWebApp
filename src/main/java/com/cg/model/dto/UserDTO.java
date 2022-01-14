@@ -1,5 +1,7 @@
 package com.cg.model.dto;
 
+import com.cg.model.Customer;
+import com.cg.model.Staff;
 import com.cg.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,37 +33,47 @@ public class UserDTO {
     @Size(max = 30, message = "Maximum password length 30 characters")
     private String password;
 
-    private String name;
-
-    //    @NotBlank(message = "Địa chỉ không được trống")
-    private String address;
-
-    //    @NotBlank(message = "Số điện thoại không được trống")
-    private String phone;
-
-    //    @NotBlank(message = "Email không được trống")
-    private String email;
 
 
     @Valid
     private RoleDTO role;
+
+    @NotBlank(message = "Tên không được trống")
+    private String name;
+
+    private String address;
+
+    private String phone;
+
+
+
+    private Long staffId;
+
 
     public UserDTO(Long id, String username) {
         this.id = id;
         this.username = username;
     }
 
+    public Customer toCustomer(User user){
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setEmail(username);
+        customer.setAddress(address);
+        customer.setPhone(phone);
+        customer.setUser(user);
+        return customer ;
+    }
+
+
+
     public User toUser() {
         User user = new User();
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
-        user.setName(name);
-        user.setAddress(address);
-        user.setPhone(phone);
-        user.setEmail(email);
         user.setRole(role.toRole());
-        return user ;
+        return user;
     }
 
 }

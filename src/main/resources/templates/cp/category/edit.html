@@ -35,8 +35,8 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Minton</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="/cp">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">Category</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Update category</h4>
@@ -64,9 +64,19 @@
                                     <label class="col-form-label">Name</label>
                                     <input type="text" th:field="*{name}" class="form-control" placeholder="Lighting & Studio...">
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3">
-                                    <i class="fas fa-pencil-alt"></i> Update
-                                </button>
+
+                                <th:block th:if="!${error}">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary mt-3">
+                                            <i class="fas fa-pencil-alt"></i> Update
+                                        </button>
+                                    </div>
+                                </th:block>
+
+
+<!--                                <button type="submit" class="btn btn-primary mt-3">-->
+<!--                                    <i class="fas fa-pencil-alt"></i> Update-->
+<!--                                </button>-->
                             </form>
                         </div>
                     </div>

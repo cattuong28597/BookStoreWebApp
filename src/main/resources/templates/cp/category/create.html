@@ -35,8 +35,8 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Minton</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="/cp">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">Category</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Add new category</h4>
@@ -59,10 +59,21 @@
                         <div class="card-box">
                             <h4 class="header-title">Category information</h4>
 
-                            <form th:object="${category}" method="post">
+                            <form th:object="${categoryDTO}" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="name" class="col-form-label">Name</label>
-                                    <input type="text" th:field="*{name}" class="form-control" placeholder="Lighting & Studio...">
+                                    <label class="col-form-label">Avatar</label>
+
+                                    <input id="imageFile" type="file" accept="image/jpeg, image/png"
+                                           multipleclass="form-control"
+                                           th:field="*{imageFile}"
+                                           onchange='openFile(event)' name="fileUpdate"/>
+                                    <input type="hidden" value="" id="base64" name="image">
+                                    <img id='output' height="200px" width="200px">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Name Category</label>
+                                    <input type="text" th:field="*{name}" class="form-control" placeholder="Name Category">
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Create</button>
                             </form>
@@ -134,5 +145,18 @@
     </div>
 </div>
 
+<script>
+    function openFile(event) {
+        let input = event.target;
+        let reader = new FileReader();
+        reader.onload = function () {
+            let dataURL = reader.result;
+            let output = document.getElementById('output');
+            output.src = dataURL;
+            document.getElementById("base64").value = dataURL;
+        }
+        reader.readAsDataURL(input.files[0]);
+    };
+</script>
 </body>
 </html>

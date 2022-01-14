@@ -1,7 +1,7 @@
 package com.cg.security;
 
 import com.cg.service.jwt.JwtService;
-import com.cg.service.user.IUserService;
+import com.cg.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
 
     private String getBearerTokenRequest(HttpServletRequest request) {

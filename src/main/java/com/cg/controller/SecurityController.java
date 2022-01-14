@@ -24,36 +24,18 @@ public class SecurityController {
         return userName;
     }
 
-    @GetMapping(value = "/log")
+    @GetMapping(value = "/login-register")
     public String Homepage(Model model) {
         model.addAttribute("user", getPrincipal());
-        return "/login";
+        return "/login-register";
     }
 
     @GetMapping( "/login")
     public ModelAndView getLogin() {
-        return new ModelAndView("/login");
+        return new ModelAndView("login");
     }
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String adminPage(ModelMap modelMap) {
-        modelMap.addAttribute("user", getPrincipal());
-        return "/cp/categories";
-    }
 
-//    @GetMapping("/admin")
-//    @PreAuthorize("hasAuthority('DBA')")
-//    public String dbaPage(ModelMap modelMap) {
-//        modelMap.addAttribute("user", getPrincipal());
-//        return "/cp/categories";
-//    }
-
-//    @GetMapping( "/dba")
-//    public String dbaPage(ModelMap model) {
-//        model.addAttribute("user", getPrincipal());
-//        return "/cp";
-//    }
 
     @GetMapping("/accessDenied")
     public String accessDeniedPage(ModelMap model) {

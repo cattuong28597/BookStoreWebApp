@@ -1,5 +1,6 @@
 package com.cg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,9 @@ public class Role {
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
     private List<User> users;
+
+//    @JsonIgnore
+//    @OneToMany(targetEntity = User.class, mappedBy = "user")
+//    private List<User> users;
 
 }

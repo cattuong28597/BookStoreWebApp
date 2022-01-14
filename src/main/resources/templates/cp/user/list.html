@@ -67,7 +67,7 @@
                                         <th>#</th>
                                         <th>Username</th>
                                         <th>Role</th>
-                                        <th class="text-center">Edit</th>
+<!--                                        <th class="text-center">Edit</th>-->
                                         <th class="text-center">Delete</th>
                                     </tr>
                                     </thead>
@@ -77,11 +77,11 @@
                                             <td th:text="${item.id}"></td>
                                             <td th:text="${item.username}"></td>
                                             <td th:text="${item.role.code}"></td>
-                                            <td class="text-center">
-                                                <a class="btn btn-outline-secondary" th:href="@{/cp/category-groups/edit/__${item.id}__ }">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                            </td>
+<!--                                            <td class="text-center">-->
+<!--                                                <a class="btn btn-outline-secondary" th:href="@{/cp/category-groups/edit/__${item.id}__ }">-->
+<!--                                                    <i class="fas fa-pencil-alt"></i>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
                                             <td class="text-center">
                                                 <a class="btn btn-outline-danger" th:href="@{/category-groups/delete/__${item.id}__ }">
                                                     <i class="far fa-trash-alt"></i>

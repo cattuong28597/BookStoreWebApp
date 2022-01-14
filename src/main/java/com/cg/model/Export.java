@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "exportProducts")
+@Table(name = "export_products")
 public class Export extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

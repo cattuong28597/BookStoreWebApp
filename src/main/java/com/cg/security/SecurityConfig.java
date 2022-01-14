@@ -1,6 +1,6 @@
 package com.cg.security;
 
-import com.cg.service.user.IUserService;
+import com.cg.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-//        auth.inMemoryAuthentication().withUser("admin").password("{noop}12345").roles("DBA");
     }
 
     @Override
@@ -63,9 +62,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
 
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/logout","/cp/api/auth/login","/cp/api/auth/register","/cp/**").permitAll()
-//                .antMatchers("/cp/**").hasAnyAuthority("ADMIN")
-//                .antMatchers("/cp/**").access("hasAnyRole('DBA')")
+                .antMatchers("/",
+                        "index.html",
+                        "/login",
+                        "/logout",
+                        "/cp/api/cart-detail/**",
+                        "/errorPage.html",
+                        "/cp/api/products/getById/**",
+                        "cp/api/order/create",
+                        "/logout-customer.html",
+                        "/product-details.html",
+                        "/cp/api/cart-detail/create",
+                        "/order-complete.html",
+                        "/checkout.html",
+                        "/logout-customer.html",
+                        "/cart.html",
+                        "/login-register.html",
+                        "/cp/api/auth/register-customer",
+                        "/cp/api/auth/login",
+                        "/cp/api/auth/register").permitAll()
+                .antMatchers("/cp/users/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/cp").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/test").permitAll()
                 .antMatchers("/resources/**", "/assets/**").permitAll()
                 .antMatchers(
@@ -96,6 +113,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
+
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
