@@ -26,7 +26,7 @@ public class Order extends BaseEntity{
     private Customer customer;
 
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order")
     @JsonIgnore
     private List<OrderDetail> orderDetails;
 

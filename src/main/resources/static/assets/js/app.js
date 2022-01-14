@@ -47,15 +47,83 @@ class App {
     }
 }
 
-
-class Product {
-    constructor(id, name, description, fileId, fileName, fileFolder, fileType) {
+class Category {
+    constructor(id, name) {
         this.id = id;
         this.name = name;
+    }
+}
+
+class CategoryGroup {
+    constructor(id, name, category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+    }
+}
+
+class Product {
+    constructor(id, name, slug, author, quantity, publishingCompany,
+                publicationDate, page, vote, comment, price,
+                percentageDiscount, discountAmount, lastPrice,
+                rewardPoint, views, description, avatar, categoryGroup) {
+        this.id = id;
+        this.name = name;
+        this.slug = slug;
+        this.author = author;
+        this.quantity = quantity;
+        this.publishingCompany = publishingCompany;
+        this.publicationDate = publicationDate;
+        this.page = page;
+        this.vote = vote;
+        this.comment = comment;
+        this.price = price;
+        this.percentageDiscount = percentageDiscount;
+        this.discountAmount = discountAmount;
+        this.lastPrice = lastPrice;
+        this.rewardPoint = rewardPoint;
+        this.views = views;
         this.description = description;
-        this.fileId = fileId;
-        this.fileName = fileName;
-        this.fileFolder = fileFolder;
-        this.fileType = fileType;
+        this.avatar = avatar;
+        this.categoryGroup = categoryGroup;
+    }
+}
+
+class CartDetail {
+    constructor(id, cart, product, quantity) {
+        this.id = id;
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+    }
+}
+
+class CartDetailDTO {
+    constructor(id, cartId, productId, name, lastPrice, quantity) {
+        this.id = id;
+        this.cartId = cartId;
+        this.productId = productId;
+        this.name = name;
+        this.lastPrice = lastPrice;
+        this.quantity = quantity;
+    }
+}
+
+class Cart {
+    constructor(id, customer) {
+        this.id = id;
+        this.customer = customer;
+    }
+}
+
+class Customer {
+    constructor(id, username, password, name, address, phone, email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
     }
 }

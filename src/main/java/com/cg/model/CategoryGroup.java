@@ -38,7 +38,7 @@ public class CategoryGroup extends BaseEntity{
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "categoryGroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "categoryGroup")
     @JsonIgnore
     private List<Product> products;
 

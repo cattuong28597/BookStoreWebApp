@@ -35,7 +35,7 @@ public class Category extends BaseEntity {
 
     private String image;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
     @JsonIgnore
     private List<CategoryGroup> categoryGroups;
 
