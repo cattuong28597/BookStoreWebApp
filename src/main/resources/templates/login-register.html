@@ -592,7 +592,8 @@ Footer Area
             url: "/cp/api/auth/login",
             data: JSON.stringify(user_login)
         }).done((resp) => {
-            $.notify("Logged in successfully !", "success");
+            // $.notify("Logged in successfully !", "success");
+            App.showSuccessAlert("Logged in successfully !")
             setTimeout(function () {
                 window.location.href = "/my-account.html";
             }, 1000);
@@ -626,31 +627,33 @@ Footer Area
             url: "/cp/api/auth/register-customer",
             data: JSON.stringify(user)
         }).done((userdata) => {
-            $.notify("Successful account registration !", "success");
+            // $.notify("Successful account registration !", "success");
 
-            // App.showSuccessAlert("Successful account registration !")
+            App.showSuccessAlert("Successful account registration !")
 
             let user_login ={
                 username : user.username,
                 password : user.password
             }
-            login(user_login) ;
+
+            setTimeout(function () {
+                login(user_login) ;
+            }, 3000);
+
 
 
         }).fail(function (jqXHR) {
             if (jqXHR.responseJSON) {
                 if (jqXHR.responseJSON.message) {
                     $.notify(jqXHR.responseJSON.message, "error");
-                    // App.showSuccessAlert(jqXHR.responseJSON.message)
                 } else {
                     $.each(jqXHR.responseJSON, function (key, value) {
                         $.notify(value, "error");
-                        // App.showSuccessAlert(value)
                     });
                 }
             } else {
-                $.notify("Something went wrong, please try again", "error");
-                // App.showErrorAlert("Something went wrong, please try again")
+                // $.notify("Something went wrong, please try again", "error");
+                App.showErrorAlert("Something went wrong, please try again")
             }
 
         });

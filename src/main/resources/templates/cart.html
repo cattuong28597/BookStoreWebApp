@@ -829,7 +829,7 @@ Footer Area
 
 <th:block th:include="layout/script"/>
 
-<!--<script src="/assets/js/app.js"></script>-->
+<script src="/assets/js/app.js"></script>
 <script src="/assets/js/sweetalert2.min.js"></script>
 <script src="/assets/js/notify-0.4.1.min.js"></script>
 <script>
@@ -844,19 +844,24 @@ Footer Area
         }
     }
 
+    let arrayCartDetail = new Array();
+    let arrCartDetailUpdate = new Array();
+
     function showCartDetail(cartDetail) {
         return `  <tr id="cart_detai_${cartDetail.id}" data-id="${cartDetail.id}">
                                         </td>
                                         <td class="pro-thumbnail"><a href="#"><img
                                                 src="${cartDetail.productImage}" alt="Product"></a></td>
                                         <td class="pro-title"><a href="#">${cartDetail.productName}</a></td>
-                                        // <input type="hidden"  value="${cartDetail.productLastPrice}">
                                         <td class="pro-price"><span id="product-price-${cartDetail.id}">${cartDetail.productLastPrice}</span></td>
                                         <td class="pro-quantity">
                                             <div class="pro-qty">
                                                 <div class="count-input-block">
+                                                    <input type="hidden" id="quantity-product-old-${cartDetail.id}" value="${cartDetail.quantity}">
                                                     <input type="number" class="form-control text-center"
                                                         id="quantity-product-${cartDetail.id}"   value="${cartDetail.quantity}" onkeyup="onChange(${cartDetail.id})">
+
+
                                                 </div>
                                             </div>
                                         </td>
@@ -879,12 +884,12 @@ Footer Area
                                                 </div>
                                             </div>
                                             <div class="update-block text-right">
-                                                <input type="submit" class="btn btn-outlined" name="update_cart"
-                                                       value="Update cart">
+                                                <input type="button" class="btn btn-outlined" name="update_cart" id="update-cart"
+                                                       value="Update cart" disabled>
                                                 <input type="hidden" id="_wpnonce" name="_wpnonce"
-                                                       value="05741b501f"><input type="hidden"
-                                                                                 name="_wp_http_referer"
-                                                                                 value="/petmark/cart/">
+                                                       value="05741b501f">
+                                                <input type="hidden" name="_wp_http_referer"
+                                                        value="/petmark/cart/">
                                             </div>
                                         </td>
                                     </tr>`
@@ -892,6 +897,7 @@ Footer Area
     function showCart() {
         let id_cart = $("#cart-info").data("id");
         console.log(id_cart);
+        arrayCartDetail = new Array();
         $.ajax({
             type: "GET",
             url: "/cp/api/cart-detail/cart/" + id_cart,
@@ -904,46 +910,62 @@ Footer Area
                 let cartDetail = new CartDetail(cdList[i].id, cdList[i].productImage, cdList[i].productName, cdList[i].productLastPrice, cdList[i].quantity, total)
                 str += showCartDetail(cartDetail);
                 sumTotal += cartDetail.subTotal;
+
+                let cartDT = {
+                    id: cdList[i].id,
+                    quantity: cdList[i].quantity
+                }
+                arrayCartDetail.push(cartDT)
             }
             str += str_footer;
             $("#showListCartDetails").html(str);
             $("#sum-total").html(sumTotal);
             $("#sum-total-after").html(sumTotal); /// co the nhan voi ship
 
-
             removeCartDetail();
+            updateCart();
         }).fail(function () {
             $.notify("Something went wrong, please try again", "error");
         })
     }
 
 
-
     function removeCartDetail() {
         $(".pro-remove-cart").on("click", function () {
-           
+
             let id_cartDT = $(this).data("id");
+            arrayCartDetail = new Array();
             $.ajax({
                 type: "GET",
                 url: "/cp/api/cart-detail/remove/" + id_cartDT
             }).done(function (cdList) {
                 let str = "";
                 let sumTotal = 0;
-                console.log(cdList)
+
                 for (let i = 0; i < cdList.length; i++) {
                     let total = cdList[i].quantity * cdList[i].productLastPrice;
                     let cartDetail = new CartDetail(cdList[i].id, cdList[i].productImage, cdList[i].productName, cdList[i].productLastPrice, cdList[i].quantity, total)
                     str += showCartDetail(cartDetail);
                     sumTotal += cartDetail.subTotal;
+
+                    let cartDT = {
+                        id: cdList[i].id,
+                        quantity: cdList[i].quantity
+                    }
+                    arrayCartDetail.push(cartDT)
+
+
                 }
                 str += str_footer;
                 $("#showListCartDetails").html(str);
                 $("#sum-total").html(sumTotal);
                 $("#sum-total-after").html(sumTotal); /// co the nhan voi ship
 
-                $.notify("Product removed from cart successfully !", "success")
+                // $.notify("Product removed from cart successfully !", "success")
+                App.showSuccessAlert("Product removed from cart successfully !")
 
                 removeCartDetail();
+                updateCart();
             }).fail(function () {
                 $.notify("Something went wrong, please try again", "error");
             })
@@ -953,15 +975,90 @@ Footer Area
 
     function onChange(id) {
         let price = parseInt($("#product-price-" + id).text());
-        console.log(price)
-        let quantity = $("#quantity-product-" + id).val()
+
+        let quantity = parseInt($("#quantity-product-" + id).val());
+
+        let quantityOld = parseInt($("#quantity-product-old-" + id).val());
+
+        console.log(arrayCartDetail)
+
+        let ixdexCDT = -1;
+        for (let i = 0; i < arrayCartDetail.length; i++) {
+            if (arrayCartDetail[i].id == id) {
+                ixdexCDT = i;
+                break;
+            }
+        }
+
+        console.log(ixdexCDT);
         let total = price * quantity;
         $("#sub-total-" + id).html(total)
+        if (quantity != quantityOld) {
+            $("#update-cart").prop("disabled", false)
+            let newCartDT = {
+                id: id,
+                quantity: quantity
+            }
+            arrayCartDetail[ixdexCDT] = newCartDT;
 
+        } else {
+            $("#update-cart").prop("disabled", true)
+        }
+
+    }
+
+
+    function updateCart() {
+        $("#update-cart").on("click", function () {
+            arrCartDetailUpdate = new Array();
+            let quantityOld = 0;
+            for (let i = 0; i < arrayCartDetail.length; i++) {
+                quantityOld = parseInt($("#quantity-product-old-" + arrayCartDetail[i].id).val());
+                if (arrayCartDetail[i].quantity != quantityOld) {
+                    // arrCartDetailUpdate.push(arrayCartDetail[i])
+                    let cartDT = {
+                        id: arrayCartDetail[i].id ,
+                        quantity : arrayCartDetail[i].quantity
+                    }
+                    updateCartDetail(cartDT);
+                }
+            }
+
+        })
+    }
+
+    function updateCartDetail(cartDetailsDTO) {
+        console.log(cartDetailsDTO)
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "/cp/api/cart-detail/update",
+            data: JSON.stringify(cartDetailsDTO)
+        }).done(function (resp) {
+        $.notify("Update success !", "success") ;
+            App.showSuccessAlert("Update  successfully !")
+        showCart() ;
+        }).fail(function (jqXHR) {
+            if (jqXHR.responseJSON) {
+                if (jqXHR.responseJSON.message) {
+                    $.notify(jqXHR.responseJSON.message, "error");
+                } else {
+                    $.each(jqXHR.responseJSON, function (key, value) {
+                        $.notify(value, "error");
+                    });
+                }
+            } else {
+                $.notify("Something went wrong, please try again", "error");
+            }
+        })
     }
 
     showCart();
     removeCartDetail();
+    updateCart();
 </script>
 </body>
 </html>

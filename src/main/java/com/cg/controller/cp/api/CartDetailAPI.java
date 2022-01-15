@@ -6,12 +6,9 @@ import com.cg.model.CartDetail;
 import com.cg.model.Customer;
 import com.cg.model.Product;
 import com.cg.model.dto.CartDetailDTO;
-import com.cg.model.dto.OrderDTO;
 import com.cg.service.cart.CartService;
 import com.cg.service.cart_details.CartDetailService;
 import com.cg.service.customer.CustomerService;
-import com.cg.service.order.OrderService;
-import com.cg.service.order_detail.OrderDetailService;
 import com.cg.service.product.ProductService;
 import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +40,40 @@ public class CartDetailAPI {
 
     @Autowired
     private AppUtils appUtils;
+
+
+
+    @GetMapping("/cart/{id}")
+    public ResponseEntity<List<?>> showAllCart(@PathVariable Long id) {
+        Optional<Cart> cartOptional = cartService.findById(id);
+        if (!cartOptional.isPresent()) {
+            throw new DataInputException("Cart not exits !");
+        }
+        try {
+            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cartOptional.get());
+            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/remove/{id}")
+    public ResponseEntity<List<?>> showAllCartAfterRemove(@PathVariable Long id) {
+        Optional<CartDetail> cartDetailOptional = cartDetailsService.findById(id);
+        if (!cartDetailOptional.isPresent()) {
+            throw new DataInputException("Cart details not exits !");
+        }
+        try {
+            CartDetail cartDetail = cartDetailOptional.get();
+            cartDetail.setDeleted(true);
+            cartDetailsService.save(cartDetail);
+            Cart cart = cartDetail.getCart();
+            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cart);
+            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
     @PostMapping("/create")
@@ -68,11 +100,11 @@ public class CartDetailAPI {
 
             CartDetail cartDetail = cartDetailsService.findCartDetailByProductAndAndDeletedIsFalse(product);
 
-            if(cartDetail !=null){
-             int quantityNew = cartDetailDTO.getQuantity() + cartDetail.getQuantity() ;
-             cartDetail.setQuantity(quantityNew);
-            }else{
-                 cartDetail = cartDetailDTO.toCartDetail(cart,product) ;
+            if (cartDetail != null) {
+                int quantityNew = cartDetailDTO.getQuantity() + cartDetail.getQuantity();
+                cartDetail.setQuantity(quantityNew);
+            } else {
+                cartDetail = cartDetailDTO.toCartDetail(cart, product);
             }
             cartDetailsService.save(cartDetail);
             return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
@@ -81,36 +113,39 @@ public class CartDetailAPI {
         }
     }
 
-    @GetMapping("/cart/{id}")
-    public ResponseEntity<List<?>> showAllCart(@PathVariable Long id){
-        Optional<Cart> cartOptional = cartService.findById(id) ;
-        if(!cartOptional.isPresent()){
-            throw new DataInputException("Cart not exits !");
-        }
-        try {
-            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cartOptional.get());
-            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping("/update")
+//    public ResponseEntity<List<?>> updateCartDetails(CartDetailDTO[] cartDetailDTOS) {
+//        try {
+//            for (CartDetailDTO cartDetailDTO : cartDetailDTOS) {
+//                   CartDetail cartDetail = cartDetailsService.findById(cartDetailDTO.getId()).get();
+//                   cartDetail.setQuantity(cartDetailDTO.getQuantity());
+//                   cartDetailsService.save(cartDetail) ;
+//            }
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
 
-    @GetMapping("/remove/{id}")
-    public ResponseEntity<List<?>> showAllCartAfterRemove(@PathVariable Long id){
-        Optional<CartDetail> cartDetailOptional = cartDetailsService.findById(id) ;
-        if(!cartDetailOptional.isPresent()){
-            throw new DataInputException("Cart not exits !");
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCartDetails( @Validated @RequestBody  CartDetailDTO cartDetailDTO,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return appUtils.mapErrorToResponse(bindingResult);
         }
         try {
-            CartDetail cartDetail = cartDetailOptional.get() ;
-            cartDetail.setDeleted(true);
-            cartDetailsService.save(cartDetail) ;
-            Cart cart = cartDetail.getCart() ;
-            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cart);
-            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
+            Optional<CartDetail> cartDetailOptional = cartDetailsService.findById(cartDetailDTO.getId());
+            if (!cartDetailOptional.isPresent()) {
+                throw new DataInputException("Cart not exits !");
+            }
+            CartDetail cartDetail = cartDetailOptional.get();
+            cartDetail.setQuantity(cartDetailDTO.getQuantity());
+            cartDetailsService.save(cartDetail);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
     }
 
 

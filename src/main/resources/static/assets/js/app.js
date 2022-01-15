@@ -31,9 +31,10 @@ class App {
         Swal.fire({
             icon: 'success',
             title: t,
-            position: 'top-end',
+            // position: 'top-end',
+            position: 'center',
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
         })
     }
 
@@ -42,19 +43,8 @@ class App {
             icon: 'error',
             title: 'Warning',
             text: t,
+            position: 'center',
         })
     }
 }
 
-
-// class Product {
-//     constructor(id, name, description, fileId, fileName, fileFolder, fileType) {
-//         this.id = id;
-//         this.name = name;
-//         this.description = description;
-//         this.fileId = fileId;
-//         this.fileName = fileName;
-//         this.fileFolder = fileFolder;
-//         this.fileType = fileType;
-//     }
-// }

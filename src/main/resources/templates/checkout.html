@@ -728,7 +728,6 @@ Footer Area
 <script src="/assets/js/notify-0.4.1.min.js"></script>
 <script>
 
-
     function planceOrder(){
         $("#place-order-accept").on("click",function (){
         let id_card = $(".checkout-cart-total").data("id") ;
@@ -748,10 +747,11 @@ Footer Area
             url: "cp/api/order/create",
             data: JSON.stringify(orderDTO)
         }).done(function (resp) {
-            $.notify("Order success , please waiting store accept  ! Thank you !", "success");
+            // $.notify("Order success , please waiting store accept  ! Thank you !", "success");
+            App.showSuccessAlert("Order success , please waiting store accept  ! Thank you !")
             setTimeout(function () {
                 window.location.href = "/my-account.html";
-            }, 2000);
+            }, 5000);
         }).fail((jqXHR) => {
             if (jqXHR.responseJSON) {
                 if (jqXHR.responseJSON.message) {
@@ -762,8 +762,10 @@ Footer Area
                     });
                 }
             } else {
-                $.notify("Something went wrong, please try again", "error");
+                // $.notify("Something went wrong, please try again", "error");
+                App.showErrorAlert("Something went wrong, please try again !")
             }
+
         });
         })
     };
