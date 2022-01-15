@@ -38,7 +38,6 @@ public class UserDTO {
     @Valid
     private RoleDTO role;
 
-    @NotBlank(message = "Tên không được trống")
     private String name;
 
     private String address;

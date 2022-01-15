@@ -131,9 +131,11 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/product-details.html")
-    public ModelAndView showProductDetailPage() {
+    @GetMapping("/product-details/{slug}")
+    public ModelAndView showProductDetailPage(@PathVariable String slug) {
         ModelAndView modelAndView = new ModelAndView();
+        Product product = productService.findBySlug(slug);
+        modelAndView.addObject("product", product);
         modelAndView.setViewName("/product-detail");
 
 

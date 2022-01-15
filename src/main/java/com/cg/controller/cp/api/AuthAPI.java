@@ -80,12 +80,15 @@ public class AuthAPI {
             throw new DataInputException("Invalid account role");
         }
 
-        Staff staff = staffService.findById(userDTO.getStaffId()).get() ;
-
 
         try {
             User user = userService.save(userDTO.toUser());
-            if (staff != null) {
+            if (userDTO.getStaffId() != null) {
+                Optional<Staff> staffOptional = staffService.findById(userDTO.getId()) ;
+                if (!staffOptional.isPresent()) {
+                    throw new DataInputException("Invalid staff !");
+                }
+                Staff staff = staffOptional.get() ;
                 staff.setUserId(user.getId());
                 staffService.save(staff);
             }

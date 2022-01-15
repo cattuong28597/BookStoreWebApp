@@ -41,4 +41,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     IProductDTO findIProductDTOById(@Param("id") Long id);
 
+    Product findBySlug(String slug);
+
 }

@@ -22,6 +22,8 @@ public interface ProductService extends IGeneralService<Product> {
 
     void delete(Product product) throws IOException;
 
+    Product findBySlug(String slug);
+
 
 
 

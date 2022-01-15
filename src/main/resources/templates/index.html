@@ -557,7 +557,7 @@
                                                 <div class="product-header">
                                                     <a class="author" th:text="${item.author}">
                                                     </a>
-                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                    <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                 </div>
                                                 <div class="price-block">
                                                     <th:block th:if = "${item.percentageDiscount == 0}">
@@ -856,7 +856,7 @@
                                         <div class="product-card">
                                             <div class="product-header">
                                                 <a class="author" th:text="${item.author}"></a>
-                                                <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                             </div>
                                             <div class="product-card--body">
                                                 <div class="card-image">
@@ -1054,7 +1054,7 @@
                                                     <div class="product-card">
                                                         <div class="product-header">
                                                             <a class="author" th:text="${item.author}"></a>
-                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                            <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
@@ -1111,7 +1111,7 @@
                                                     <div class="product-card">
                                                         <div class="product-header">
                                                             <a class="author" th:text="${item.author}"></a>
-                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                            <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
@@ -1167,7 +1167,7 @@
                                                     <div class="product-card">
                                                         <div class="product-header">
                                                             <a class="author" th:text="${item.author}"></a>
-                                                            <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                            <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
@@ -1270,7 +1270,7 @@
                                                                 <div class="product-header">
                                                                     <a class="author" th:text="${item.author}">
                                                                     </a>
-                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                    <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                                 </div>
                                                                 <div class="price-block">
                                                                     <th:block th:if = "${item.percentageDiscount == 0}">
@@ -1314,7 +1314,7 @@
                                                                 <div class="product-header">
                                                                     <a class="author" th:text="${item.author}">
                                                                     </a>
-                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                    <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                                 </div>
                                                                 <div class="price-block">
                                                                     <th:block th:if = "${item.percentageDiscount == 0}">
@@ -1357,7 +1357,7 @@
                                                                 <div class="product-header">
                                                                     <a class="author" th:text="${item.author}">
                                                                     </a>
-                                                                    <h3><a th:href="@{/product/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                                                    <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
                                                                 </div>
                                                                 <div class="price-block">
                                                                     <th:block th:if = "${item.percentageDiscount == 0}">
@@ -1827,11 +1827,15 @@
 function createCartDetail() {
     $(".add-cart-btn").on("click", function () {
         // alert("ok")
-        let id_product = $("#modal-addCart").data("id");
-        let amount = $(".amount-product").val();
+
+
 
 
         let id_customer = $("#customer-login").data("id");
+
+        if(id_customer !=null){
+            let id_product = $("#modal-addCart").data("id");
+            let amount = $(".amount-product").val();
 
         let cartDetailDTO = {
             customerId: id_customer,
@@ -1848,12 +1852,24 @@ function createCartDetail() {
             url: "/cp/api/cart-detail/create",
             data: JSON.stringify(cartDetailDTO)
         }).done((resp) => {
-            $.notify("Order success , please waiting store accept  ! Thank you !", "success");
+            // $.notify("Order success , please waiting store accept  ! Thank you !", "success");
+            App.showSuccessAlert("Order success , please waiting store accept  ! Thank you !");
             $(".amount-product").val(1);
             $("#quickModal").modal('hide');
         }).fail((jqXHR) => {
-            $.notify("Please check the information again", "error");
+            // $.notify("Please check the information again", "error");
+            if (amount > 1000 || amount <= 0) {
+                App.showErrorAlert("Buy quantity must be greater than 0 and less than 1000  !")
+            } else {
+                App.showErrorAlert("Please check the information again !")
+            }
         });
+    } else {
+        // App.showErrorAlert("Please login to add cart  !")
+        setTimeout(function () {
+            window.location.href = "/login-register.html";
+        }, 500);
+    }
     });
 }
     createCartDetail() ;

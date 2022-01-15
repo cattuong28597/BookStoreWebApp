@@ -1017,8 +1017,8 @@ Footer Area
                 if (arrayCartDetail[i].quantity != quantityOld) {
                     // arrCartDetailUpdate.push(arrayCartDetail[i])
                     let cartDT = {
-                        id: arrayCartDetail[i].id ,
-                        quantity : arrayCartDetail[i].quantity
+                        id: arrayCartDetail[i].id,
+                        quantity: arrayCartDetail[i].quantity
                     }
                     updateCartDetail(cartDT);
                 }
@@ -1038,9 +1038,9 @@ Footer Area
             url: "/cp/api/cart-detail/update",
             data: JSON.stringify(cartDetailsDTO)
         }).done(function (resp) {
-        $.notify("Update success !", "success") ;
-            App.showSuccessAlert("Update  successfully !")
-        showCart() ;
+            $.notify("Update success !", "success");
+            App.showSuccessAlert("Update successfully !")
+            showCart();
         }).fail(function (jqXHR) {
             if (jqXHR.responseJSON) {
                 if (jqXHR.responseJSON.message) {

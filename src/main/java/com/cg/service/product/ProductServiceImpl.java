@@ -159,6 +159,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product findBySlug(String slug) {
+        return productRepository.findBySlug(slug);
+    }
+
+    @Override
     public void delete(Product product) throws IOException {
 
         Optional<ProductImage> productImage = productImageRepository.findByProduct(product);
