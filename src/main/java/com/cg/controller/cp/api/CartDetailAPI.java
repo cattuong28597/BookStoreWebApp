@@ -35,6 +35,56 @@ public class CartDetailAPI {
     @Autowired
     private ProductService productService;
 
+    class CartDetailUpdateQuantity {
+        private Long id;
+
+        private int quantity;
+
+        public CartDetailUpdateQuantity(Long id, int quantity) {
+            this.id = id;
+            this.quantity = quantity;
+        }
+
+        public CartDetailUpdateQuantity() {
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+    }
+
+    @GetMapping("/update")
+    public ResponseEntity<Iterable<?>> updateAllCartDetail(List<CartDetailUpdateQuantity> list) {
+        try {
+            List<CartDetail> cartDetails = cartDetailService.findAll();
+            List<CartDetailDTO> cartDetailsDTO = null;
+
+            for (CartDetail cartDetail: cartDetails) {
+                cartDetailsDTO.add(cartDetail.toCartDetailDTO());
+            }
+
+            if (cartDetails.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(cartDetailsDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<Iterable<?>> findAll() {
         try {
@@ -110,6 +160,16 @@ public class CartDetailAPI {
             cartDetailService.save(updateCartDetail);
             return new ResponseEntity<>(updateCartDetail, HttpStatus.CREATED);
 
+        } catch (DataIntegrityViolationException e) {
+            throw new DataInputException("Invalid cart detail update information");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCartDetail(CartDetail cartDetail) {
+        try {
+            cartDetailService.save(cartDetail);
+            return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
             throw new DataInputException("Invalid cart detail update information");
         }

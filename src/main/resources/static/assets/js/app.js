@@ -98,8 +98,22 @@ class CartDetail {
     }
 }
 
+class UpdateCartDetail{
+    constructor(id, quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+}
+
+class ListUpdateCartDetail{
+    constructor(id, quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+}
+
 class CartDetailDTO {
-    constructor(id, cartId, productId, name, lastPrice, quantity) {
+    constructor(id, productImage, cartId, productId, name, lastPrice, quantity) {
         this.id = id;
         this.cartId = cartId;
         this.productId = productId;

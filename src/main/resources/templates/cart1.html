@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Pustok - Book Store HTML Template</title>
-    <th:block th:include="layout/head"/>
+    <th:block th:include="layout/head" />
 </head>
 
 <body>
 <div class="site-wrapper" id="top">
     <div class="site-header header-2 mb--20 d-none d-lg-block">
         <div class="header-middle pt--10 pb--10">
-            <th:block th:include="layout/site-header/header-middle"/>
+            <th:block th:include="layout/site-header/header-middle" />
         </div>
         <div class="header-bottom bg-primary">
-            <th:block th:include="layout/site-header/header-bottom"/>
+            <th:block th:include="layout/site-header/header-bottom" />
         </div>
     </div>
     <div class="site-mobile-menu">
@@ -279,8 +279,8 @@
                         <li class="menu-item-has-children">
                             <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="cart.html">USD $</a></li>
-                                <li><a href="checkout.html">EUR €</a></li>
+                                <li> <a href="cart.html">USD $</a></li>
+                                <li> <a href="checkout.html">EUR €</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children">
@@ -357,7 +357,7 @@
                                         </ul>
                                     </li>
                                     <li class="cus-col-25">
-                                        <h3 class="menu-title"><a href="javascript:void(0)">Shop List</a></h3>
+                                        <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
                                         <ul class="mega-single-block">
                                             <li><a href="shop-list.html">Fullwidth</a></li>
                                             <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
@@ -365,7 +365,7 @@
                                         </ul>
                                     </li>
                                     <li class="cus-col-25">
-                                        <h3 class="menu-title"><a href="javascript:void(0)">Product Details 1</a>
+                                        <h3 class="menu-title"> <a href="javascript:void(0)">Product Details 1</a>
                                         </h3>
                                         <ul class="mega-single-block">
                                             <li><a href="product-details.html">Product Details Page</a></li>
@@ -468,26 +468,91 @@
                 <div class="page-section-title">
                     <h1>Shopping Cart</h1>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form action="#" class="">
+                            <!-- Cart Table -->
+                            <div class="cart-table table-responsive mb--40">
+                                <table class="table">
+                                    <!-- Head Row -->
+                                    <thead>
+                                    <tr>
+                                        <th class="pro-thumbnail">Image</th>
+                                        <th class="pro-title">Product</th>
+                                        <th class="pro-price">Price</th>
+                                        <th class="pro-quantity">Quantity</th>
+                                        <th class="pro-subtotal">Total</th>
+                                        <th class="pro-remove"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbListCartDetail">
 
-                <div class="box-body">
 
-                    <input type="hidden" id="currentRow"/>
+                                    <!-- Product Row -->
+<!--                                    <tr>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-thumbnail"><a href="#"><img-->
+<!--                                                src="/assets/image/products/product-1.jpg" alt="Product"></a></td>-->
+<!--                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>-->
+<!--                                        <td class="pro-price"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-quantity">-->
+<!--                                            <div class="pro-qty">-->
+<!--                                                <div class="count-input-block">-->
+<!--                                                    <input type="number" class="form-control text-center"-->
+<!--                                                           value="1">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-subtotal"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>-->
+<!--                                    </tr>-->
+                                    <!-- Product Row -->
+                                    <!--                                    <tr>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="pro-thumbnail"><a href="#"><img-->
+                                    <!--                                                src="/assets/image/products/product-2.jpg" alt="Product"></a></td>-->
+                                    <!--                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>-->
+                                    <!--                                        <td class="pro-price"><span>$395.00</span></td>-->
+                                    <!--                                        <td class="pro-quantity">-->
+                                    <!--                                            <div class="pro-qty">-->
+                                    <!--                                                <div class="count-input-block">-->
+                                    <!--                                                    <input type="number" class="form-control text-center"-->
+                                    <!--                                                           value="1">-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="pro-subtotal"><span>$395.00</span></td>-->
+                                    <!--                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>-->
+                                    <!--                                    </tr>-->
 
-                    <table  class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>IMAGE</th>
-                            <th>PRODUCT</th>
-                            <th>PRICE</th>
-                            <th>QUANTITY</th>
-                            <th>TOTAL</th>
-                            <th>ACTION</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tbListCartDetail" >
-                        </tbody>
-                    </table>
-
+                                    <!-- Discount Row  -->
+                                    <tr>
+                                        <td colspan="6" class="actions">
+                                            <div class="coupon-block">
+                                                <div class="coupon-text">
+                                                    <label for="coupon_code"></label>
+                                                    <input type="text" name="coupon_code" class="input-text"
+                                                           id="coupon_code" value="" placeholder="Coupon code">
+                                                </div>
+                                                <div class="coupon-btn">
+                                                    <input type="submit" class="btn btn-outlined"
+                                                           name="apply_coupon" value="Apply coupon">
+                                                </div>
+                                            </div>
+                                            <div class="update-block text-right">
+                                                <input type="button" onclick="updateCartWithIdCart(1)" class="btn btn-outlined" name="update_cart"
+                                                       value="Update cart" id="updateCart">
+                                                <input type="hidden" id="_wpnonce" name="_wpnonce"
+                                                       value="05741b501f"><input type="hidden"
+                                                                                 name="_wp_http_referer" value="/petmark/cart/">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -719,9 +784,9 @@
                         <div class="cart-summary">
                             <div class="cart-summary-wrap">
                                 <h4><span>Cart Summary</span></h4>
-                                <p>Sub Total <span class="text-primary">$1250.00</span></p>
-                                <p>Shipping Cost <span class="text-primary">$00.00</span></p>
-                                <h2>Grand Total <span class="text-primary">$1250.00</span></h2>
+                                <p>Sub Total <span class="text-primary" id = "sumPrice">${totalCart}</span></p>
+                                <p>Shipping Cost <span class="text-primary" id = "shipCost">0</span></p>
+                                <h2>Grand Total <span class="text-primary" id = "grandTotal"></span></h2>
                             </div>
                             <div class="cart-summary-button">
                                 <a href="checkout.html" class="checkout-btn c-btn btn--primary">Checkout</a>
@@ -739,27 +804,24 @@
 Brands Slider
 ===================================== -->
 <section class="section-margin">
-    <th:block th:include="layout/brand-slider"/>
+    <th:block th:include="layout/brand-slider" />
 </section>
 <!--=================================
 Footer Area
 ===================================== -->
-<th:block th:include="layout/footer"/>
+<th:block th:include="layout/footer" />
 
-<th:block th:include="layout/script"/>
+<th:block th:include="layout/script" />
 
 <script src="/assets/js/app.js"></script>
+<script src="/assets/js/sweetalert2.min.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
 <script>
     let product = new Product();
     let cart = new Cart();
     let cartDetail = new CartDetailDTO();
-    class Order{
-        constructor(id, quantity) {
-            this.id = id;
-            this.quantity = quantity
-        }
-    }
-    let orders = [];
+
+    // let updateCartDetail = new UpdateCartDetail();
 
     function getCartDetailsNotDeleteWithIdCart(id) {
         $.ajax({
@@ -774,7 +836,6 @@ Footer Area
             let str = '';
             let totalCart = 0;
 
-            cartItem = [...resp];
             $.each(resp, function(index, item) {
 
                 console.log(resp);
@@ -782,7 +843,6 @@ Footer Area
                 product = cartDetail.product;
                 let total = cartDetail.quantity*product.lastPrice;
                 totalCart+= total;
-                orders.push(new Order(cartDetail.id, cartDetail.quantity))
 
                 str = `
                         <tr id="tr_${cartDetail.id}">
@@ -813,24 +873,20 @@ Footer Area
                                  <span id ="sp_${cartDetail.id}">${total}
                                  </span>
                             </td>
-                            <td class="pro-remove">
-                                <button type="button" class="btn btn-outline-danger delete" onclick="deleteCartDetail(${cartDetail.id})">
-                                    <i class="far fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                            </td>
+
+                            <td class="pro-remove"><a href="#"><i onclick="deleteCartDetail(${cartDetail.id})" class="far fa-trash-alt"></i></a>
                         </tr>
                     `;
 
                 $("#tbListCartDetail").prepend(str);
+                // $("#sumPrice").html(totalCart);
+                // let shipCost = $("#shipCost").text();
+                // let grand = Number(totalCart) - Number(shipCost);
+                // $("#grandTotal").html(grand);
+                calcTotalAmount();
             });
 
-            let tfoot = `
-                    <tr>
-                         <th colspan="4" class="pro-subtotal"></th>
-                         <th><span id="totalAmount"  style="text-align: right">${totalCart}</span></th>
-                         <th></th>
-                    </tr>
-            `;
+            let tfoot = ``;
             $("#tbListCartDetail").append(tfoot);
 
         }).fail(function (err) {
@@ -838,13 +894,70 @@ Footer Area
         });
     }
 
+    function updateCartWithIdCart(id) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/cart/" + id,
+            type: "GET"
+        }).done(function (resp) {
+
+            $.each(resp, function(index, item) {
+
+                cartDetail = item;
+                let id1 = Number(cartDetail.id);
+                console.log(id1);
+                updateCartDetail(id1)
+                calcTotalAmount();
+            });
+
+            $.notify("Cart updated successfully !", "success")
+
+        }).fail(function (err) {
+            $.notify("Something went wrong, please try again", "error");
+            console.log(err)
+        });
+    }
+
+    function updateCartWithId(id) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/cart/" + id,
+            type: "GET"
+        }).done(function (resp) {
+
+            $.each(resp, function(index, item) {
+
+                cartDetail = item;
+                let id1 = Number(cartDetail.id);
+                updateCartDetail(id1);
+            });
+
+            $.notify("Cart updated successfully !", "success")
+
+        }).fail(function (err) {
+            $.notify("Something went wrong, please try again", "error");
+            console.log(err)
+        });
+    }
+
+
     function changeQuantity(id) {
         let quantity = $(`#inp_${id}`).val();
         let lastPrice = $(`#prod_${id}`).text();
         let total = Number(quantity)*Number(lastPrice);
         $(`#sp_${id}`).text(total);
         calcTotalAmount();
-        updateOrder(id, Number(quantity));
+    }
+
+    function updateCartDetail(id) {
+        let quantity = $(`#inp_${id}`).val();
+        console.log(quantity);
         upDateQuantity(id, quantity)
     }
 
@@ -854,12 +967,10 @@ Footer Area
         for(amount of amounts){
             total += Number(amount.innerText);
         }
-        $(`#totalAmount`).text(total)
-    }
-
-    function updateOrder(id, quantity){
-        let order = orders.find((item) => item.id == id);
-        order.quantity = quantity;
+        $(`#sumPrice`).html(total)
+        let shipCost = $("#shipCost").text();
+        let grand = Number(total) - Number(shipCost);
+        $("#grandTotal").html(grand);
     }
 
     function upDateQuantity(id, quantity) {
@@ -874,10 +985,13 @@ Footer Area
 
             cartDetail = resp;
 
+
         }).fail(function (err) {
+            $.notify("Something went wrong, please try again", "error");
             console.log(err)
         });
     }
+
 
     function deleteCartDetail(id) {
         $.ajax({
@@ -896,41 +1010,11 @@ Footer Area
         });
     }
 
-
-    function sumPriceWithIdCart(id) {
-        $.ajax({
-            headers: {
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            url: "http://localhost:8092/cp/api/cart-details/sum/cart/" + id,
-            type: "GET"
-        }).done(function (resp) {
-
-            let str = '';
-            let totalCart = 0;
-
-            $.each(resp, function(index, item) {
-                console.log(resp);
-
-                cartDetail = item;
-                product = cartDetail.product;
-                cart = cartDetail.cart;
-                let total = cartDetail.quantity*product.lastPrice;
-                totalCart+= total;
-
-                $("#tbListCartDetail").prepend(str);
-            });
-
-        }).fail(function (err) {
-            console.log(err)
-        });
-    }
-
     $(document).ready(function () {
         getCartDetailsNotDeleteWithIdCart(1);
     });
 
 </script>
+
 </body>
 </html>

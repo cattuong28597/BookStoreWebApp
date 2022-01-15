@@ -21,7 +21,7 @@
                 <div class="row align-items-sm-end align-items-center">
                     <div class="col-md-4 col-7">
                         <a href="index.html" class="site-brand">
-<!--                            <img src="/assets/image/logo.png" alt="">-->
+                            <!--                            <img src="/assets/image/logo.png" alt="">-->
                             <img src="/assets/image/logoProject.png" alt="" width="100%" height="100%">
                         </a>
                     </div>
@@ -173,12 +173,12 @@
                         <ul class="mobile-menu main-mobile-menu">
                             <li class="menu-item-has-children">
                                 <a href="#">Home</a>
-<!--                                <ul class="sub-menu">-->
-<!--                                    <li> <a href="index.html">Home One</a></li>-->
-<!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
-<!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
-<!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
-<!--                                </ul>-->
+                                <!--                                <ul class="sub-menu">-->
+                                <!--                                    <li> <a href="index.html">Home One</a></li>-->
+                                <!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
+                                <!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
+                                <!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
+                                <!--                                </ul>-->
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Blog</a>
@@ -324,7 +324,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-4">
                     <a href="index.html" class="site-brand">
-<!--                        <img src="/assets/image/logo.png" alt="">-->
+                        <!--                        <img src="/assets/image/logo.png" alt="">-->
                         <img src="/assets/image/logoProject.png" alt="" width="100%" height="100%">
                     </a>
                 </div>
@@ -333,15 +333,15 @@
                         <ul class="main-menu menu-right ">
                             <li class="menu-item ">
                                 <a href="javascript:void(0)">Home
-<!--                                    <i-->
-<!--                                        class="fas fa-chevron-down dropdown-arrow"></i>-->
+                                    <!--                                    <i-->
+                                    <!--                                        class="fas fa-chevron-down dropdown-arrow"></i>-->
                                 </a>
-<!--                                <ul class="sub-menu">-->
-<!--                                    <li> <a href="index.html">Home One</a></li>-->
-<!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
-<!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
-<!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
-<!--                                </ul>-->
+                                <!--                                <ul class="sub-menu">-->
+                                <!--                                    <li> <a href="index.html">Home One</a></li>-->
+                                <!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
+                                <!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
+                                <!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
+                                <!--                                </ul>-->
                             </li>
                             <!-- Shop -->
                             <li class="menu-item has-children mega-menu">
@@ -482,55 +482,17 @@
                                         <th class="pro-price">Price</th>
                                         <th class="pro-quantity">Quantity</th>
                                         <th class="pro-subtotal">Total</th>
-                                        <th class="pro-remove" colspan="2">Action</th>
+                                        <th class="pro-remove"></th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbListCartDetail">
 
 
-                                    <!-- Product Row -->
-<!--                                    <th:block th:each="item : ${cartDetails}" >-->
-<!--                                        <tr>-->
-<!--&lt;!&ndash;                                            <td class="pro-thumbnail"><a href="#"><img&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    src="/assets/image/products/product-1.jpg" alt="Product"></a></td>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                            <td class="pro-title"><a href="#">Rinosin Glasses</a></td>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td th:text="${item.product.name}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td th:text="${item.product.lastPrice}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td th:text="${item.quantity}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td th:text="${item.quantity}*${item.product.lastPrice}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td class="text-center">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <a class="btn btn-outline-secondary" th:href="@{/cp/cart-details/edit/__${item.id}__ }">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    <i class="fas fa-pencil-alt"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <td class="text-center">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <a class="btn btn-outline-danger" th:href="@{/cp/cart-details/delete/__${item.id}__ }">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    <i class="far fa-trash-alt"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </td>&ndash;&gt;-->
-
-<!--                                            <td class="pro-thumbnail"><a href="#"><img-->
-<!--                                                    src="/assets/image/products/product-1.jpg" alt="Product"></a></td>-->
-<!--                                            <td class="pro-title" th:text="${item.product.name}"><a href="#"></a></td>-->
-<!--                                            <td class="pro-price" th:text="${item.product.lastPrice}"><span></span></td>-->
-<!--                                            <td class="pro-quantity">-->
-<!--                                                <div class="pro-qty">-->
-<!--                                                    <div class="count-input-block">-->
-<!--                                                        <input type="number" class="form-control text-center"-->
-<!--                                                               th:value="${item.quantity}">-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </td>-->
-<!--                                            <td class="pro-subtotal" th:text="${item.quantity}*${item.product.lastPrice}"><span></span></td>-->
-<!--                                            <td class="pro-remove"><a href="@{/cp/cart-details/delete/__${item.id}__ }"><i class="far fa-trash-alt"></i></a>-->
-<!--                                        </tr>-->
-
-<!--                                    </th:block>-->
                                     <!-- Product Row -->
                                     <tr>
                                         </td>
                                         <td class="pro-thumbnail"><a href="#"><img
-                                                src="/assets/image/products/product-2.jpg" alt="Product"></a></td>
+                                                src="/assets/image/products/product-1.jpg" alt="Product"></a></td>
                                         <td class="pro-title"><a href="#">Rinosin Glasses</a></td>
                                         <td class="pro-price"><span>$395.00</span></td>
                                         <td class="pro-quantity">
@@ -544,13 +506,31 @@
                                         <td class="pro-subtotal"><span>$395.00</span></td>
                                         <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>
                                     </tr>
+                                    <!-- Product Row -->
+<!--                                    <tr>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-thumbnail"><a href="#"><img-->
+<!--                                                src="/assets/image/products/product-2.jpg" alt="Product"></a></td>-->
+<!--                                        <td class="pro-title"><a href="#">Rinosin Glasses</a></td>-->
+<!--                                        <td class="pro-price"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-quantity">-->
+<!--                                            <div class="pro-qty">-->
+<!--                                                <div class="count-input-block">-->
+<!--                                                    <input type="number" class="form-control text-center"-->
+<!--                                                           value="1">-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                        <td class="pro-subtotal"><span>$395.00</span></td>-->
+<!--                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a>-->
+<!--                                    </tr>-->
 
                                     <!-- Discount Row  -->
                                     <tr>
                                         <td colspan="6" class="actions">
                                             <div class="coupon-block">
                                                 <div class="coupon-text">
-                                                    <label for="coupon_code">Coupon:</label>
+                                                    <label for="coupon_code"></label>
                                                     <input type="text" name="coupon_code" class="input-text"
                                                            id="coupon_code" value="" placeholder="Coupon code">
                                                 </div>
@@ -832,8 +812,185 @@ Footer Area
 <th:block th:include="layout/footer" />
 
 <th:block th:include="layout/script" />
+
+<script src="/assets/js/app.js"></script>
 <script>
+    let product = new Product();
+    let cart = new Cart();
+    let cartDetail = new CartDetailDTO();
+    class Order{
+        constructor(id, quantity) {
+            this.id = id;
+            this.quantity = quantity
+        }
+    }
+    let orders = [];
+
+    function getCartDetailsNotDeleteWithIdCart(id) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/cart/" + id,
+            type: "GET"
+        }).done(function (resp) {
+
+            let str = '';
+            let totalCart = 0;
+
+            cartItem = [...resp];
+            $.each(resp, function(index, item) {
+
+                console.log(resp);
+                cartDetail = item;
+                product = cartDetail.product;
+                let total = cartDetail.quantity*product.lastPrice;
+                totalCart+= total;
+                orders.push(new Order(cartDetail.id, cartDetail.quantity))
+
+                str = `
+                        <tr id="tr_${cartDetail.id}">
+                            <td class="pro-thumbnail">
+                                <a href="#">
+                                    <img src="${product.avatar}" alt="Product">
+                                </a>
+                            </td>
+                            <td class="pro-title"
+                                <a href="#">${product.name}
+                                </a>
+                            </td>
+                            <td class="pro-price"
+                                <span id = "prod_${cartDetail.id}">${product.lastPrice}
+                                </span>
+                            </td>
+                            <td class="pro-quantity">
+                                 <div class="pro-qty">
+                                       <div class="count-input-block">
+                                              <input id ="inp_${cartDetail.id}" type="number" class="form-control text-center"
+                                                    value="${cartDetail.quantity}"
+                                                    onchange="changeQuantity(${cartDetail.id})"
+                                              >
+                                       </div>
+                                 </div>
+                            </td>
+                            <td class="pro-subtotal" >
+                                 <span id ="sp_${cartDetail.id}">${total}
+                                 </span>
+                            </td>
+                            <td class="pro-remove">
+                                <button type="button" class="btn btn-outline-danger delete" onclick="deleteCartDetail(${cartDetail.id})">
+                                    <i class="far fa-trash-alt" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+
+                $("#tbListCartDetail").prepend(str);
+            });
+
+            let tfoot = ``;
+            $("#tbListCartDetail").append(tfoot);
+
+        }).fail(function (err) {
+            console.log(err)
+        });
+    }
+
+    function changeQuantity(id) {
+        let quantity = $(`#inp_${id}`).val();
+        let lastPrice = $(`#prod_${id}`).text();
+        let total = Number(quantity)*Number(lastPrice);
+        $(`#sp_${id}`).text(total);
+        calcTotalAmount();
+        updateOrder(id, Number(quantity));
+        upDateQuantity(id, quantity)
+    }
+
+    function calcTotalAmount(){
+        let amounts = $('.pro-subtotal span');
+        let total = 0;
+        for(amount of amounts){
+            total += Number(amount.innerText);
+        }
+        $(`#totalAmount`).text(total)
+    }
+
+    function updateOrder(id, quantity){
+        let order = orders.find((item) => item.id == id);
+        order.quantity = quantity;
+    }
+
+    function upDateQuantity(id, quantity) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/edit/cart-detail/" + id + "/" + quantity,
+            type: "PUT"
+        }).done(function (resp) {
+
+            cartDetail = resp;
+
+        }).fail(function (err) {
+            console.log(err)
+        });
+    }
+
+    function deleteCartDetail(id) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/suspend/cart-detail/" + id ,
+            type: "DELETE"
+        }).done(function (resp) {
+            $("#tr_" + id).remove();
+            calcTotalAmount();
+
+        }).fail(function (err) {
+            console.log(err)
+        });
+    }
+
+
+    function sumPriceWithIdCart(id) {
+        $.ajax({
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url: "http://localhost:8092/cp/api/cart-details/sum/cart/" + id,
+            type: "GET"
+        }).done(function (resp) {
+
+            let str = '';
+            let totalCart = 0;
+
+            $.each(resp, function(index, item) {
+                console.log(resp);
+
+                cartDetail = item;
+                product = cartDetail.product;
+                cart = cartDetail.cart;
+                let total = cartDetail.quantity*product.lastPrice;
+                totalCart+= total;
+
+                $("#tbListCartDetail").prepend(str);
+            });
+
+        }).fail(function (err) {
+            console.log(err)
+        });
+    }
+
+    $(document).ready(function () {
+        getCartDetailsNotDeleteWithIdCart(1);
+    });
 
 </script>
+
 </body>
 </html>
