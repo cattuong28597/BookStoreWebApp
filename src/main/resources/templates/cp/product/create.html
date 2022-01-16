@@ -174,10 +174,9 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="col-form-label">Description</label>
-<!--                                        <div id="summernote-editor" name="description">-->
-<!--                                        </div>-->
-                                        <textarea th:field="*{description}" rows="9" style="width: 100%; resize: none" >
-                                        </textarea>
+<!--                                        <div id="description" name="description"></div>-->
+                                        <div id="summer-note"></div>
+<!--                                        <textarea th:field="*{description}" rows="9" style="width: 100%; resize: none" ></textarea>-->
                                     </div>
                                 </div>
 
@@ -294,6 +293,22 @@
 
 <script>
 
+    let page = {
+        urls: {
+            // uploadDescriptionMedia: App.BASE_URL_DESCRIPTION_MEDIA,
+            // doSave: App.BASE_URL_BLOG
+        },
+        element: {},
+        commands: {},
+        loadData: {},
+        dialogs: {
+            element: {},
+            commands: {}
+        }
+    }
+
+    page.element.summerNote = $('#summer-note');
+
     function openFile(event) {
         let input = event.target;
         let reader = new FileReader();
@@ -331,7 +346,8 @@
         formData.append("percentageDiscount",  parseInt($("#percentageDiscount").val()));
         formData.append("discountAmount",  parseInt($("#discountAmount").val()));
         formData.append("lastPrice",  parseInt($("#lastPrice").val()));
-        formData.append("description", $("#description").val());
+        // formData.append("description", $("#description").val());
+        formData.append("description", page.element.summerNote.summernote('code'));
         formData.append("file", $("#imageFile")[0].files[0]);
 
 
@@ -394,9 +410,30 @@
 
     }
 
-    $("#bt-create").on("click", function () {
-        createProduct();
-    })
+
+
+
+
+    page.initializeControlEvent = () => {
+
+        page.element.summerNote.summernote({
+            tabsize: 2,
+            height: 350,
+            // callbacks: {
+            //     onImageUpload: function(files) {
+            //         page.commands.uploadDescriptionMedia(files[0]);
+            //     }
+            // }
+        });
+
+        $("#bt-create").on("click", function () {
+            createProduct();
+        })
+    }
+
+    $(function() {
+        page.initializeControlEvent();
+    });
 
 </script>
 

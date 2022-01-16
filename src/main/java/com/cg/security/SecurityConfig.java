@@ -82,8 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/cp/api/auth/register-customer",
                         "/cp/api/auth/login",
                         "/cp/api/auth/register").permitAll()
+                .antMatchers("/cp/**").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/cp/users/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/cp").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/test").permitAll()
                 .antMatchers("/resources/**", "/assets/**").permitAll()
                 .antMatchers(

@@ -27,8 +27,8 @@ public class Product extends BaseEntity{
     private Long id;
 
     @Column(unique = true)
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên sản phẩm phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
-    @NotBlank(message = "Tên sản phẩm không được trống")
+//    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên sản phẩm phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
+//    @NotBlank(message = "Tên sản phẩm không được trống")
     private String name;
 
     @Column(unique = true)

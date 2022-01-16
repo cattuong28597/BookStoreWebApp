@@ -8,6 +8,11 @@
             font-family: Dancing;
             src: url("/assets/fonts/DancingScript-VariableFont_wght.ttf");
         }
+
+        .product-card .product-header .author,
+        .product-card .product-header h3 {
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -1060,9 +1065,9 @@
                                                             <div class="card-image">
                                                                 <img th:src="${item.avatar}" alt="" width="100%" height="242px">
                                                                 <div class="hover-contents">
-                                                                    <a href="product-details.html" class="hover-image">
-                                                                        <img th:src="${item.avatar}" alt="">
-                                                                    </a>
+<!--                                                                    <a href="product-details.html" class="hover-image">-->
+<!--                                                                        <img th:src="${item.avatar}" alt="" width="100%" height="242px">-->
+<!--                                                                    </a>-->
                                                                     <div class="hover-btns">
                                                                         <a href="cart.html" class="single-btn">
                                                                             <i class="fas fa-shopping-basket"></i>
@@ -1492,7 +1497,7 @@
     <!-- Modal -->
     <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
          aria-labelledby="quickModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <button type="button" class="close modal-close-btn ml-auto" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

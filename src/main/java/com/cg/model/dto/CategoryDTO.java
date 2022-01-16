@@ -23,7 +23,7 @@ public class CategoryDTO {
     private Long id;
 
     @NotBlank(message = "Tên danh mục không được trống")
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên danh mục phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
+//    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên danh mục phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
     @Column(unique = true)
     private String name;
 
