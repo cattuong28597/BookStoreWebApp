@@ -32,18 +32,6 @@ public class User extends BaseEntity{
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
-    @NotBlank(message = "Tên không được trống")
-    private String name;
-
-    @NotBlank(message = "Địa chỉ không được trống")
-    private String address;
-
-    @NotBlank(message = "Số điện thoại không được trống")
-    private String phone;
-
-    @NotBlank(message = "Email không được trống")
-    private String email;
-
 
     @Override
     public String toString() {

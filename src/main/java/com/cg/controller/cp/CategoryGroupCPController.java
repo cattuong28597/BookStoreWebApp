@@ -59,20 +59,36 @@ public class CategoryGroupCPController {
         Optional<CategoryGroup> categoryGroup = categoryGroupService.findById(id);
 
         if (categoryGroup.isPresent()) {
-            List<Category> categories = categoryService.findAll();
+            Iterable<Category> categories = categoryService.findAllByDeletedIsFalse();
             modelAndView.addObject("categories", categories);
             modelAndView.addObject("categoryGroup", categoryGroup);
+
         } else {
             modelAndView.addObject("categoryGroup", new CategoryGroup());
             modelAndView.addObject("script", false);
             modelAndView.addObject("success", false);
             modelAndView.addObject("error", "Invalid category group information");
+
         }
-
         modelAndView.setViewName("cp/category-group/edit");
-
         return modelAndView;
     }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView showDelete(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("cp/category-group/delete");
+        Optional<CategoryGroup> categoryGroup = categoryGroupService.findById(id);
+
+        if (categoryGroup.isPresent()) {
+            modelAndView.addObject("categoryGroup", categoryGroup.get());
+            modelAndView.addObject("success", false);
+            return modelAndView;
+
+        } else {
+            return new ModelAndView("errorPage");
+        }
+    }
+
 
     @PostMapping(value = "/create")
     public ModelAndView create(@Validated @ModelAttribute("categoryGroup") CategoryGroup categoryGroup, BindingResult bindingResult) {

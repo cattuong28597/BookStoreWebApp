@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cp")
 public class ControlPanelController {
 
+
     @GetMapping("")
     public ModelAndView showCPHomePage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -17,21 +18,4 @@ public class ControlPanelController {
         return modelAndView;
     }
 
-    @GetMapping("/users")
-    public ModelAndView showCpUserIndex() {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("cp/user/list");
-
-        return modelAndView;
-    }
-
-    @GetMapping("/users/create")
-    public ModelAndView showCpUserCreate() {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("cp/user/create");
-
-        return modelAndView;
-    }
 }

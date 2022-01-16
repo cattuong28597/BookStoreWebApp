@@ -27,8 +27,8 @@ public class Product extends BaseEntity{
     private Long id;
 
     @Column(unique = true)
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên sản phẩm phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
-    @NotBlank(message = "Tên sản phẩm không được trống")
+//    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên sản phẩm phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
+//    @NotBlank(message = "Tên sản phẩm không được trống")
     private String name;
 
     @Column(unique = true)
@@ -44,13 +44,13 @@ public class Product extends BaseEntity{
 
     private Date publicationDate;
 
-    @NotBlank(message = "Số trang không được trống")
+    @NotNull(message = "Số trang không được trống")
     @Min(value = 1, message = "Số trang không được nhỏ hơn 1")
     private int page;
 
-    private double vote;
+    private double vote = 0.0;
 
-    private String comment;
+    private String comment ="" ;
 
     @Digits(integer = 12, fraction = 2)
     @Column(name = "price", nullable= false)
@@ -79,6 +79,9 @@ public class Product extends BaseEntity{
     private String description;
 
     private String avatar;
+
+    @Column(columnDefinition = "BIGINT(20) DEFAULT 0")
+    private Long ts = new Date().getTime();
 
     @ManyToOne
     @JoinColumn(name = "category_group_id", referencedColumnName = "id", nullable = false)

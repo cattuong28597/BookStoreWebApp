@@ -1,6 +1,9 @@
 package com.cg.controller.cp;
 
 import com.cg.model.Category;
+import com.cg.model.CategoryGroup;
+import com.cg.model.Customer;
+import com.cg.model.dto.CategoryDTO;
 import com.cg.service.category.CategoryService;
 import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ public class CategoryCPController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cp/category/list");
 
-        List<Category> categories = categoryService.findAll();
+        Iterable<Category> categories = categoryService.findAllByDeletedIsFalse();
 
         modelAndView.addObject("categories", categories);
 
@@ -39,7 +42,7 @@ public class CategoryCPController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cp/category/create");
-        modelAndView.addObject("category", new Category());
+        modelAndView.addObject("categoryDTO", new CategoryDTO());
         return modelAndView;
     }
 
@@ -52,27 +55,49 @@ public class CategoryCPController {
 
         if (category.isPresent()) {
             modelAndView.addObject("category", category);
+
         } else {
             modelAndView.addObject("category", new Category());
             modelAndView.addObject("script", false);
             modelAndView.addObject("success", false);
             modelAndView.addObject("error", "Invalid category information");
         }
-
         modelAndView.setViewName("cp/category/edit");
 
         return modelAndView;
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView showDelete(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Optional<Category> category = categoryService.findById(id);
+
+        if (category.isPresent()) {
+            modelAndView.addObject("category", category.get());
+            modelAndView.addObject("success", false);
+
+        } else {
+            Category category1 = new Category();
+            category1.setDeleted(true);
+            modelAndView.addObject("category",category1 );
+            modelAndView.addObject("error", "Invalid category information");
+
+
+        }
+        modelAndView.setViewName("cp/category/delete");
+        return modelAndView;
+
+    }
+
     @PostMapping(value = "/create")
-    public ModelAndView create(@Validated @ModelAttribute("category") Category category, BindingResult bindingResult) {
+    public ModelAndView create(@Validated @ModelAttribute("categoryDTO") CategoryDTO categoryDTO, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasFieldErrors()) {
             modelAndView.addObject("script", true);
         }
         else {
-            String slug = AppUtils.removeNonAlphanumeric(category.getName());
+            String slug = AppUtils.removeNonAlphanumeric(categoryDTO.getName());
 
             Boolean existSlug = categoryService.existsBySlugEquals(slug);
 
@@ -81,10 +106,11 @@ public class CategoryCPController {
             }
             else {
                 try {
-                    category.setSlug(slug);
-                    categoryService.save(category);
+                    categoryDTO.setSlug(slug);
 
-                    modelAndView.addObject("category", new Category());
+                    Category category = categoryService.create(categoryDTO);
+
+                    modelAndView.addObject("categoryDTO", new CategoryDTO());
                     modelAndView.addObject("success", "Successfully added new category");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -131,5 +157,22 @@ public class CategoryCPController {
         modelAndView.setViewName("cp/category/edit");
 
         return modelAndView;
+    }
+
+    @PostMapping("/delete/{id}")
+    public ModelAndView deleteCategory(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView("/cp/category/delete");
+
+        Optional<Category> category = categoryService.findById(id);
+
+        if (category.isPresent()) {
+            category.get().setDeleted(true);
+            categoryService.save(category.get());
+            modelAndView.addObject("category", category.get());
+            modelAndView.addObject("success", "Category deleted successfully");
+            return modelAndView;
+        } else {
+            return new ModelAndView("/errorPage");
+        }
     }
 }

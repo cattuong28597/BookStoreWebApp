@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
@@ -24,16 +23,17 @@ public class OrderDetail extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-    private Product product;
+
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "price", nullable= false)
     private BigDecimal price;
 
     private int quantity;
 
-    private String name;
+    @Column(name = "name_product")
+    private String nameProduct;
 
     private BigDecimal total;
 }

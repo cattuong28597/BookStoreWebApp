@@ -1,5 +1,6 @@
 package com.cg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Cart extends BaseEntity{
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
 
-    @OneToMany
-    @JoinColumn(name = "cartDetail_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    @OneToMany(targetEntity = CartDetail.class, mappedBy = "cart")
     private List<CartDetail> cartDetails;
 }

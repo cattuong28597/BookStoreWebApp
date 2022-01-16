@@ -42,4 +42,5 @@ public class CategoryGroup extends BaseEntity{
     @JsonIgnore
     private List<Product> products;
 
+
 }
