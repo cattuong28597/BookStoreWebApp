@@ -26,11 +26,11 @@ public class UserDTO {
 
     @NotBlank(message = "The email is required")
     @Email(message = "The email address is invalid")
-    @Size(max = 50, message = "The length of email must be between 5 and 50 characters")
+    @Size(min = 5, max = 50, message = "The length of email must be between 5 and 50 characters")
     private String username;
 
     @NotBlank(message = "The password is required")
-    @Size(max = 30, message = "Maximum password length 30 characters")
+    @Size(min = 5, max = 30, message = "The length of password must be between 5 and 30 characters")
     private String password;
 
 
