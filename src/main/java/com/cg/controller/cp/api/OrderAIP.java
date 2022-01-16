@@ -76,7 +76,7 @@ public class OrderAIP {
                 OrderDetail orderDetail = cartDetail.toOrderDetail() ;
                 orderDetail.setOrder(order);
                 orderDetailService.save(orderDetail) ;
-                totalAmount.add(orderDetail.getTotal()) ;
+               totalAmount = totalAmount.add(orderDetail.getTotal()) ;
                 cartDetail.setDeleted(true);
                 cartDetailsService.save(cartDetail) ;
             }

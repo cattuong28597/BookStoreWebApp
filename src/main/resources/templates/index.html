@@ -1858,7 +1858,7 @@ function createCartDetail() {
             data: JSON.stringify(cartDetailDTO)
         }).done((resp) => {
             // $.notify("Order success , please waiting store accept  ! Thank you !", "success");
-            App.showSuccessAlert("Order success , please waiting store accept  ! Thank you !");
+            App.showSuccessAlert("Add cart success ! Thank you !");
             $(".amount-product").val(1);
             $("#quickModal").modal('hide');
         }).fail((jqXHR) => {

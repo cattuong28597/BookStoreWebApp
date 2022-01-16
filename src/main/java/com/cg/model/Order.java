@@ -29,6 +29,8 @@ public class Order extends BaseEntity{
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean confirm;
 
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
