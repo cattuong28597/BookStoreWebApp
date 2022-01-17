@@ -37,7 +37,7 @@ public class Customer extends BaseEntity{
     @NotBlank(message = "Email không được trống")
     private String email;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 

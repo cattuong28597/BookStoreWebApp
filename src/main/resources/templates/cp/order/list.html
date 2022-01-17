@@ -68,7 +68,7 @@
                                             <th:block th:if="${item.confirm}">
                                                 <td><span class="badge bg-info">Shipped</span></td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-danger" th:href="@{/cp/order/details/__${item.getId()}__ }">
+                                                    <a class="btn btn-outline-danger" th:href="@{/cp/orders/details/__${item.getId()}__ }">
                                                         <i class="fas fa-truck"></i>
                                                     </a>
                                                 </td>
@@ -78,7 +78,7 @@
                                                     <span class="badge bg-warning">Processing</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-success" th:href="@{/cp/order/details/__${item.getId()}__ }">
+                                                    <a class="btn btn-outline-success" th:href="@{/cp/orders/details/__${item.getId()}__ }">
                                                         <i class="fas fa-cart-arrow-down"></i>
                                                     </a>
                                                 </td>

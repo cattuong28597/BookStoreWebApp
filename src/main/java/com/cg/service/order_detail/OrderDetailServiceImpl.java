@@ -1,5 +1,6 @@
 package com.cg.service.order_detail;
 
+import com.cg.model.Order;
 import com.cg.model.OrderDetail;
 import com.cg.repository.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public List<OrderDetail> findAllByDeletedIsFalse() {
         return orderDetailRepository.findAllByDeletedIsFalse();
     }
+
+    @Override
+    public List<OrderDetail> findAllByOrder(Order order){
+        return orderDetailRepository.findAllByOrder(order) ;
+    };
 }

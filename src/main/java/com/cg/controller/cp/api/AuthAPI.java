@@ -135,6 +135,11 @@ public class AuthAPI {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
+
+//        Customer customer = customerService.findCustomerByUserUsername(user.getUsername());
+//        if(customer.isDeleted()){
+//             throw new DataInputException("Account has been blocked, please contact customer service !");
+//        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
