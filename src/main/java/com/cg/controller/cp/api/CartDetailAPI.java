@@ -1,232 +1,152 @@
 package com.cg.controller.cp.api;
 
 import com.cg.exception.DataInputException;
-import com.cg.exception.ResourceNotFoundException;
+import com.cg.model.Cart;
 import com.cg.model.CartDetail;
+import com.cg.model.Customer;
+import com.cg.model.Product;
 import com.cg.model.dto.CartDetailDTO;
 import com.cg.service.cart.CartService;
-import com.cg.service.cartdetail.CartDetailService;
+import com.cg.service.cart_details.CartDetailService;
+import com.cg.service.customer.CustomerService;
 import com.cg.service.product.ProductService;
 import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("cp/api/cart-details")
+@RequestMapping("/cp/api/cart-detail")
 public class CartDetailAPI {
-    @Autowired
-    private CartDetailService cartDetailService;
 
     @Autowired
     private CartService cartService;
 
     @Autowired
-    private AppUtils appUtils;
+    private CustomerService customerService;
+
+    @Autowired
+    private CartDetailService cartDetailsService;
 
     @Autowired
     private ProductService productService;
 
-    class CartDetailUpdateQuantity {
-        private Long id;
+    @Autowired
+    private AppUtils appUtils;
 
-        private int quantity;
 
-        public CartDetailUpdateQuantity(Long id, int quantity) {
-            this.id = id;
-            this.quantity = quantity;
-        }
-
-        public CartDetailUpdateQuantity() {
-        }
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
-    }
-
-    @GetMapping("/update")
-    public ResponseEntity<Iterable<?>> updateAllCartDetail(List<CartDetailUpdateQuantity> list) {
-        try {
-            List<CartDetail> cartDetails = cartDetailService.findAll();
-            List<CartDetailDTO> cartDetailsDTO = null;
-
-            for (CartDetail cartDetail: cartDetails) {
-                cartDetailsDTO.add(cartDetail.toCartDetailDTO());
-            }
-
-            if (cartDetails.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(cartDetailsDTO, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<Iterable<?>> findAll() {
-        try {
-            List<CartDetail> cartDetails = cartDetailService.findAll();
-            List<CartDetailDTO> cartDetailsDTO = null;
-
-            for (CartDetail cartDetail: cartDetails) {
-                cartDetailsDTO.add(cartDetail.toCartDetailDTO());
-            }
-
-            if (cartDetails.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(cartDetailsDTO, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
 
     @GetMapping("/cart/{id}")
-    public ResponseEntity<Iterable<?>> showCpCartDetailsIndex(@PathVariable Long id) {
+    public ResponseEntity<List<?>> showAllCart(@PathVariable Long id) {
+        Optional<Cart> cartOptional = cartService.findById(id);
+        if (!cartOptional.isPresent()) {
+            throw new DataInputException("Cart not exits !");
+        }
         try {
-            List<CartDetail> cartDetails = cartDetailService.findCartDetailByCartAndDeletedIsFalse(id);
-
-            if (cartDetails.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(cartDetails, HttpStatus.OK);
+            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cartOptional.get());
+            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCartDetail(@Validated @RequestBody CartDetail cartDetail, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return appUtils.mapErrorToResponse(bindingResult);
-
-        try {
-            cartDetail.setQuantity(1);
-            CartDetail cartDetail1 = cartDetailService.save(cartDetail);
-
-            return new ResponseEntity<>(cartDetail1, HttpStatus.CREATED);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Invalid cart detail creation information");
+    @GetMapping("/remove/{id}")
+    public ResponseEntity<List<?>> showAllCartAfterRemove(@PathVariable Long id) {
+        Optional<CartDetail> cartDetailOptional = cartDetailsService.findById(id);
+        if (!cartDetailOptional.isPresent()) {
+            throw new DataInputException("Cart details not exits !");
         }
-    }
-
-    @GetMapping("/edit/cart-detail/{id}")
-    public ResponseEntity<?> showEdit(@PathVariable Long id) {
-
-        Optional<CartDetail> cartDetail = cartDetailService.findById(id);
-
-//        return cartDetail.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
-////        Viết tắt
-
-        if (cartDetail.isPresent()) {
-            return new ResponseEntity<>(cartDetail.get(), HttpStatus.OK);
-        } else {
-            throw new ResourceNotFoundException("No cart detail found with the Id: " + id);
-        }
-    }
-
-    @PutMapping(value = "/edit/cart-detail/{id}/{quantity}")
-    public ResponseEntity<?> updateQuantity(@PathVariable Long id, @PathVariable int quantity) {
-
         try {
-            CartDetail updateCartDetail = cartDetailService.findById(id).get();
-            updateCartDetail.setQuantity(quantity);
-            cartDetailService.save(updateCartDetail);
-            return new ResponseEntity<>(updateCartDetail, HttpStatus.CREATED);
-
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Invalid cart detail update information");
-        }
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCartDetail(CartDetail cartDetail) {
-        try {
-            cartDetailService.save(cartDetail);
-            return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Invalid cart detail update information");
-        }
-    }
-
-    @PutMapping(value = "/edit/cart-detail/{id}")
-    public ResponseEntity<?> update(@Validated CartDetail cartDetail, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return appUtils.mapErrorToResponse(bindingResult);
-
-        try {
-            CartDetail updateCartDetail = cartDetailService.save(cartDetail);
-
-            return new ResponseEntity<>(updateCartDetail, HttpStatus.CREATED);
-
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Invalid cart detail update information");
-        }
-    }
-
-    @GetMapping("/sum/cart/{id}")
-    public BigDecimal getSumPrice(@PathVariable Long id) {
-
-        try {
-            List<CartDetail> cartDetails = cartDetailService.findCartDetailByCartAndDeletedIsFalse(id);
-            if (cartDetails.isEmpty()) {
-                return new BigDecimal(0);
-            }
-            BigDecimal sumCart = BigDecimal.valueOf(0);
-            for (CartDetail item: cartDetails) {
-                BigDecimal tempQ = new BigDecimal(Integer.toString(item.getQuantity()));
-                BigDecimal b = item.getProduct().getLastPrice();
-
-                sumCart = b.multiply(tempQ);
-            }
-
-            return sumCart;
+            CartDetail cartDetail = cartDetailOptional.get();
+            cartDetail.setDeleted(true);
+            cartDetailsService.save(cartDetail);
+            Cart cart = cartDetail.getCart();
+            List<CartDetailDTO> cartDetailDTOList = cartDetailsService.findAllCartDetailDTOByCartAndDeletedFalse(cart);
+            return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
         } catch (Exception e) {
-            return new BigDecimal(0);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/suspend/cart-detail/{id}")
-    public ResponseEntity<?> doSuspend(@PathVariable Long id) {
-        Optional<CartDetail> cartDetail = cartDetailService.findById(id);
 
-        if (cartDetail.isPresent()) {
-            try {
-                cartDetail.get().setDeleted(true);
-                cartDetailService.save(cartDetail.get());
+    @PostMapping("/create")
+    public ResponseEntity<?> creatCartDetail(@Validated @RequestBody CartDetailDTO cartDetailDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return appUtils.mapErrorToResponse(bindingResult);
+        }
 
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (DataIntegrityViolationException e) {
-                throw new DataInputException("Invalid suspension information");
+        Optional<Customer> customerOptional = customerService.findById(cartDetailDTO.getCustomerId());
+
+        Optional<Product> productOptional = productService.findById(cartDetailDTO.getProductId());
+
+        if (!productOptional.isPresent()) {
+            throw new DataInputException("Product not exits !");
+        }
+
+        if (!customerOptional.isPresent()) {
+            throw new DataInputException("Customer not exits !");
+        }
+
+        try {
+            Cart cart = cartService.findCartsByCustomer(customerOptional.get());
+            Product product = productOptional.get();
+
+            CartDetail cartDetail = cartDetailsService.findCartDetailByProductAndAndDeletedIsFalse(product);
+
+            if (cartDetail != null) {
+                int quantityNew = cartDetailDTO.getQuantity() + cartDetail.getQuantity();
+                cartDetail.setQuantity(quantityNew);
+            } else {
+                cartDetail = cartDetailDTO.toCartDetail(cart, product);
             }
-        } else {
-            throw new DataInputException("Invalid cart detail information");
+            cartDetailsService.save(cartDetail);
+            return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
+        } catch (DataInputException e) {
+            throw new DataInputException("Cart detail creation information is not valid, please check the information again");
         }
     }
+
+//    @PostMapping("/update")
+//    public ResponseEntity<List<?>> updateCartDetails(CartDetailDTO[] cartDetailDTOS) {
+//        try {
+//            for (CartDetailDTO cartDetailDTO : cartDetailDTOS) {
+//                   CartDetail cartDetail = cartDetailsService.findById(cartDetailDTO.getId()).get();
+//                   cartDetail.setQuantity(cartDetailDTO.getQuantity());
+//                   cartDetailsService.save(cartDetail) ;
+//            }
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCartDetails( @Validated @RequestBody  CartDetailDTO cartDetailDTO,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return appUtils.mapErrorToResponse(bindingResult);
+        }
+        try {
+            Optional<CartDetail> cartDetailOptional = cartDetailsService.findById(cartDetailDTO.getId());
+            if (!cartDetailOptional.isPresent()) {
+                throw new DataInputException("Cart not exits !");
+            }
+            CartDetail cartDetail = cartDetailOptional.get();
+            cartDetail.setQuantity(cartDetailDTO.getQuantity());
+            cartDetailsService.save(cartDetail);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+
 }

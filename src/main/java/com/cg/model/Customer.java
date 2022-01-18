@@ -25,12 +25,6 @@ public class Customer extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
     @NotBlank(message = "Tên không được trống")
     private String name;
 
@@ -42,6 +36,10 @@ public class Customer extends BaseEntity{
 
     @NotBlank(message = "Email không được trống")
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
 
 }

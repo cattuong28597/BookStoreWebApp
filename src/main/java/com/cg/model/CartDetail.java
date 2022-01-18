@@ -1,15 +1,12 @@
 package com.cg.model;
 
 import com.cg.model.dto.CartDetailDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
@@ -23,27 +20,38 @@ public class CartDetail extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int quantity;
+
     @ManyToOne
-//    @JsonIgnore
     @JoinColumn(name = "cart_id", referencedColumnName = "id", nullable = false)
     private Cart cart;
 
     @ManyToOne
-//    @JsonIgnore
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 
-    @Min(value = 1, message = "Số lượng không được nhỏ hơn 1")
-    private int quantity;
 
-    public CartDetailDTO toCartDetailDTO() {
-        CartDetailDTO cartDetail = new CartDetailDTO();
-        cartDetail.setId(id);
-        cartDetail.setIdCart(cart.getId());
-        cartDetail.setIdProduct(product.getId());
-        cartDetail.setName(product.getName());
-        cartDetail.setQuantity(quantity);
-        return cartDetail;
+    public OrderDetail toOrderDetail(){
+        OrderDetail orderDetail = new OrderDetail() ;
+        orderDetail.setPrice(product.getLastPrice());
+        orderDetail.setQuantity(quantity);
+        orderDetail.setNameProduct(product.getName());
+        BigDecimal total = product.getLastPrice().multiply(BigDecimal.valueOf(quantity)) ;
+        orderDetail.setTotal(total);
+        orderDetail.setProductId(product.getId());
+        return orderDetail ;
+    }
+
+
+    public CartDetailDTO cartDetailDTO(){
+        CartDetailDTO cartDetailDTO = new CartDetailDTO() ;
+        cartDetailDTO.setId(id) ;
+        cartDetailDTO.setCartId(cart.getId()) ;
+        cartDetailDTO.setQuantity(quantity) ;
+        cartDetailDTO.setProductImage(product.getAvatar()) ;
+        cartDetailDTO.setProductLastPrice(product.getLastPrice());
+        cartDetailDTO.setProductName(product.getName()) ;
+        return cartDetailDTO ;
     }
 
 }

@@ -821,7 +821,7 @@ Footer Area
     let cart = new Cart();
     let cartDetail = new CartDetailDTO();
 
-    // let updateCartDetail = new UpdateCartDetail();
+    let updateCart = new UpdateCart();
 
     function getCartDetailsNotDeleteWithIdCart(id) {
         $.ajax({
@@ -1004,8 +1004,9 @@ Footer Area
         }).done(function (resp) {
             $("#tr_" + id).remove();
             calcTotalAmount();
-
+            $.notify("Cart updated successfully !", "success")
         }).fail(function (err) {
+            $.notify("Something went wrong, please try again", "error");
             console.log(err)
         });
     }

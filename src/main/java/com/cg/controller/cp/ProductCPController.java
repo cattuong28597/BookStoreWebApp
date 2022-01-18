@@ -2,19 +2,14 @@ package com.cg.controller.cp;
 
 
 import com.cg.model.Category;
-import com.cg.model.CategoryGroup;
 import com.cg.model.Product;
-import com.cg.service.categorygroup.CategoryGroupService;
+import com.cg.service.category.CategoryService;
 import com.cg.service.product.ProductService;
-import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +18,7 @@ import java.util.Optional;
 public class ProductCPController {
 
     @Autowired
-    private CategoryGroupService categoryGroupService;
+    private CategoryService categoryService;
 
     @Autowired
     private ProductService productService;
@@ -42,9 +37,9 @@ public class ProductCPController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
+        List<Category> categories = categoryService.findAll();
 
-        modelAndView.addObject("categoryGroups", categoryGroups);
+        modelAndView.addObject("categories", categories);
         modelAndView.addObject("product", new Product());
 
         modelAndView.setViewName("cp/product/create");
@@ -62,44 +57,43 @@ public class ProductCPController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/create")
-    public ModelAndView create(@Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-        modelAndView.addObject("categoryGroups", categoryGroups);
-
-        if (bindingResult.hasFieldErrors()) {
-            modelAndView.addObject("script", true);
-        } else {
-
-            String slug = "A";
-
-            try {
-                product.setSlug(slug);
-                productService.save(product);
-                Optional<Product> productCheck = productService.findBySlugAndIdIsNot(slug, 0L);
-
-                Product product1 = productCheck.get();
-                String slugTemp = product1.getName() + "-" + product1.getId();
-                String slugTemp1 = AppUtils.removeNonAlphanumeric(slugTemp);
-                product1.setSlug(slugTemp1);
-                productService.save(product1);
-
-                modelAndView.addObject("product", new Product());
-                modelAndView.addObject("success", "Successfully added new product");
-            } catch (Exception e) {
-                if (!(bindingResult.hasFieldErrors())){
-                    e.printStackTrace();
-                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
-                }
-            }
-        }
-
-        modelAndView.setViewName("cp/product/create");
-
-        return modelAndView;
-    }
+//    @PostMapping(value = "/create")
+//    public ModelAndView create(@Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        List<Category> categories = CategoryService.findAll();
+//
+//        modelAndView.addObject("categories", categories);
+//
+//        if (bindingResult.hasFieldErrors()) {
+//            modelAndView.addObject("script", true);
+//        }
+//        else {
+//            String slug = AppUtils.removeNonAlphanumeric(product.getName());
+//
+//            Boolean existSlug = productService.existsBySlugEquals(slug);
+//
+//            if (existSlug) {
+//                modelAndView.addObject("error", "The name already exists");
+//            }
+//            else {
+//                try {
+//                    product.setSlug(slug);
+//                    productService.save(product);
+//
+//                    modelAndView.addObject("product", new Product());
+//                    modelAndView.addObject("success", "Successfully added new product");
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
+//                }
+//            }
+//        }
+//
+//        modelAndView.setViewName("cp/product/create");
+//
+//        return modelAndView;
+//    }
 
     @GetMapping("/edit/{id}")
     public ModelAndView showEdit(@PathVariable Long id) {
@@ -107,57 +101,14 @@ public class ProductCPController {
         ModelAndView modelAndView = new ModelAndView();
 
         Optional<Product> product = productService.findById(id);
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
 
         if (product.isPresent()) {
-            Product product1 = product.get();
-            if (product1.isDeleted()){
-                List<Product> products = productService.findAll();
-                modelAndView.addObject("products", products);
-                modelAndView.addObject("error", "Deleted product");
-                modelAndView.setViewName("cp/product/list");
-                return modelAndView;
-            }else {
-                modelAndView.addObject("product", product);
-                modelAndView.addObject("categoryGroups", categoryGroups);
-                modelAndView.setViewName("cp/product/edit");
-                return modelAndView;
-            }
+            modelAndView.addObject("product", product);
         } else {
-            List<Product> products = productService.findAll();
-            modelAndView.addObject("products", products);
-            modelAndView.setViewName("cp/product/list");
-            return modelAndView;
-        }
-    }
-
-    @PostMapping(value = "/edit/{id}")
-    public ModelAndView update(@Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-        modelAndView.addObject("categoryGroups", categoryGroups);
-        Boolean deleted = productService.findById(product.getId()).get().isDeleted();
-
-        if (bindingResult.hasFieldErrors()) {
-            modelAndView.addObject("script", true);
-        } else {
-
-            String slugTemp = product.getName() + "-" + product.getId();
-            String slugTemp1 = AppUtils.removeNonAlphanumeric(slugTemp);
-
-            try {
-                product.setSlug(slugTemp1);
-                product.setDeleted(deleted);
-                productService.save(product);
-
-                modelAndView.addObject("success", "Product has been successfully updated");
-            } catch (Exception e) {
-                if (!(bindingResult.hasFieldErrors())){
-                    e.printStackTrace();
-                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
-                }
-            }
+            modelAndView.addObject("product", new Product());
+            modelAndView.addObject("script", false);
+            modelAndView.addObject("success", false);
+            modelAndView.addObject("error", "Invalid product information");
         }
 
         modelAndView.setViewName("cp/product/edit");
@@ -165,63 +116,4 @@ public class ProductCPController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/delete/{id}")
-    public ModelAndView showDelete(@PathVariable long id) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Optional<Product> product = productService.findById(id);
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-
-        if (product.isPresent()) {
-            if (product.get().isDeleted()){
-                List<Product> products = productService.findAll();
-                modelAndView.addObject("products", products);
-                modelAndView.addObject("error", "Deleted product");
-                modelAndView.setViewName("cp/product/list");
-                return modelAndView;
-            }else {
-                modelAndView.addObject("product", product);
-                modelAndView.addObject("categoryGroups", categoryGroups);
-                modelAndView.setViewName("cp/product/delete");
-                return modelAndView;
-            }
-        } else {
-            modelAndView.setViewName("cp/product/list");
-            List<Product> products = productService.findAll();
-            modelAndView.addObject("products", products);
-            return modelAndView;
-        }
-    }
-
-    @PostMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable long id) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
-
-        modelAndView.addObject("categoryGroups", categoryGroups);
-
-        Product product = productService.findById(id).get();
-        modelAndView.addObject("product", product);
-
-            try {
-                if (product.isDeleted()){
-                    modelAndView.addObject("error", "Deleted product");
-                }else {
-                    product.setDeleted(true);
-                    productService.save(product);
-                    modelAndView.addObject("success", "Product has been successfully deleted");
-                }
-
-            } catch (Exception e) {
-                    e.printStackTrace();
-                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
-            }
-
-        modelAndView.setViewName("cp/product/delete");
-
-        return modelAndView;
-    }
 }

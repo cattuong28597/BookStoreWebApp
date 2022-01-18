@@ -1,6 +1,7 @@
 package com.cg.service.cart;
 
 import com.cg.model.Cart;
+import com.cg.model.Customer;
 import com.cg.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartRepository cartRepository;
-
 
     @Override
     public List<Cart> findAll() {
@@ -38,5 +38,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void remove(Long id) {
         cartRepository.deleteById(id);
+    }
+
+    @Override
+    public Cart findCartsByCustomer(Customer customer) {
+        return cartRepository.findCartsByCustomer(customer);
     }
 }

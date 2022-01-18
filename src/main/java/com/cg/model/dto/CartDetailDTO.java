@@ -3,17 +3,14 @@ package com.cg.model.dto;
 import com.cg.model.Cart;
 import com.cg.model.CartDetail;
 import com.cg.model.Product;
-import com.cg.model.User;
-import com.cg.repository.CartRepository;
-import com.cg.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @Getter
@@ -21,36 +18,42 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@Component
 public class CartDetailDTO {
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
     private Long id;
-    private Long idCart;
-    private Long idProduct;
-    private String name;
-    private BigDecimal lastPrice;
+
+    private Long customerId;
+
+    private Long cartId ;
+
+    private Long productId;
+
+    private String productImage ;
+
+    private String productName ;
+
+    private BigDecimal productLastPrice ;
+
+
+    @Min(value = 1, message = "Quantity must be more than 1 !")
+    @Max(value = 1000, message = "Quantity must be less than 1.000 !")
     private int quantity;
 
-    public CartDetailDTO(Long id, Cart cart, Product product, int quantity) {
+    public CartDetailDTO(Long id, Long cartId, Long productId, String productImage, String productName, BigDecimal productLastPrice, int quantity) {
         this.id = id;
-        this.idCart = cart.getId();
-        this.idProduct = product.getId();
-        this.name = product.getName();
-        this.setLastPrice(lastPrice);
+        this.cartId = cartId;
+        this.productId = productId;
+        this.productImage = productImage;
+        this.productName = productName;
+        this.productLastPrice = productLastPrice;
         this.quantity = quantity;
     }
 
-    public CartDetail toCartDetail() {
-        CartDetail cartDetail = new CartDetail();
+    public CartDetail toCartDetail(Cart cart , Product product){
+        CartDetail cartDetail = new CartDetail() ;
         cartDetail.setId(id);
-        cartDetail.setCart(cartRepository.getById(idCart));
-        cartDetail.setProduct(productRepository.getById(idProduct));
-        cartDetail.setQuantity(quantity);
-        return cartDetail;
+        cartDetail.setCart(cart);
+        cartDetail.setProduct(product);
+        cartDetail.setQuantity(quantity) ;
+        return cartDetail ;
     }
 }

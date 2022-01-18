@@ -56,7 +56,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(DataInputException.class)
-  public ResponseEntity<?> dataInputException(DataInputException ex, HttpStatus status, WebRequest request) {
+  public ResponseEntity<?> dataInputException(DataInputException ex, WebRequest request) {
     Map<String, String> body = new HashMap<>();
 
     body.put("message", ex.getMessage());

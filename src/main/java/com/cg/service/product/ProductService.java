@@ -1,9 +1,11 @@
 package com.cg.service.product;
 
 import com.cg.model.Product;
+import com.cg.model.dto.IProductDTO;
+import com.cg.model.dto.ProductDTO;
 import com.cg.service.IGeneralService;
-import org.springframework.data.jpa.repository.Query;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public interface ProductService extends IGeneralService<Product> {
@@ -12,6 +14,17 @@ public interface ProductService extends IGeneralService<Product> {
 
     Boolean existsBySlugEqualsAndIdIsNot(String slug, long id);
 
-    @Query("select c from Product c where c.slug = ?1 and c.id <> ?2")
-    Optional<Product> findBySlugAndIdIsNot(String slug, Long id);
+    Iterable<IProductDTO> findAllIProductDTO();
+
+    IProductDTO findIProductDTOById(Long id);
+
+    Product create(ProductDTO productDTO);
+
+    void delete(Product product) throws IOException;
+
+    Product findBySlug(String slug);
+
+
+
+
 }

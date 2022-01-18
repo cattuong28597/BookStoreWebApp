@@ -27,7 +27,7 @@ public abstract class BaseEntity {
 
     @CreatedBy
     @Column(name = "created_by")
-    private Long createdBy = 1L;
+    private Long createdBy;
 
     @UpdateTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss Z", timezone = "Asia/Ho_Chi_Minh")
@@ -36,7 +36,7 @@ public abstract class BaseEntity {
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private Long updatedBy = 1L;
+    private Long updatedBy;
 
 }
 

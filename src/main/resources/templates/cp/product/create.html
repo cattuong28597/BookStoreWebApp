@@ -26,7 +26,6 @@
 
     <!-- Custom css -->
     <link href="/cp/assets/css/errors.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
@@ -82,12 +81,32 @@
                         <div class="card-box">
                             <h4 class="header-title">Product information</h4>
 
-                            <form th:object="${product}" method="post">
+                            <form th:object="${product}" id="frmProduct" enctype="multipart/form-data">
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Avatar </label>
+                                        <input id="imageFile" type="file" accept="image/jpeg, image/png"
+                                               multipleclass="form-control"
+                                               onchange='openFile(event)' name="fileUpdate"/>
+                                        <input type="hidden" value="" id="base64" name="image">
+                                        <img id='output' height="200px" width="200px">
+                                    </div>
+<!--                                    <div class="col-md-6">-->
+<!--                                    <div class="message-alert-danger hide"></div>-->
+<!--                                    </div>-->
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-form-label">Category group name</label>
-                                    <select th:field="*{categoryGroup}" class="form-control select2" data-style="btn-light">
-                                        <th:block th:each="item : ${categoryGroups}">
-                                            <option th:value="${item.id}" th:text="${item.name}"></option>
+                                    <select th:field="*{categoryGroup}" class="form-control select2">
+                                        <th:block th:each="item : ${categories}">
+                                            <optgroup th:label="${item.name}">
+                                                <th:block th:each="itemGroup : ${item.categoryGroups}">
+                                                    <option th:value="${itemGroup.id}"
+                                                            th:text="${itemGroup.name}"></option>
+                                                </th:block>
+                                            </optgroup>
                                         </th:block>
                                     </select>
                                 </div>
@@ -95,55 +114,73 @@
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="col-form-label">Name</label>
-                                        <input type="text" th:field="*{name}" class="form-control">
+                                        <input type="text" th:field="*{name}" class="form-control"
+                                               placeholder="Name product">
                                     </div>
-
                                     <div class="col-md-6">
                                         <label class="col-form-label">Author</label>
-                                        <input type="text" th:field="*{author}" class=" form-control">
+                                        <input type="text" th:field="*{author}" placeholder="Author of product..."
+                                               class=" form-control">
                                     </div>
                                 </div>
-
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-form-label">Publishing Company</label>
-                                        <input type="text" th:field="*{publishingCompany}" class="form-control">
-
-                                        <label class="col-form-label">Publication Date</label>
-<!--                                        <input type="date" th:field="*{publicationDate}" id = "tempDate" data-date="" data-date-format="MM DD YYYY" value="2015-08-09" class="form-control">-->
-                                        <input type="date" th:field="*{publicationDate}"  class="form-control">
-<!--                                        <input  th:field="*{publicationDate}"  class="col-sm-8 form-control ng-pristine ng-valid ng-touched" name="startDate" type="date">-->
-                                    </div>
-                                </div>
-
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label class="col-form-label">Price</label>
-                                        <input type="text" th:field="*{price}" class="form-control">
+                                        <label class="col-form-label">Publishing Company</label>
+                                        <input type="text" th:field="*{publishingCompany}" class="form-control"
+                                               placeholder="Publishing company of product ...">
                                     </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Publication Date</label>
+                                        <input class="col-sm-8 form-control ng-pristine ng-valid ng-touched" type="date"
+                                               th:field="*{publicationDate}">
+                                        <!--                                        <input type="date"   class=" form-control" th:field="*{publicationDate}">-->
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="col-form-label">Page</label>
                                         <input type="number" th:field="*{page}" class="form-control">
                                     </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Price</label>
+                                        <input type="text" th:field="*{price}" value="0" class=" form-control" th:onkeyup="onChange()">
+                                    </div>
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-form-label">Link Avatar</label>
-                                        <input type="text" th:field="*{avatar}"class="form-control">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Percentage discount</label>
+                                        <input type="text" th:field="*{percentageDiscount}" value="0"
+                                               class="form-control" th:onkeyup="onChange()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Discount amount</label>
+                                        <input style="color: darkgreen" type="text" th:field="*{discountAmount}" value="0" class=" form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label">Last price</label>
+                                        <input style="color: red" type="text" th:field="*{lastPrice}" value="0" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--                                        <label class="col-form-label">Reward point</label>-->
+                                        <!--                                        <input type="text" th:field="*{rewardPoint}" value="0" class=" form-control">-->
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="col-form-label">Description</label>
-<!--                                        <div id="summernote-editor" name="description">-->
-<!--                                        </div>-->
-                                        <textarea th:field="*{description}" class="form-control"></textarea>
+<!--                                        <div id="description" name="description"></div>-->
+                                        <div id="summer-note"></div>
+<!--                                        <textarea th:field="*{description}" rows="9" style="width: 100%; resize: none" ></textarea>-->
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-4">
+                                <button type="button" id="bt-create" class="btn btn-primary mt-4">
                                     <i class="fas fa-plus-circle"></i> Create
                                 </button>
                             </form>
@@ -205,69 +242,158 @@
 
 <!--<th:block th:replace="/cp/layout/script"/>-->
 
+
+
 <div class="footer-error">
     <div id="message-alert">
-        <th:block th:if="${script} == true">
-            <div class="alert-danger">
-                <h5>Please correct errors below:</h5>
-                <ul>
-                    <li th:each="err : ${#fields.errors('product.*')}" th:text="${err}"></li>
-                </ul>
-            </div>
-            <span id="close">X</span>
-            <script th:inline="javascript">
-                $("#close").on("click", function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
 
-                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
-            </script>
-        </th:block>
-        <th:block th:if="${success}">
-            <div class="alert-success">
-                <h5><span th:text="${success}"></span></h5>
-            </div>
-            <span id="close1">X</span>
-            <script th:inline="javascript">
-                $("#close1").on("click", function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
-
-                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
-            </script>
-        </th:block>
-        <th:block th:if="${error}">
-            <div class="alert-danger">
-                <ul>
-                    <li th:text="${error}"></li>
-                </ul>
-            </div>
-            <span id="close2">X</span>
-            <script th:inline="javascript">
-                $("#close2").on("click", function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
-
-                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
-                    $(".footer-error").css("height", 0);
-                    $("#message-alert").empty();
-                });
-            </script>
-        </th:block>
+        <div id="message-error-data" class="alert-danger hide"></div>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="/assets/js/jquery.validate-1.19.3.min.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
+<script src="/assets/js/product-validation.js"></script>
 
+<script>
+
+    let page = {
+        urls: {
+            // uploadDescriptionMedia: App.BASE_URL_DESCRIPTION_MEDIA,
+            // doSave: App.BASE_URL_BLOG
+        },
+        element: {},
+        commands: {},
+        loadData: {},
+        dialogs: {
+            element: {},
+            commands: {}
+        }
+    }
+
+    page.element.summerNote = $('#summer-note');
+
+    function openFile(event) {
+        let input = event.target;
+        let reader = new FileReader();
+        reader.onload = function () {
+            let dataURL = reader.result;
+            let output = document.getElementById('output');
+            output.src = dataURL;
+            document.getElementById("base64").value = dataURL;
+        }
+        reader.readAsDataURL(input.files[0]);
+    };
+
+
+    function onChange() {
+        let price = $("#price").val()
+        let percentageDiscount = $("#percentageDiscount").val()
+        let discountAmount = price*percentageDiscount /100
+
+        $("#discountAmount").val(discountAmount)
+        $("#lastPrice").val(price - discountAmount)
+
+    }
+
+
+    function createProduct() {
+
+        let formData = new FormData();
+        formData.append("categoryGroupId",  parseInt($("#categoryGroup").val()));
+        formData.append("name", $("#name").val());
+        formData.append("author", $("#author").val());
+        formData.append("publishingCompany", $("#publishingCompany").val());
+        formData.append("publicationDate", $("#publicationDate").val());
+        formData.append("page",  parseInt($("#page").val()));
+        formData.append("price",  parseInt($("#price").val()));
+        formData.append("percentageDiscount",  parseInt($("#percentageDiscount").val()));
+        formData.append("discountAmount",  parseInt($("#discountAmount").val()));
+        formData.append("lastPrice",  parseInt($("#lastPrice").val()));
+        // formData.append("description", $("#description").val());
+        formData.append("description", page.element.summerNote.summernote('code'));
+        formData.append("file", $("#imageFile")[0].files[0]);
+
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            url: "/cp/api/products/create",
+            data: formData
+            // data : JSON.stringify(productDTO)
+        }).done((data) => {
+            $.notify("Create product successfully !", "success");
+
+            setTimeout(function () {
+                window.location.href = "/cp/products";
+            }, 1000);
+
+        }).fail((jqXHR) => {
+            $.notify("An error occurred. Please try again later!", "error");
+
+            $("#message-error-data").empty().removeClass("hide").addClass("show");
+             let str="";
+
+            if (jqXHR.status === 401) {
+                str += `<label id="message-error" class="error" for="message">An error occurred. Please try again later!</label>`;
+            } else {
+                if (jqXHR.status === 403) {
+                    str += `<label id="message-error" class="error" for="message">Access Denied! You are not authorized to perform this function</label>`;
+                } else {
+                    if (jqXHR.responseJSON) {
+                        if (jqXHR.responseJSON.message) {
+                            str += `<label id="message-error" class="error" for="message">${jqXHR.responseJSON.message}</label>`;
+                        } else {
+                            $.each(jqXHR.responseJSON, function (key, value) {
+                                str += `<label id="${key}-error" class="error" for="${key}">${value}</label>`;
+                                $("#" + key).addClass("error");
+                            });
+                        }
+                    } else {
+                        str += `<label id="message-error" class="error" for="message">"Lưu dữ liệu không thành công, vui lòng liên hệ quản trị hệ thống."</label>`;
+                    }
+                }
+            }
+
+
+            $("#message-error-data").html(str) ;
+
+            $("#message-error-data").fadeTo(5000, 500).fadeOut(1000, function () {
+                $(".footer-error").css("height", 0);
+                $("#message-error-data").empty().removeClass("show").addClass("hide");
+            })
+        })
+
+    }
+
+
+
+
+
+    page.initializeControlEvent = () => {
+
+        page.element.summerNote.summernote({
+            tabsize: 2,
+            height: 350,
+            // callbacks: {
+            //     onImageUpload: function(files) {
+            //         page.commands.uploadDescriptionMedia(files[0]);
+            //     }
+            // }
+        });
+
+        $("#bt-create").on("click", function () {
+            createProduct();
+        })
+    }
+
+    $(function() {
+        page.initializeControlEvent();
+    });
+
+</script>
 
 </body>
 </html>

@@ -15080,7 +15080,8 @@ input[type="number"] {
   z-index: -9999; }
   .modal.modal-quick-view .modal-dialog {
     max-width: 100%;
-    margin: 20% auto; }
+    /*margin: 20% auto; */
+  }
     @media (min-width: 768px) {
       .modal.modal-quick-view .modal-dialog {
         max-width: 700px;
@@ -15089,7 +15090,9 @@ input[type="number"] {
       .modal.modal-quick-view .modal-dialog {
         max-width: 900px;
         overflow: unset;
-        margin: 10% auto; } }
+        /*margin: 10% auto; */
+      }
+    }
     @media (min-width: 1200px) {
       .modal.modal-quick-view .modal-dialog {
         max-width: 1100px;
@@ -15097,7 +15100,9 @@ input[type="number"] {
   .modal.modal-quick-view.show {
     opacity: 1;
     visibility: visible;
-    z-index: 9999; }
+    /*z-index: 9999;*/
+    z-index: 1060;
+  }
   .modal.modal-quick-view .modal-close-btn {
     position: absolute;
     right: 0;
