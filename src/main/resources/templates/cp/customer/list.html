@@ -59,16 +59,16 @@
                                     <tbody>
                                     <th:block th:each="item : ${customers}">
                                         <tr>
-                                            <td th:text="${item.id}"></td>
-                                            <td th:text="${item.name}"></td>
-                                            <td th:text="${item.address}"></td>
-                                            <td th:text="${item.phone}"></td>
-                                            <td th:text="${item.email}"></td>
+                                            <td th:text="${item.getId()}"></td>
+                                            <td th:text="${item.getName()}"></td>
+                                            <td th:text="${item.getAddress()}"></td>
+                                            <td th:text="${item.getPhone()}"></td>
+                                            <td th:text="${item.getEmail()}"></td>
 
                                             <th:block th:if="!${item.deleted}">
                                                 <td>Active</td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-danger" th:href="@{/cp/customers/changeActive/__${item.id}__ }">
+                                                    <a class="btn btn-outline-danger" th:href="@{/cp/users/change-active/__${item.getId()}__ }">
                                                         <i class="fas fa-user-times"></i>
                                                     </a>
                                                 </td>
@@ -77,8 +77,8 @@
                                             <th:block th:if="${item.deleted}">
                                                 <td>Disable</td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-success" th:href="@{/cp/customers/changeActive/__${item.id}__ }">
-                                                        <i class="fas fa-user-check"></i>
+                                                    <a class="btn btn-outline-success" th:href="@{/cp/customers/change-active/__${item.getId()}__ }">
+                                                        <i class="fas fa-check-circle"></i>
                                                     </a>
                                                 </td>
                                             </th:block>

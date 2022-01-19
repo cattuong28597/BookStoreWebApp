@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Change-Customer-Activation</title>
+
+    <link href="/cp/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="/cp/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="/cp/assets/css/errors.css" rel="stylesheet" type="text/css">
+<!--    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">-->
+
+    <th:block th:replace="/cp/layout/head"/>
+    <style>
+        .form-col {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <th:block th:replace="/cp/layout/top-bar"/>
+    <th:block th:replace="/cp/layout/left-side-menu"/>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Order Details</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Order Details</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <a href="..">
+                                <button class="btn btn-success waves-effect waves-light">
+                                    <i class="fas fa-arrow-alt-circle-left"></i> Back to list
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Order information</h4>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="card-box">
+                                        <h5>Customer Order</h5>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Full Name : <span style="color: #0a58ca"
+                                                                  th:text="${order.getCustomer().getName()}"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Address : <span style="color: #0a58ca"
+                                                                th:text="${order.getCustomer().getAddress()}"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Phone : <span style="color: #0a58ca"
+                                                              th:text="${order.getCustomer().getPhone()}"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Email : <span style="color: #0a58ca"
+                                                              th:text="${order.getCustomer().getEmail()}"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="card-box">
+                                        <h5>List Order Details</h5>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Time ordered: <span style="color: #0a58ca"
+                                                                    th:text="${order.getCreatedAt()}"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <th:block th:if="!${order.confirm}">
+                                                <button class="btn btn-bordered-primary" id="btn-confirm" th:data-id="${order.id}">
+                                                    Confirm
+                                                </button>
+<!--                                                <button class="btn btn-bordered-primary" id="btn-confirm" th:data-id="${order.id}" data-bs-toggle="modal" data-bs-target="#model-bill">-->
+<!--                                                    Confirm-->
+<!--                                                </button>-->
+                                                <!-- Modal Bills-->
+<!--                                                <div class="modal fade" id="model-bill" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: none;">-->
+<!--                                                    <div class="modal-dialog">-->
+<!--                                                        <div class="modal-content">-->
+<!--                                                            <div class="modal-header">-->
+<!--                                                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>-->
+<!--                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="modal-body">-->
+<!--                                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl-->
+<!--                                                                    consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="modal-footer">-->
+<!--                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                                                                <button type="button" class="btn btn-primary">Understood</button>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </th:block>
+                                            <th:block th:if="${order.confirm}">
+                                                <button class="btn btn-bordered-warning" disabled>
+                                                    Confirm
+                                                </button>
+                                            </th:block>
+                                        </div>
+                                        <br>
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <table id="scroll-horizontal-datatable"
+                                                           class="table w-100 nowrap">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Product Name</th>
+                                                            <th>Last price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Amount</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <th:block th:each="item, counter : ${orderDetailList}">
+                                                            <tr>
+                                                                <td th:text="${counter.count}"></td>
+                                                                <td th:text="${item.getNameProduct()}"></td>
+                                                                <td th:text="${item.getPrice()}"></td>
+                                                                <td th:text="${item.getQuantity()}"></td>
+                                                                <td th:text="${item.getTotal()}"></td>
+                                                            </tr>
+                                                        </th:block>
+                                                        </tbody>
+                                                        <tr>
+                                                            <td colspan="4"><h5 style="text-align: right">Total
+                                                                : </h5>
+                                                            </td>
+
+                                                            <td>
+                                                                <h5 th:text="${order.getTotalAmount()}"></h5>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:replace="/cp/layout/footer"/>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+<th:block th:replace="/cp/layout/right-bar"/>
+<!--<div class="rightbar-overlay"></div>-->
+<!--<th:block th:replace="/cp/layout/script"/>-->
+
+<div class="rightbar-overlay"></div>
+
+<script src="/cp/assets/js/vendor.min.js"></script>
+
+<script src="/cp/assets/libs/datatables/jquery.dataTables.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.bootstrap4.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.responsive.min.js"></script>
+<script src="/cp/assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.buttons.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.html5.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.flash.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.print.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.keyTable.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.select.min.js"></script>
+<script src="/cp/assets/libs/pdfmake/pdfmake.min.js"></script>
+<script src="/cp/assets/libs/pdfmake/vfs_fonts.js"></script>
+<script src="/cp/assets/js/pages/datatables.init.js"></script>
+<script src="/cp/assets/js/app.min.js"></script>
+<script src="/cp/assets/js/cp-app.js"></script>
+<script src="/cp/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="/cp/assets/libs/switchery/switchery.min.js"></script>
+<script src="/cp/assets/libs/multiselect/jquery.multi-select.js"></script>
+<script src="/cp/assets/libs/jquery-quicksearch/jquery.quicksearch.min.js"></script>
+<script src="/cp/assets/libs/select2/select2.min.js"></script>
+<script src="/cp/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="/cp/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="/cp/assets/libs/jquery-mask-plugin/jquery.mask.min.js"></script>
+<script src="/cp/assets/js/pages/form-advanced.init.js"></script>
+
+<script>
+ $("#btn-confirm").on("click",function (){
+     let id = $(this).data("id") ;
+     window.location.href = "/cp/orders";
+ })
+
+</script>
+</body>
+</html>

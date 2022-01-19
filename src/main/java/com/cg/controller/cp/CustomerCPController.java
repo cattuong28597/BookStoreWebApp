@@ -1,9 +1,7 @@
 package com.cg.controller.cp;
 
-import com.cg.model.Category;
 import com.cg.model.Customer;
-import com.cg.service.Customer.CustomerService;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
+import com.cg.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +31,7 @@ public class CustomerCPController {
         return modelAndView;
     }
 
-    @GetMapping("/changeActive/{id}")
+    @GetMapping("/change-active/{id}")
     public ModelAndView showCustomerInfo(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -41,7 +39,7 @@ public class CustomerCPController {
 
         if (customer.isPresent()) {
             modelAndView.addObject("customer", customer.get());
-            modelAndView.setViewName("cp/customer/changeActive");
+            modelAndView.setViewName("cp/customer/change-active");
         }
         else {
             modelAndView.addObject("errorType", "404");
@@ -51,7 +49,7 @@ public class CustomerCPController {
         return modelAndView;
     }
 
-    @PostMapping("/changeActive/{id}")
+    @PostMapping("/change-active/{id}")
     public RedirectView changeActivationCustomer(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         RedirectView redirectView = new RedirectView();
         Optional<Customer> customerOptional = customerService.findById(id);
@@ -59,14 +57,13 @@ public class CustomerCPController {
             redirectView.setUrl("/cp/customers");
             String message;
             Customer customer = customerOptional.get();
-            Customer customerUpdate = new Customer();
-            customerUpdate.setId(customer.getId());
+
             if (customer.isDeleted()) {
-                customerUpdate.setDeleted(false);
-                message = "Disable customer " + customer.getName() + " with Id: " + customer.getId() + " success";
-            } else {
-                customerUpdate.setDeleted(true);
+                customer.setDeleted(false);
                 message = "Activation customer " + customer.getName() + " with Id: " + customer.getId() + " success";
+            } else {
+                customer.setDeleted(true);
+                message = "Disable customer " + customer.getName() + " with Id: " + customer.getId() + " success";
             }
             customerService.save(customer);
             redirectAttributes.addFlashAttribute("success", message);

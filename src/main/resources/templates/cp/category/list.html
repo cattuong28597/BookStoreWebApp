@@ -38,8 +38,8 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">MainMenu</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="/cp">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">Category</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Category list</h4>
@@ -65,6 +65,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Image</th>
                                             <th>Name</th>
                                             <th class="text-center">Edit</th>
                                             <th class="text-center">Delete</th>
@@ -74,16 +75,17 @@
                                         <th:block th:each="item : ${categories}">
                                             <tr>
                                                 <td th:text="${item.id}"></td>
+                                                <td>
+                                                    <img th:src="${item.image}" alt="" width="50px" height="50px">
+                                                </td>
                                                 <td th:text="${item.name}"></td>
-
-
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-secondary" th:href="@{/cp/categories/activation/__${item.id}__ }">
+                                                    <a class="btn btn-outline-secondary" th:href="@{/cp/categories/edit/__${item.id}__ }">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-danger" th:href="@{/categories/disable/__${item.id}__ }">
+                                                    <a class="btn btn-outline-danger" th:href="@{/cp/categories/delete/__${item.id}__ }">
                                                         <i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
@@ -92,12 +94,12 @@
                                     </tbody>
                                 </table>
 
-                            </div>
-                        </div>
-                    </div>
+                            </div> <!-- end card body-->
+                        </div> <!-- end card -->
+                    </div><!-- end col-->
                 </div>
 
-            </div>
+            </div> <!-- container -->
 
         </div> <!-- content -->
 
@@ -141,8 +143,12 @@
 <script src="/cp/assets/libs/datatables/dataTables.select.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/pdfmake.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/vfs_fonts.js"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
 <script src="/cp/assets/js/pages/datatables.init.js"></script>
 
+<!-- App js -->
 <script src="/cp/assets/js/app.min.js"></script>
 
 <script src="/cp/assets/js/cp-app.js"></script>

@@ -31,7 +31,7 @@ public class ProductCPController {
         List<Product> products = productService.findAll();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", products);
-        modelAndView.setViewName("cp/product/list1");
+        modelAndView.setViewName("cp/product/list");
         return modelAndView;
     }
 
@@ -60,44 +60,6 @@ public class ProductCPController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/create")
-    public ModelAndView create(@Validated @ModelAttribute("product") Product product, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<Category> categories = categoryService.findAll();
-
-        modelAndView.addObject("categories", categories);
-
-        if (bindingResult.hasFieldErrors()) {
-            modelAndView.addObject("script", true);
-        }
-        else {
-            String slug = AppUtils.removeNonAlphanumeric(product.getName());
-
-            Boolean existSlug = productService.existsBySlugEquals(slug);
-
-            if (existSlug) {
-                modelAndView.addObject("error", "The name already exists");
-            }
-            else {
-                try {
-                    product.setSlug(slug);
-                    productService.save(product);
-
-                    modelAndView.addObject("product", new Product());
-                    modelAndView.addObject("success", "Successfully added new product");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    modelAndView.addObject("error", "Invalid data, please contact system administrator");
-                }
-            }
-        }
-
-        modelAndView.setViewName("cp/product/create");
-
-        return modelAndView;
-    }
-
     @GetMapping("/edit/{id}")
     public ModelAndView showEdit(@PathVariable Long id) {
 
@@ -106,16 +68,13 @@ public class ProductCPController {
         Optional<Product> product = productService.findById(id);
 
         if (product.isPresent()) {
+            modelAndView.setViewName("cp/product/edit");
             modelAndView.addObject("product", product);
         } else {
-            modelAndView.addObject("product", new Product());
-            modelAndView.addObject("script", false);
-            modelAndView.addObject("success", false);
-            modelAndView.addObject("error", "Invalid product information");
+            modelAndView.addObject("errorType", "404");
+            modelAndView.addObject("errorMsg", "Http Error Code: 404. Resource not found");
+            modelAndView.setViewName("errorPage");
         }
-
-        modelAndView.setViewName("cp/product/edit");
-
         return modelAndView;
     }
 

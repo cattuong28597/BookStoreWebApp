@@ -40,4 +40,5 @@ public class Bill extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Order order;
 
+
 }

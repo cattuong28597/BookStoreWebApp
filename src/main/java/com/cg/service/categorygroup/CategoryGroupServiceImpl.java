@@ -5,12 +5,14 @@ import com.cg.model.CategoryGroup;
 import com.cg.repository.CategoryGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
+@Transactional
 public class CategoryGroupServiceImpl implements CategoryGroupService {
 
     @Autowired
@@ -28,7 +30,7 @@ public class CategoryGroupServiceImpl implements CategoryGroupService {
 
     @Override
     public CategoryGroup getById(Long id) {
-        return null;
+        return categoryGroupRepository.getById(id);
     }
 
     @Override

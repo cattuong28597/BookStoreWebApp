@@ -25,8 +25,8 @@ public class Category extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Category name can't not be blank")
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Category name must be between 2 and 50 character without special character!")
+//    @NotBlank(message = "Tên danh mục không được trống")
+//    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên danh mục phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
     @Column(unique = true)
     private String name;
 
@@ -35,7 +35,7 @@ public class Category extends BaseEntity {
 
     private String image;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<CategoryGroup> categoryGroups;
 

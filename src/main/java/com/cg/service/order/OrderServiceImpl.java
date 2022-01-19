@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+     @Autowired
+     private OrderRepository  orderRepository ;
 
     @Override
     public List<Order> findAll() {
@@ -38,6 +38,11 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void remove(Long id) {
-        orderRepository.deleteById(id);
+       orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Order> findAllByDeletedIsFalse() {
+        return orderRepository.findAllByDeletedIsFalse();
     }
 }

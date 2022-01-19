@@ -25,15 +25,18 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
 
-
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     @JsonIgnore
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
 
-    private BigDecimal total_amount;
+    @Column(columnDefinition = "boolean default false")
+    private boolean confirm;
+
+    @Column(name = "total_amount")
+    private BigDecimal totalAmount;
 
     @OneToOne
-    @JoinColumn(name = "bill_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "bill_id", referencedColumnName = "id")
     private Bill bill;
 
 }

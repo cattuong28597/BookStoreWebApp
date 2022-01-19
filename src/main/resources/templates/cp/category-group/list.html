@@ -20,6 +20,11 @@
 
     <!-- ========== Left Sidebar Start ========== -->
     <th:block th:replace="/cp/layout/left-side-menu"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
 
     <div class="content-page">
         <div class="content">
@@ -33,8 +38,8 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Minton</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="/cp">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">CategoryGroup</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Category Group list</h4>
@@ -78,7 +83,7 @@
                                                 </a>
                                             </td>
                                             <td class="text-center">
-                                                <a class="btn btn-outline-danger" th:href="@{/category-groups/delete/__${item.id}__ }">
+                                                <a class="btn btn-outline-danger" th:href="@{/cp/category-groups/delete/__${item.id}__ }">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
                                             </td>
@@ -94,18 +99,35 @@
 
             </div> <!-- container -->
 
-        </div>
+        </div> <!-- content -->
 
+        <!-- Footer Start -->
         <th:block th:replace="/cp/layout/footer"/>
+        <!-- end Footer -->
 
     </div>
-</div>
-<th:block th:replace="/cp/layout/right-bar"/>
 
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<th:block th:replace="/cp/layout/right-bar"/>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
 
+<!--<th:block th:replace="/cp/layout/script"/>-->
+
+<!-- Vendor js -->
 <script src="/cp/assets/js/vendor.min.js"></script>
 
+<!-- third party js -->
 <script src="/cp/assets/libs/datatables/jquery.dataTables.min.js"></script>
 <script src="/cp/assets/libs/datatables/dataTables.bootstrap4.js"></script>
 <script src="/cp/assets/libs/datatables/dataTables.responsive.min.js"></script>
@@ -119,9 +141,12 @@
 <script src="/cp/assets/libs/datatables/dataTables.select.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/pdfmake.min.js"></script>
 <script src="/cp/assets/libs/pdfmake/vfs_fonts.js"></script>
+<!-- third party js ends -->
 
+<!-- Datatables init -->
 <script src="/cp/assets/js/pages/datatables.init.js"></script>
 
+<!-- App js -->
 <script src="/cp/assets/js/app.min.js"></script>
 
 <script src="/cp/assets/js/cp-app.js"></script>
