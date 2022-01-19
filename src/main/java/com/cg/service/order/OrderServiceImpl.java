@@ -1,5 +1,6 @@
 package com.cg.service.order;
 
+import com.cg.model.Customer;
 import com.cg.model.Order;
 import com.cg.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAllByDeletedIsFalse() {
         return orderRepository.findAllByDeletedIsFalse();
+    }
+
+    @Override
+    public List<Order> findAllByCustomerAndDeletedIsFalse(Customer customer) {
+        return orderRepository.findAllByCustomerAndDeletedIsFalse(customer);
+    }
+
+    @Override
+    public List<Order> findAllByCustomer(Customer customer) {
+        return orderRepository.findAllByCustomer(customer);
     }
 }

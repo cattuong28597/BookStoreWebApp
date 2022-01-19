@@ -37,4 +37,6 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "bill_id", referencedColumnName = "id")
     private Bill bill;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean confirm;
 }

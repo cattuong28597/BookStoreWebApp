@@ -7,6 +7,7 @@ import com.cg.service.cart_details.CartDetailService;
 import com.cg.service.category.CategoryService;
 import com.cg.service.categorygroup.CategoryGroupService;
 import com.cg.service.customer.CustomerService;
+import com.cg.service.order.OrderService;
 import com.cg.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,6 +60,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @GetMapping
@@ -170,6 +174,8 @@ public class HomeController {
             Customer customer = customerService.findCustomerByUserUsername(getPrincipal());
             modelAndView.addObject("username", getPrincipal());
             modelAndView.addObject("customer", customer);
+            List<Order> orderList = orderService.findAllByCustomer(customer);
+            modelAndView.addObject("orderList", orderList);
 
         }
 
