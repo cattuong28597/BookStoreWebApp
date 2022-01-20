@@ -13,4 +13,6 @@ public interface CategoryGroupService extends IGeneralService<CategoryGroup> {
 
     Boolean existsBySlugEqualsAndCategoryEqualsAndIdIsNot(String slug, Category category, Long id);
 
+    CategoryGroup findAllBySlug(String slug);
+
 }

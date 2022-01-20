@@ -27,7 +27,7 @@ public interface ProductService extends IGeneralService<Product> {
 
     List<Product> findAllByCategoryName(String name);
 
-    List<Product> findAllByCategoryGroupName(String name);
+    List<Product> findAllByCategoryGroupSlug(String slug);
 
     List<Product> findAllProductIsExist();
 

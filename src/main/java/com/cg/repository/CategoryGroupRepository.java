@@ -17,4 +17,6 @@ public interface CategoryGroupRepository extends JpaRepository<CategoryGroup, Lo
 
     Boolean existsBySlugEqualsAndCategoryEqualsAndIdIsNot(String slug, Category category, Long id);
 
+    CategoryGroup findAllBySlug(String slug);
+
 }

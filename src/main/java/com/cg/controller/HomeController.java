@@ -288,19 +288,15 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/categoryGroup/{name}")
-    private ModelAndView showProductWithCategoryGroup(@PathVariable String name) {
-        List<Product> productList = productService.findAllByCategoryGroupName(name);
+    @GetMapping("/category-group/{slug}")
+    private ModelAndView showProductWithCategoryGroup(@PathVariable String slug) {
+        ModelAndView modelAndView = new ModelAndView("/category-product.html");
+        CategoryGroup categoryGroupBySlug = categoryGroupService.findAllBySlug(slug);
+
+        List<Product> productList = productService.findAllByCategoryGroupSlug(slug);
         List<CategoryGroup> categoryGroups = categoryGroupService.findAll();
         List<Category> categories = categoryService.findAll();
         String title = "SunRise - Book Store";
-
-        ModelAndView modelAndView = new ModelAndView("/category-product.html");
-        modelAndView.addObject("title", title);
-        modelAndView.addObject("productList", productList);
-        modelAndView.addObject("categoryGroups", categoryGroups);
-        modelAndView.addObject("categories", categories);
-        modelAndView.addObject("name", name);
 
         if (getPrincipal().equals("anonymousUser") || customerService.findCustomerByUserUsername(getPrincipal())==null) {
             modelAndView.addObject("username", false);
@@ -313,6 +309,15 @@ public class HomeController {
             modelAndView.addObject("cart", cart);
 
         }
+
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("categoryGroupBySlug", categoryGroupBySlug);
+        modelAndView.addObject("productList", productList);
+        modelAndView.addObject("categoryGroups", categoryGroups);
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("name", slug);
+
+
 
         return modelAndView;
     }

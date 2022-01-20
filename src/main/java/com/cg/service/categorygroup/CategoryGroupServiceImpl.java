@@ -52,4 +52,9 @@ public class CategoryGroupServiceImpl implements CategoryGroupService {
     public void remove(Long id) {
 
     }
+
+    @Override
+    public CategoryGroup findAllBySlug(String slug) {
+        return categoryGroupRepository.findAllBySlug(slug);
+    }
 }

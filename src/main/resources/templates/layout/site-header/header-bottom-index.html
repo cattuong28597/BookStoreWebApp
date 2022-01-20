@@ -16,7 +16,7 @@
                                     <ul class="sub-menu">
                                         <th:block th:each = "group : ${categoryGroups}">
                                             <th:block th:if = "${group.getCategory().getId() == item.getId()}">
-                                                <li><a th:href= "@{/categoryGroup/__${group.slug}__}" th:text="${group.name}"></a></li>
+                                                <li><a th:href= "@{/category-group/__${group.slug}__}" th:text="${group.name}"></a></li>
                                             </th:block>
                                         </th:block>
                                     </ul>

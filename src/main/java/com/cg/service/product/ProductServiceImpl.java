@@ -188,8 +188,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryGroupName(String name){
-        return productRepository.findAllByCategoryGroupName(name);
+    public List<Product> findAllByCategoryGroupSlug(String slug){
+        return productRepository.findAllByCategoryGroupSlug(slug);
     }
 
     @Override
