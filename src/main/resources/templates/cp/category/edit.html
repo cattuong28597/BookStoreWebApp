@@ -58,25 +58,24 @@
                     <div class="col-md-12">
                         <div class="card-box">
                             <h4 class="header-title">Category information</h4>
-
-                            <form th:object="${category}" method="post">
+                            <form th:object="${categoryDTO}" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label class="col-form-label">Name</label>
-                                    <input type="text" th:field="*{name}" class="form-control" placeholder="Lighting & Studio...">
+                                    <label class="col-form-label">Avatar</label>
+
+                                    <input id="imageFile" type="file" accept="image/jpeg, image/png"
+                                           multipleclass="form-control"
+                                           th:field="*{imageFile}"
+                                           onchange='openFile(event)' name="fileUpdate"/>
+                                    <input type="hidden" value="" id="base64" name="image"/>
+                                    <img class="image-input show" id='intput'  height="200px" width="200px" th:src="${category.image}"/>
+                                    <img class="image-output hide" id='output' height="200px" width="200px"/>
                                 </div>
 
-                                <th:block th:if="!${error}">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary mt-3">
-                                            <i class="fas fa-pencil-alt"></i> Update
-                                        </button>
-                                    </div>
-                                </th:block>
-
-
-<!--                                <button type="submit" class="btn btn-primary mt-3">-->
-<!--                                    <i class="fas fa-pencil-alt"></i> Update-->
-<!--                                </button>-->
+                                <div class="form-group">
+                                    <label class="col-form-label">Name Category</label>
+                                    <input type="text" th:field="*{name}" class="form-control" placeholder="Name Category">
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3">Update</button>
                             </form>
                         </div>
                     </div>
@@ -95,7 +94,6 @@
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
-
 
 </div>
 <!-- END wrapper -->
@@ -146,5 +144,81 @@
     </div>
 </div>
 
+<script>
+
+    function openFile(event) {
+        let input = event.target;
+        console.log(event);
+        let reader = new FileReader();
+        console.log(reader);
+        reader.onload = function () {
+            let dataURL = reader.result;
+            console.log(dataURL);
+            let output = document.getElementById('output');
+            output.src = dataURL;
+            $("#output").removeClass("hide").addClass("show");
+            $(".image-input").removeClass("show").addClass("hide");
+            console.log(dataURL);
+
+            //document.getElementById("base64").value = dataURL;
+        }
+        reader.readAsDataURL(input.files[0]);
+    };
+
+    //output.src = intput.src;
+
+    // function openFile(event) {
+    //     let input = event.target;
+    //     console.log(event);
+    //     let reader = new FileReader();
+    //     console.log(reader);
+    //     reader.onload = function () {
+    //         let dataURL = reader.result;
+    //         console.log(dataURL);
+    //         let output = document.getElementById('output');
+    //         output.src = dataURL;
+    //         document.getElementById("base64").value = dataURL;
+    //     }
+    //     reader.readAsDataURL(input.files[0]);
+    // };
+
+   $('#btn-update').on("click",function (){
+       let categoryDTO={
+           id : $("#id_category").val(),
+           name: $("#name").val(),
+          fileImage:  $("#imageFile")[0].files[0]
+       }
+
+       $.ajax({
+           type: "POST",
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+           url: "/cp/api/edit",
+           data: JSON.stringify(categoryDTO)
+       }).done(() => {
+
+           App.showSuccessAlert("Successful update!")
+
+           setTimeout(function () {
+             window.location.href("/cp/categories") ;
+           }, 3000);
+       }).fail(function (jqXHR) {
+           if (jqXHR.responseJSON) {
+               if (jqXHR.responseJSON.message) {
+                   $.notify(jqXHR.responseJSON.message, "error");
+               } else {
+                   $.each(jqXHR.responseJSON, function (key, value) {
+                       $.notify(value, "error");
+                   });
+               }
+           } else {
+               App.showErrorAlert("Something went wrong, please try again")
+           }
+
+       });
+   })
+</script>
 </body>
 </html>

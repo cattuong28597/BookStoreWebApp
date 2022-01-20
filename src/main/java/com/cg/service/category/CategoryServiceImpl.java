@@ -12,7 +12,11 @@ import com.cg.utils.UploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -45,12 +49,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return null;
+        return categoryRepository.getById(id);
     }
 
     @Override
     public Category save(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 
 
@@ -98,11 +102,21 @@ public class CategoryServiceImpl implements CategoryService {
 
             category.setImage(fileUrl);
 
-            categoryRepository.save(category) ;
+            if(categoryDTO.getId() != null){
+                category.setId(categoryDTO.getId());
+                categoryRepository.save(category);
+            }
+            categoryRepository.save(category);
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new DataInputException("Upload hình ảnh thất bại");
         }
+    }
+
+    private MultipartFile setImageForDTO(String path){
+        File file = new File(path);
+        MultipartFile multipartFile = (MultipartFile) file;
+        return multipartFile;
     }
 }

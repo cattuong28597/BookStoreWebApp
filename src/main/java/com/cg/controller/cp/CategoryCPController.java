@@ -46,49 +46,6 @@ public class CategoryCPController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable Long id) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Optional<Category> category = categoryService.findById(id);
-
-        if (category.isPresent()) {
-            modelAndView.addObject("category", category);
-
-        } else {
-            modelAndView.addObject("category", new Category());
-            modelAndView.addObject("script", false);
-            modelAndView.addObject("success", false);
-            modelAndView.addObject("error", "Invalid category information");
-        }
-        modelAndView.setViewName("cp/category/edit");
-
-        return modelAndView;
-    }
-
-    @GetMapping("/delete/{id}")
-    public ModelAndView showDelete(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Optional<Category> category = categoryService.findById(id);
-
-        if (category.isPresent()) {
-            modelAndView.addObject("category", category.get());
-            modelAndView.addObject("success", false);
-
-        } else {
-            Category category1 = new Category();
-            category1.setDeleted(true);
-            modelAndView.addObject("category",category1 );
-            modelAndView.addObject("error", "Invalid category information");
-
-
-        }
-        modelAndView.setViewName("cp/category/delete");
-        return modelAndView;
-
-    }
-
     @PostMapping(value = "/create")
     public ModelAndView create(@Validated @ModelAttribute("categoryDTO") CategoryDTO categoryDTO, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -124,8 +81,36 @@ public class CategoryCPController {
         return modelAndView;
     }
 
+    @GetMapping("/edit/{id}")
+    public ModelAndView showEdit(@PathVariable Long id) {
+
+        ModelAndView modelAndView = new ModelAndView("cp/category/edit");
+
+        Optional<Category> categoryOptional = categoryService.findById(id);
+
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+
+
+            CategoryDTO categoryDTO = new CategoryDTO() ;
+            categoryDTO.setId(category.getId());
+            categoryDTO.setName(category.getName());
+
+            modelAndView.addObject("category", category);
+            modelAndView.addObject("categoryDTO", categoryDTO);
+        } else {
+//            modelAndView.addObject("category", new Category());
+//            modelAndView.addObject("script", false);
+//            modelAndView.addObject("success", false);
+//            modelAndView.addObject("error", "Invalid category information");
+            modelAndView.setViewName("errorPage");
+        }
+
+        return modelAndView;
+    }
+
     @PostMapping(value = "/edit/{id}")
-    public ModelAndView update(@PathVariable long id, @Validated @ModelAttribute("category") Category category, BindingResult bindingResult) {
+    public ModelAndView update( @Validated @ModelAttribute("categoryDTO")  CategoryDTO categoryDTO, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasFieldErrors()) {
@@ -133,28 +118,37 @@ public class CategoryCPController {
         }
         else {
 
-            String slug = AppUtils.removeNonAlphanumeric(category.getName());
+            String slug = AppUtils.removeNonAlphanumeric(categoryDTO.getName());
 
-            Boolean existSlug = categoryService.existsBySlugEqualsAndIdIsNot(slug, id);
+            Boolean existSlug = categoryService.existsBySlugEqualsAndIdIsNot(slug, categoryDTO.getId());
 
             if (existSlug) {
                 modelAndView.addObject("error", "The name already exists");
             }
             else {
                 try {
-                    category.setSlug(slug);
-                    categoryService.save(category);
+                    categoryDTO.setSlug(slug);
 
-                    modelAndView.addObject("success", "Category has been successfully updated");
+                    Category category = categoryService.create(categoryDTO);
+
+                    modelAndView.addObject("categoryDTO", new CategoryDTO());
+                    modelAndView.addObject("success", "Successfully added new category");
+
+                    Iterable<Category> categories = categoryService.findAllByDeletedIsFalse();
+
+                    modelAndView.addObject("categories", categories);
+                    modelAndView.setViewName("cp/category/list");
                 } catch (Exception e) {
                     e.printStackTrace();
                     modelAndView.addObject("error", "Invalid data, please contact system administrator");
+
+
+                    modelAndView.setViewName("cp/category/edit");
                 }
             }
-
         }
 
-        modelAndView.setViewName("cp/category/edit");
+
 
         return modelAndView;
     }
@@ -174,5 +168,27 @@ public class CategoryCPController {
         } else {
             return new ModelAndView("/errorPage");
         }
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView showDelete(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Optional<Category> category = categoryService.findById(id);
+
+        if (category.isPresent()) {
+            modelAndView.addObject("category", category.get());
+            modelAndView.addObject("success", false);
+
+        } else {
+            Category category1 = new Category();
+            category1.setDeleted(true);
+            modelAndView.addObject("category",category1 );
+            modelAndView.addObject("error", "Invalid category information");
+
+
+        }
+        modelAndView.setViewName("cp/category/delete");
+        return modelAndView;
+
     }
 }

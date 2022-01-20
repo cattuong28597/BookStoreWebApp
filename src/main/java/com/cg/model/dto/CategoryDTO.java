@@ -35,6 +35,7 @@ public class CategoryDTO {
 
     public Category toCategory(){
         Category category= new Category() ;
+        category.setId(id);
         category.setName(name) ;
         category.setSlug(slug);
         return category;

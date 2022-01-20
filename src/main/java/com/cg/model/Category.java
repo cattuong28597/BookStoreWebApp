@@ -1,6 +1,7 @@
 package com.cg.model;
 
 
+import com.cg.model.dto.CategoryDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,5 +40,14 @@ public class Category extends BaseEntity {
     @JsonIgnore
     private List<CategoryGroup> categoryGroups;
 
+    public CategoryDTO toCategoryDTO(){
+        CategoryDTO category= new CategoryDTO() ;
+        category.setName(name) ;
+        category.setSlug(slug);
+        return category;
+    }
 
+    public String getImage() {
+        return image;
+    }
 }

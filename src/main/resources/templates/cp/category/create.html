@@ -95,7 +95,6 @@
     <!-- End Page content -->
     <!-- ============================================================== -->
 
-
 </div>
 <!-- END wrapper -->
 
@@ -148,9 +147,12 @@
 <script>
     function openFile(event) {
         let input = event.target;
+        console.log(event);
         let reader = new FileReader();
+        console.log(reader);
         reader.onload = function () {
             let dataURL = reader.result;
+            console.log(dataURL);
             let output = document.getElementById('output');
             output.src = dataURL;
             document.getElementById("base64").value = dataURL;
