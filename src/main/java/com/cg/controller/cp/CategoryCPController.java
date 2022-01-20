@@ -126,29 +126,28 @@ public class CategoryCPController {
                 modelAndView.addObject("error", "The name already exists");
             }
             else {
+                Optional<Category> category1 = categoryService.findById(categoryDTO.getId());
                 try {
                     categoryDTO.setSlug(slug);
 
                     Category category = categoryService.create(categoryDTO);
 
-                    modelAndView.addObject("categoryDTO", new CategoryDTO());
-                    modelAndView.addObject("success", "Successfully added new category");
-
                     Iterable<Category> categories = categoryService.findAllByDeletedIsFalse();
 
                     modelAndView.addObject("categories", categories);
-                    modelAndView.setViewName("cp/category/list");
+                    modelAndView.addObject("categoryDTO", categoryDTO);
+                    modelAndView.addObject("category", category);
+                    modelAndView.addObject("success", "Successfully updated a category");
+                    modelAndView.setViewName("cp/category/edit");
                 } catch (Exception e) {
                     e.printStackTrace();
+                    modelAndView.addObject("categoryDTO", categoryDTO);
+                    modelAndView.addObject("category", category1.get());
                     modelAndView.addObject("error", "Invalid data, please contact system administrator");
-
-
                     modelAndView.setViewName("cp/category/edit");
                 }
             }
         }
-
-
 
         return modelAndView;
     }

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Update Category</title>
+    <th:block th:replace="/cp/layout/head"/>
+    <link href="/cp/assets/css/errors.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <th:block th:replace="/cp/layout/top-bar"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <th:block th:replace="/cp/layout/left-side-menu"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="/cp">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">Category</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Update category</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <a href="..">
+                                <button class="btn btn-success waves-effect waves-light">
+                                    <i class="fas fa-arrow-alt-circle-left"></i> Back to list
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Category information</h4>
+                            <form th:object="${categoryDTO}" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="col-form-label">Avatar</label>
+
+                                    <input id="imageFile" type="file" accept="image/jpeg, image/png"
+                                           multipleclass="form-control"
+                                           th:field="*{imageFile}"
+                                           onchange='openFile(event)' name="fileUpdate"/>
+                                    <input type="hidden" value="" id="base64" name="image"/>
+                                    <img class="image-input show" id='intput'  height="200px" width="200px" th:src="${category.image}"/>
+                                    <img class="image-output hide" id='output' height="200px" width="200px"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Name Category</label>
+                                    <input type="text" th:field="*{name}" class="form-control" placeholder="Name Category">
+                                </div>
+                                <th:block th:if="*{id != null}">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary mt-3">
+                                            <i class="fas fa-pencil-alt"></i> Update
+                                        </button>
+                                    </div>
+                                </th:block>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+        <th:block th:replace="/cp/layout/footer"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<th:block th:replace="/cp/layout/right-bar"/>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<th:block th:replace="/cp/layout/script"/>
+
+<div class="footer-error">
+    <div id="message-alert">
+        <th:block th:if="${script} == true">
+            <div class="alert-danger">
+                <h5>Please correct errors below:</h5>
+                <ul>
+                    <li th:each="err : ${#fields.errors('categoryDTO.*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </th:block>
+        <th:block th:if="${success}">
+            <div class="alert-success">
+                <h5><span th:text="${success}"></span></h5>
+            </div>
+            <span id="close">X</span>
+            <script th:inline="javascript">
+                $("#close").on("click", function () {
+                    $(".footer-error").css("height", 0);
+                    $("#message-alert").empty();
+                });
+
+                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
+                    $(".footer-error").css("height", 0);
+                    $("#message-alert").empty();
+                });
+            </script>
+        </th:block>
+        <th:block th:if="${error}">
+            <div class="alert-danger">
+                <ul>
+                    <li th:text="${error}"></li>
+                </ul>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+<script>
+
+    function openFile(event) {
+        let input = event.target;
+        console.log(event);
+        let reader = new FileReader();
+        console.log(reader);
+        reader.onload = function () {
+            let dataURL = reader.result;
+            console.log(dataURL);
+            let output = document.getElementById('output');
+            output.src = dataURL;
+            $("#output").removeClass("hide").addClass("show");
+            $(".image-input").removeClass("show").addClass("hide");
+            console.log(dataURL);
+        }
+        reader.readAsDataURL(input.files[0]);
+    };
+
+   $('#btn-update').on("click",function (){
+       let categoryDTO={
+           id : $("#id_category").val(),
+           name: $("#name").val(),
+          fileImage:  $("#imageFile")[0].files[0]
+       }
+
+       $.ajax({
+           type: "POST",
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+           url: "/cp/api/edit",
+           data: JSON.stringify(categoryDTO)
+       }).done(() => {
+
+           App.showSuccessAlert("Successful update!")
+
+           setTimeout(function () {
+             window.location.href("/cp/categories") ;
+           }, 3000);
+       }).fail(function (jqXHR) {
+           if (jqXHR.responseJSON) {
+               if (jqXHR.responseJSON.message) {
+                   $.notify(jqXHR.responseJSON.message, "error");
+               } else {
+                   $.each(jqXHR.responseJSON, function (key, value) {
+                       $.notify(value, "error");
+                   });
+               }
+           } else {
+               App.showErrorAlert("Something went wrong, please try again")
+           }
+
+       });
+   })
+</script>
+</body>
+</html>

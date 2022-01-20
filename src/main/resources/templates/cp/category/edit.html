@@ -113,7 +113,7 @@
             <div class="alert-danger">
                 <h5>Please correct errors below:</h5>
                 <ul>
-                    <li th:each="err : ${#fields.errors('category.*')}" th:text="${err}"></li>
+                    <li th:each="err : ${#fields.errors('categoryDTO.*')}" th:text="${err}"></li>
                 </ul>
             </div>
         </th:block>
@@ -159,28 +159,9 @@
             $("#output").removeClass("hide").addClass("show");
             $(".image-input").removeClass("show").addClass("hide");
             console.log(dataURL);
-
-            //document.getElementById("base64").value = dataURL;
         }
         reader.readAsDataURL(input.files[0]);
     };
-
-    //output.src = intput.src;
-
-    // function openFile(event) {
-    //     let input = event.target;
-    //     console.log(event);
-    //     let reader = new FileReader();
-    //     console.log(reader);
-    //     reader.onload = function () {
-    //         let dataURL = reader.result;
-    //         console.log(dataURL);
-    //         let output = document.getElementById('output');
-    //         output.src = dataURL;
-    //         document.getElementById("base64").value = dataURL;
-    //     }
-    //     reader.readAsDataURL(input.files[0]);
-    // };
 
    $('#btn-update').on("click",function (){
        let categoryDTO={
