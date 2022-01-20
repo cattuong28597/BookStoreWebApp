@@ -82,10 +82,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/cp/api/auth/register-customer",
                         "/cp/api/auth/login",
                         "/cp/api/auth/register").permitAll()
-                .antMatchers("/cp/**").hasAnyAuthority("ADMIN","USER")
-                .antMatchers("/cp/users/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/test").permitAll()
-                .antMatchers("/resources/**", "/assets/**").permitAll()
                 .antMatchers(
                         "/v2/api-docs",
                         "/swagger-resources/configuration/ui",
@@ -95,6 +91,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui/**"
                 ).permitAll()
+                .antMatchers("/cp/**").hasAnyAuthority("ADMIN","USER", "CUSTOMER")
+//                .antMatchers("/cp/api/order/getById/**").hasAnyAuthority("CUSTOMER")
+                .antMatchers("/cp/users/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/test").permitAll()
+                .antMatchers("/resources/**", "/assets/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

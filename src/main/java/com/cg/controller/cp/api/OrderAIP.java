@@ -1,6 +1,7 @@
 package com.cg.controller.cp.api;
 
 import com.cg.exception.DataInputException;
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.*;
 import com.cg.model.dto.OrderDTO;
 import com.cg.service.cart.CartService;
@@ -13,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -91,7 +90,17 @@ public class OrderAIP {
         }
     }
 
-
+    @PreAuthorize("hasAnyAuthority('CUSTOMER')")
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<List> findOrderDetailById(@PathVariable Long id)  {
+        Optional<Order> order = orderService.findById(id);
+        if (order.isPresent()) {
+            List<OrderDetail> orderDetailList = orderDetailService.findAllByOrder(order.get());
+            return new ResponseEntity<>(orderDetailList, HttpStatus.OK);
+        } else {
+            throw new ResourceNotFoundException("Can not found order with the Id: " + id);
+        }
+    }
 
 
 }
