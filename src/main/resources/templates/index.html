@@ -1798,7 +1798,7 @@
         let id = $(this).data("id");
         $.ajax({
             type: "GET",
-            url: "/cp/api/products/getById/" + id,
+            url: "/cp/api/products/details/" + id,
         }).done((product) => {
             let linkAuthor = `Tags: <a href="#">${product.author}</a>`;
             $("#modal-author").html(linkAuthor);
@@ -1873,7 +1873,7 @@ function createCartDetail() {
         }).fail((jqXHR) => {
             // $.notify("Please check the information again", "error");
             if (amount > 1000 || amount <= 0) {
-                App.showErrorAlert("Buy quantity must be greater than 0 and less than 1000  !")
+                App.showErrorAlert("Quantity must be greater than 0 and less than 1000 !")
             } else {
                 App.showErrorAlert("Please check the information again !")
             }

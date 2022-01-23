@@ -8,4 +8,6 @@ import java.util.List;
 public interface OrderService extends IGeneralService<Order> {
 
     List<Order> findAllByDeletedIsFalse() ;
+
+    List<Order> findAllByDeletedIsFalseAndOrderByCreatedAtConfirmDesc() ;
 }

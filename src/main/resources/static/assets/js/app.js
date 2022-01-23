@@ -8,12 +8,12 @@ class App {
     static BASE_URL_CLOUD_VIDEO = "https://res.cloudinary.com/c0721k1/video/upload";
     static BASE_SCALE_IMAGE = "c_limit,w_150,h_100,q_100";
 
-    static ERROR_403 = "Access Denied! You are not authorized to perform this function.";
-    static ERROR_404 = "An error occurred. Please try again later!";
-    static ERROR_500 = "Lưu dữ liệu không thành công, vui lòng liên hệ quản trị hệ thống.";
-    static SUCCESS_CREATED = "Successful data generation !";
-    static SUCCESS_UPDATED = "Data update successful !";
-    static SUCCESS_DELETED = "Delete product successfully !";
+    // static ERROR_403 = "Access Denied! You are not authorized to perform this function.";
+    // static ERROR_404 = "An error occurred. Please try again later!";
+    // static ERROR_500 = "Lưu dữ liệu không thành công, vui lòng liên hệ quản trị hệ thống.";
+    // static SUCCESS_CREATED = "Successful data generation !";
+    // static SUCCESS_UPDATED = "Data update successful !";
+    // static SUCCESS_DELETED = "Delete product successfully !";
 
     static showDeleteConfirmDialog() {
         return Swal.fire({
@@ -45,6 +45,38 @@ class App {
             text: t,
             position: 'center',
         })
+    }
+
+    static showError403() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Access Denied',
+            text: 'You are not authorized to perform this function!',
+        })
+    }
+
+    static formatNumber() {
+        $(".num-space").number(true, 0, ',', ' ');
+        $(".num-point").number(true, 0, ',', '.');
+        $(".num-comma").number(true, 0, ',', ',');
+    }
+
+    static formatNumberSpace(x) {
+        if (x == null) {
+            return x;
+        }
+        return x.toString().replace(/ /g, "").replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+
+    static removeFormatNumberSpace(x) {
+        if (x == null) {
+            return x;
+        }
+        return x.toString().replace(/ /g, "")
+    }
+
+    static formatTooltip() {
+        $('[data-toggle="tooltip"]').tooltip();
     }
 }
 

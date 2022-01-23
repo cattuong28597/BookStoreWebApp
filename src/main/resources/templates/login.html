@@ -111,8 +111,19 @@
                     window.location.href = "/cp";
                 }, 1000);
 
-            }).fail(function () {
-                $.notify("The account or password is incorrect, please check the information again", "error");
+            }).fail(function (jqXHR) {
+                if (jqXHR.responseJSON) {
+                    if (jqXHR.responseJSON.message) {
+                        $.notify(jqXHR.responseJSON.message, "error");
+                    } else {
+                        $.each(jqXHR.responseJSON, function (key, value) {
+                            $.notify(value, "error");
+                        });
+                    }
+                } else {
+                    $.notify("The account or password is incorrect, please check the information again", "error");
+                    // App.showErrorAlert("The account or password is incorrect, please check the information again")
+                }
             });
         })
     }

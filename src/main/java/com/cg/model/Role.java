@@ -29,8 +29,5 @@ public class Role {
     @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
     private List<User> users;
 
-//    @JsonIgnore
-//    @OneToMany(targetEntity = User.class, mappedBy = "user")
-//    private List<User> users;
 
 }

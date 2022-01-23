@@ -136,10 +136,13 @@ public class AuthAPI {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
-//        Customer customer = customerService.findCustomerByUserUsername(user.getUsername());
-//        if(customer.isDeleted()){
-//             throw new DataInputException("Account has been blocked, please contact customer service !");
-//        }
+        Optional<User> userOptional = userService.findByUsername(user.getUsername()) ;
+        if(!userOptional.isPresent()){
+            throw new DataInputException("Account not exist !");
+        }else if(userOptional.get().isDeleted()){
+            throw new DataInputException("The current account is locked, please contact the system admin to solve it !");
+        }
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 

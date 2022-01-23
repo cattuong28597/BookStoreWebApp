@@ -45,4 +45,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllByDeletedIsFalse() {
         return orderRepository.findAllByDeletedIsFalse();
     }
+
+    @Override
+    public  List<Order> findAllByDeletedIsFalseAndOrderByCreatedAtConfirmDesc(){
+        return  orderRepository.findAllByDeletedIsFalseAndOrderByCreatedAtConfirmDesc() ;
+    } ;
 }

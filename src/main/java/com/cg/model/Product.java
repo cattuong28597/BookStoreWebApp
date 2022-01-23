@@ -54,22 +54,22 @@ public class Product extends BaseEntity{
 
     @Digits(integer = 12, fraction = 2)
     @Column(name = "price", nullable= false)
-    private BigDecimal price = BigDecimal.valueOf(0);
+    private BigDecimal price ;
 
     @Digits(integer = 3, fraction = 0)
     @Min(value = 0, message = "Giảm giá không được âm")
     @Max(value = 100, message = "Giảm giá không được quá 100%")
     @Column(name = "percentage_discount", nullable= false)
-    private BigDecimal percentageDiscount = BigDecimal.valueOf(0);
+    private BigDecimal percentageDiscount ;
 
     @Digits(integer = 12, fraction = 2)
     @Min(value = 0, message = "Giảm giá không được âm")
     @Column(name = "discount_amount", nullable= false)
-    private BigDecimal discountAmount = BigDecimal.valueOf(0);
+    private BigDecimal discountAmount ;
 
     @Digits(integer = 12, fraction = 2)
     @Column(name = "last_price", nullable= false)
-    private BigDecimal lastPrice = BigDecimal.valueOf(0);
+    private BigDecimal lastPrice ;
 
     private Integer rewardPoint = 0;
 

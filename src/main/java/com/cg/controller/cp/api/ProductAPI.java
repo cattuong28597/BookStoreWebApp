@@ -32,7 +32,7 @@ public class ProductAPI {
     private AppUtils appUtils;
 
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/details/{id}")
     public ResponseEntity<Product> findProductById(@PathVariable Long id)  {
         Optional<Product> product = productService.findById(id);
         if (product.isPresent()) {

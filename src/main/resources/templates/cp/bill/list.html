@@ -32,10 +32,10 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">MainMenu</a></li>
-                                    <li class="breadcrumb-item active">Order-List</li>
+                                    <li class="breadcrumb-item active">Bills-List</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">List Of Customer</h4>
+                            <h4 class="page-title">List Bill</h4>
                         </div>
                     </div>
                 </div>
@@ -48,38 +48,38 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date Order</th>
+                                        <th>Date Bill</th>
                                         <th>Name Customer</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
+                                        <th>Voucher</th>
                                         <th>Status</th>
                                         <th class="text-center">View Details</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <th:block th:each="item : ${orderList}">
+                                    <th:block th:each="item : ${billList}">
                                         <tr>
                                             <td th:text="${item.getId()}"></td>
                                             <td th:text="${item.getCreatedAt()}"></td>
-                                            <td th:text="${item.getCustomer().getName()}"></td>
-                                            <td th:text="${item.getCustomer().getPhone()}"></td>
-                                            <td th:text="${item.getCustomer().getEmail()}"></td>
+                                            <td th:text="${item.getOrder().getCustomer().getName()}"></td>
 
-                                            <th:block th:if="${item.confirm}">
-                                                <td><span class="badge bg-info">Shipped</span></td>
+                                            <td th:if="${item.getVoucher()}" th:text="${item.getVoucher().getName()}"></td>
+                                            <td th:if="!${item.getVoucher()}" >Null</td>
+
+                                            <th:block th:if="${item.paid}">
+                                                <td><span class="badge bg-info">Paid</span></td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-danger" th:href="@{/cp/orders/details/__${item.getId()}__ }">
-                                                        <i class="fas fa-truck"></i>
+                                                    <a class="btn btn-outline-danger" th:href="@{/cp/bills/details/__${item.getId()}__ }">
+                                                        <i class="fas fa-file-invoice-dollar"></i>
                                                     </a>
                                                 </td>
                                             </th:block>
-                                            <th:block th:if="!${item.confirm}">
+                                            <th:block th:if="!${item.paid}">
                                                 <td>
-                                                    <span class="badge bg-warning">Processing</span>
+                                                    <span class="badge bg-warning">Waiting</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-outline-success" th:href="@{/cp/orders/details/__${item.getId()}__ }">
-                                                        <i class="fas fa-cart-arrow-down"></i>
+                                                    <a class="btn btn-outline-success" th:href="@{/cp/bills/details/__${item.getId()}__ }">
+                                                        <i class="fas fa-hourglass-half"></i>
                                                     </a>
                                                 </td>
                                             </th:block>

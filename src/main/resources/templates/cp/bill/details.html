@@ -14,7 +14,7 @@
     <link href="/cp/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css">
     <link href="/cp/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
     <link href="/cp/assets/css/errors.css" rel="stylesheet" type="text/css">
-<!--    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">-->
+    <!--    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">-->
 
     <th:block th:replace="/cp/layout/head"/>
     <style>
@@ -57,14 +57,22 @@
                     </div>
                     <div class="col-md-12">
                         <div class="card-box">
-                            <h4 class="header-title">Order information</h4>
+                            <h4 class="header-title">Bill information</h4>
                             <div class="card-body">
+
                                 <div class="col-md-12">
                                     <div class="card-box">
-                                        <h5>Customer Order</h5>
+                                        <h5 th:if = "${bill.paid}">Bill Details - <span style="color: #1e7e34">Paid</span></h5>
+                                        <h5 th:if = "!${bill.paid}" >Bill Details - <span style="color:yellow">Waitting</span></h5>
                                         <div class="col-md-12">
                                             <label>
-                                                Full Name : <span style="color: #0a58ca"
+                                                Time bill: <span style="color: #0a58ca"
+                                                                    th:text="${bill.getCreatedAt()}"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>
+                                                Customer Name : <span style="color: #0a58ca"
                                                                   th:text="${order.getCustomer().getName()}"></span>
                                             </label>
                                         </div>
@@ -80,49 +88,7 @@
                                                               th:text="${order.getCustomer().getPhone()}"></span>
                                             </label>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label>
-                                                Email : <span style="color: #0a58ca"
-                                                              th:text="${order.getCustomer().getEmail()}"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-12">
-                                    <div class="card-box">
-                                        <h5>List Order Details</h5>
-                                        <div class="col-md-12">
-                                            <label>
-                                                Time ordered: <span style="color: #0a58ca"
-                                                                    th:text="${order.getCreatedAt()}"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-md-12 row">
-                                            <div class="col-6">
-                                            <th:block th:if="!${order.confirm}">
-                                                <button class="btn btn-bordered-primary" id="btn-confirm" th:data-id="${order.id}">
-                                                    Confirm
-                                                </button>
-
-                                            </th:block>
-                                            <th:block th:if="${order.confirm}">
-                                                <button class="btn btn-bordered-warning" disabled>
-                                                    Confirm
-                                                </button>
-                                            </th:block>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <label>Voucher name : </label>
-                                                <select id="voucher-select">
-                                                    <option value="0">No Voucher</option>
-                                                <th:block th:each="item : ${vouchersList}">
-                                                    <option th:value="${item.id}" th:text="${item.name}"></option>
-                                                </th:block>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <br>
                                         <div class="col-12">
                                             <div class="card">
@@ -161,6 +127,52 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                        </div>
+
+
+                                        <div class="col-md-12 row">
+                                            <div class="col-4"></div>
+                                            <div class="col-4">Total : </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-2" style="text-align: right" th:text="${bill.getAmountMoney()}"></div>
+                                        </div>
+                                        <div class="col-md-12 row">
+                                            <div class="col-4"></div>
+                                            <th:block th:if="${bill.voucher}">
+                                            <div class="col-4"  th:text="${'Voucher : '+ bill.voucher.name}">Voucher </div>
+                                            <div class="col-2" th:text="${bill.voucher.percentageDiscount +'%'}" ></div>
+                                            <div class="col-2" style="text-align: right" th:text="${bill.discountAmount}"></div>
+                                            </th:block>
+
+
+                                            <th:block th:if="!${bill.voucher}">
+                                                <div class="col-4">Voucher </div>
+                                                <div class="col-2">0%</div>
+                                                <div class="col-2" style="text-align: right">0</div>
+                                            </th:block>
+                                        </div>
+                                        <div class="col-md-12 row">
+                                            <div class="col-4"></div>
+                                            <div class="col-4">Money Pay : </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-2" style="text-align: right" th:text= "${bill.getTotalAmount()}"></div>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-12 row">
+                                            <div class="col-9"></div>
+                                            <div class="col-3" style="text-align: right">
+                                                <th:block th:if="!${bill.paid}">
+                                                    <button class="btn btn-bordered-primary" id="btn-confirm" th:data-id="${bill.id}">
+                                                        Confirm
+                                                    </button>
+                                                </th:block>
+                                                <th:block th:if="${bill.paid}">
+                                                    <button class="btn btn-bordered-warning" disabled>
+                                                        Confirm
+                                                    </button>
+                                                </th:block>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -220,45 +232,34 @@
 <script src="/assets/js/sweetalert2.min.js"></script>
 <script src="/assets/js/notify-0.4.1.min.js"></script>
 <script>
- $("#btn-confirm").on("click",function (){
-     let idOrder = $(this).data("id") ;
-     let idVoucher = $("#voucher-select").val() ;
+    $("#btn-confirm").on("click",function (){
+        let id_bill = $(this).data("id") ;
+        $.ajax({
+            type: "GET",
+            url: "/cp/api/bill/confirm/"+id_bill
+        }).done((resp)=>{
+            App.showSuccessAlert("Successful payment confirmation!")
+            setTimeout(function () {
+                window.location.href = "/cp/bills";
+            }, 2000);
+        }).fail((jqXHR)=>{
+            if (jqXHR.responseJSON) {
+                if (jqXHR.responseJSON.message) {
+                    $.notify(jqXHR.responseJSON.message, "error");
+                } else {
+                    $.each(jqXHR.responseJSON, function (key, value) {
+                        $.notify(value, "error");
+                    });
+                }
+            } else {
+                $.notify("Fail data, please check the information again", "error");
+            }
+        })
 
-     let billDTO={
-         orderId : idOrder ,
-         voucherId : idVoucher
-     }
-     $.ajax({
-         type:"POST",
-         url: "/cp/api/order/confirm",
-         headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json'
-         },
-         data: JSON.stringify(billDTO)
-     }).done((resp)=>{
-         App.showSuccessAlert("Confirm success !")
-         setTimeout(function () {
-             window.location.href = "/cp/orders";
-         }, 1000);
-     }).fail((jqXHR)=>{
-         if (jqXHR.responseJSON) {
-             if (jqXHR.responseJSON.message) {
-                 $.notify(jqXHR.responseJSON.message, "error");
-             } else {
-                 $.each(jqXHR.responseJSON, function (key, value) {
-                     $.notify(value, "error");
-                 });
-             }
-         } else {
-             $.notify("Fail data, please check the information again", "error");
-         }
-     })
+    })
 
 
 
-
- })
 
 </script>
 </body>

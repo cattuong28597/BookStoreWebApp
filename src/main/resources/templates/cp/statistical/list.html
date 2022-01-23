@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Customer-Manager</title>
+    <link href="/cp/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="/cp/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+    <link href="/cp/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="/cp/assets/css/errors.css" rel="stylesheet" type="text/css">
+    <th:block th:replace="/cp/layout/head"/>
+
+
+</head>
+
+<body>
+<div id="wrapper">
+    <th:block th:replace="/cp/layout/top-bar"/>
+    <th:block th:replace="/cp/layout/left-side-menu"/>
+
+    <div class="content-page">
+        <div class="content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">MainMenu</a></li>
+                                    <li class="breadcrumb-item active">Bills-List</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">List Bill</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Bill information</h4>
+                            <div class="card-body">
+
+                                <div class="col-md-12">
+                                    <div class="card-box">
+                                        <div class="row">
+                                            <!--                                            <div class="col-3 row">-->
+                                            <!--                                                <label class="col-4 text-right mt-2">Khoảng :</label>-->
+                                            <!--                                                <select class="form-control col-6" >-->
+                                            <!--                                                    <option>1</option>-->
+                                            <!--                                                    <option>2</option>-->
+                                            <!--                                                    <option>3</option>-->
+                                            <!--                                                </select>-->
+                                            <!--                                            </div>-->
+                                            <div class="col-4 row">
+                                                <label class="col-4 text-right mt-2">Từ</label>
+                                                <input class="col-8 form-control ng-pristine ng-valid ng-touched"
+                                                       id="startDate" name="startDate" type="date">
+                                            </div>
+                                            <div class="col-4 row">
+                                                <label class="col-4 text-right mt-2">Đến</label>
+                                                <input class="col-8 form-control ng-untouched ng-pristine ng-valid"
+                                                       id="endDate" name="endDate" type="date">
+                                            </div>
+                                            <div class="col-4 row">
+                                                <div class="col-8"></div>
+                                                <button class="col-4 btn btn-outline-info" id="btn-statistical-time">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12" >
+                                    <div class="card">
+                                        <div class="card-body" id="table-data">
+                                            <th:block th:replace="/cp/statistical/list-temp"/>
+                                            <table id="scroll-horizontal-datatable" class="table w-100 nowrap">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date Bill</th>
+                                                    <th>Time Bill</th>
+                                                    <th>Name Customer</th>
+                                                    <th>Voucher</th>
+                                                    <th class="text-center">View Details</th>
+                                                    <th>Pay</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="showStatistical">
+                                                <th:block th:each="item : ${billDTOList}">
+                                                    <tr>
+                                                        <td th:text="${item.getId()}"></td>
+                                                        <td th:text="${item.getDate()}"></td>
+                                                        <td th:text="${item.getTime()}"></td>
+                                                        <td th:text="${item.getCustomerName()}"></td>
+                                                        <td th:text="${item.getVoucherName()}"></td>
+
+<!--                                                        <td th:if="${item.getVoucher()}"-->
+<!--                                                            th:text="${item.getVoucher().getName()}"></td>-->
+<!--                                                        <td th:if="!${item.getVoucher()}">Null</td>-->
+                                                        <td class="text-center">
+                                                            <a class="btn btn-outline-danger"
+                                                               th:href="@{/cp/bills/details/__${item.getId()}__ }">
+                                                                <i class="fas fa-file-invoice-dollar"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="num-space" style="text-align: right" th:text="${item.getTotalAmount()}"></td>
+                                                    </tr>
+                                                </th:block>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 row">
+                                    <div class="col-8"></div>
+                                    <div class="col-2">Total Money :</div>
+                                    <div class="col-2 num-space" id="showTotalMoney" style="text-align: right"
+                                         th:text="${totalMoney}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:replace="/cp/layout/footer"/>
+    </div>
+
+</div>
+
+<th:block th:replace="/cp/layout/right-bar"/>
+
+<div class="rightbar-overlay"></div>
+
+<script src="/cp/assets/js/vendor.min.js"></script>
+<script src="/cp/assets/libs/datatables/jquery.dataTables.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.bootstrap4.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.responsive.min.js"></script>
+<script src="/cp/assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.buttons.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.html5.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.flash.min.js"></script>
+<script src="/cp/assets/libs/datatables/buttons.print.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.keyTable.min.js"></script>
+<script src="/cp/assets/libs/datatables/dataTables.select.min.js"></script>
+<script src="/cp/assets/libs/pdfmake/pdfmake.min.js"></script>
+<script src="/cp/assets/libs/pdfmake/vfs_fonts.js"></script>
+<script src="/cp/assets/js/pages/datatables.init.js"></script>
+
+<script src="/cp/assets/js/app.min.js"></script>
+<script src="/cp/assets/js/cp-app.js"></script>
+<script src="/cp/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="/cp/assets/libs/switchery/switchery.min.js"></script>
+<script src="/cp/assets/libs/multiselect/jquery.multi-select.js"></script>
+<script src="/cp/assets/libs/jquery-quicksearch/jquery.quicksearch.min.js"></script>
+<script src="/cp/assets/libs/select2/select2.min.js"></script>
+<script src="/cp/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="/cp/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="/cp/assets/libs/jquery-mask-plugin/jquery.mask.min.js"></script>
+<script src="/cp/assets/js/pages/form-advanced.init.js"></script>
+
+<script type="text/javascript" src="/assets/js/jquery.number.js"></script>
+<script src="/assets/js/jquery.validate-1.19.3.min.js"></script>
+<script src="/assets/js/sweetalert2.min.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
+<!--<script src="/assets/js/app.js"></script>-->
+
+<script>
+
+   function formatNumber() {
+        $(".num-space").number(true, 2, '.', ' ');
+        $(".num-point").number(true, 2, ',', '.');
+        $(".num-comma").number(true, 2, ',', ',');
+    }
+
+    let tempList = jQuery.validator.format($.trim($("#tempList").val()));
+
+    function statisticalWithTime() {
+        // $("#btn-statistical-time").on("click", function () {
+        let startDate = $("#startDate").val();
+        let endDate = $("#endDate").val();
+        if (startDate != "" && endDate != "") {
+
+            let statisticalDTO = {
+                startDate: startDate,
+                endDate: endDate
+            }
+            console.log(statisticalDTO);
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: "/cp/api/bill/statistical",
+                data: JSON.stringify(statisticalDTO)
+            }).done(function (listBill) {
+                console.log(listBill);
+                $.notify("Statistical successfully !","success")
+                let sumMoney = 0;
+//                 let str = `
+// <!--                                            <th:block th:replace="/cp/statistical/list-temp"/>-->
+//                                             <table id="scroll-horizontal-datatable" class="table w-100 nowrap">
+//                                                 <thead>
+//                                                 <tr>
+//                                                     <th>#</th>
+//                                                     <th>Date Bill</th>
+//                                                     <th>Name Customer</th>
+//                                                     <th>Voucher</th>
+//                                                     <th class="text-center">View Details</th>
+//                                                     <th>Pay</th>
+//                                                 </tr>
+//                                                 </thead>
+//                                                 <tbody>`
+//                 let totalMoneyBill = 0;
+                $("#showStatistical").html("");
+                for (let i = 0; i < listBill.length; i++) {
+                    sumMoney += listBill[i].totalAmount;
+
+                    $("#showStatistical").append($(tempList(listBill[i].id, listBill[i].date,listBill[i].time, listBill[i].customerName, listBill[i].voucherName, listBill[i].totalAmount)));
+
+                    // str += ` <tr>
+                    //           <td>${listBill[i].id}</td>
+                    //            <td>${listBill[i].createAt}</td>
+                    //            <td>${listBill[i].customerName}</td>
+                    //
+                    //             <td>${listBill[i].voucherName}</td>
+                    //             <td class="text-center">
+                    //               <a class="btn btn-outline-danger"
+                    //                  href="/cp/bills/details/${listBill[i].id}">
+                    //                 <i class="fas fa-file-invoice-dollar"></i>
+                    //                 </a>
+                    //              </td>
+                    //              <td style="text-align: right" >${App.formatNumberSpace(listBill[i].totalAmount)}</td>
+                    //          </tr>`
+                }
+
+                // str += ` </tbody>
+                //                             </table>`
+
+                // $("#table-data").html(str);
+                // $("#showStatistical").html(str);
+                $("#showTotalMoney").html(App.formatNumberSpace(sumMoney));
+                // statisticalWithTime();
+            }).fail(function (jqXHR) {
+                if (jqXHR.responseJSON) {
+                    if (jqXHR.responseJSON.message) {
+                        $.notify(jqXHR.responseJSON.message, "error");
+                    } else {
+                        $.each(jqXHR.responseJSON, function (key, value) {
+                            $.notify(value, "error");
+                        });
+                    }
+                } else {
+                    $.notify("Fail !", "error");
+                }
+            });
+        } else {
+            $.notify("Ngày không được để trống", "error")
+        }
+        // })
+    }
+
+
+    $(function () {
+        $("#btn-statistical-time").on("click", function () {
+            statisticalWithTime();
+        });
+    });
+   formatNumber()
+</script>
+
+</body>
+</html>

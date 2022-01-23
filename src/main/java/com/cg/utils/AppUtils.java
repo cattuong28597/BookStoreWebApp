@@ -45,6 +45,8 @@ public class AppUtils {
         return str.trim().toLowerCase();
     }
 
+
+
     public ResponseEntity<?> mapErrorToResponse(BindingResult result) {
         List<FieldError> fieldErrors = result.getFieldErrors();
         Map<String, String> errors = new HashMap<>();
@@ -62,6 +64,18 @@ public class AppUtils {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static String dateFormat(String stringDate){
+        int index = stringDate.indexOf(" ") ;
+        String[] arr = stringDate.substring(0,index).split("-") ;
+        String date = arr[2] + '-' + arr[1] +'-'+ arr[0] ;
+        return date ;
+    }
+
+    public static String timeFormat(String stringDate){
+        int index = stringDate.indexOf(" ") ;
+        return  stringDate.substring(index+1,index+9);
     }
 
 }
