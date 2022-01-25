@@ -3,6 +3,12 @@
 <head>
     <title>Pustok - Book Store HTML Template</title>
     <th:block th:include="layout/head"/>
+    <style>
+        .product-card .product-header .author,
+        .product-card .product-header h3 {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -85,16 +91,6 @@
                     <!-- mobile menu navigation start -->
                     <nav class="off-canvas-nav">
                         <ul class="mobile-menu main-mobile-menu">
-                            <!--                            <li class="menu-item-has-children">-->
-                            <!--                                <a href="#">Home</a>-->
-                            <!--&lt;!&ndash;                                <ul class="sub-menu">&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index.html">Home One</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-2.html">Home Two</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-3.html">Home Three</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-4.html">Home Four</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-5.html">Home Five</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                </ul>&ndash;&gt;-->
-                            <!--                            </li>-->
                             <li class="menu-item-has-children">
                                 <a href="#">Blog</a>
                                 <ul class="sub-menu">
@@ -127,48 +123,7 @@
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
-                                <!--                                <a href=".section-margin">shop </a>-->
                                 <a href="#">Shop</a>
-                                <!--                                <ul class="sub-menu">-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Shop Grid</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="shop-grid.html">Fullwidth</a></li>-->
-                                <!--                                            <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>-->
-                                <!--                                            <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Shop List</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="shop-list.html">Fullwidth</a></li>-->
-                                <!--                                            <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>-->
-                                <!--                                            <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Product Details 1</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="product-details.html">Product Details Page</a></li>-->
-                                <!--                                            <li><a href="product-details-affiliate.html">Product Details-->
-                                <!--                                                Affiliate</a></li>-->
-                                <!--                                            <li><a href="product-details-group.html">Product Details Group</a></li>-->
-                                <!--                                            <li><a href="product-details-variable.html">Product Details-->
-                                <!--                                                Variables</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Product Details 2</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>-->
-                                <!--                                            </li>-->
-                                <!--                                            <li><a href="product-details-right-thumbnail.html">Right Thumbnail</a>-->
-                                <!--                                            </li>-->
-                                <!--                                            <li><a href="product-details-left-gallery.html">Left Gallery</a></li>-->
-                                <!--                                            <li><a href="product-details-right-gallery.html">Right Gallery</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                </ul>-->
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Pages</a>
@@ -198,31 +153,7 @@
                 </div>
                 <!-- mobile menu end -->
                 <nav class="off-canvas-nav">
-                    <!--                    <ul class="mobile-menu menu-block-2">-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li> <a href="cart.html">USD $</a></li>-->
-                    <!--                                <li> <a href="checkout.html">EUR €</a></li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">Lang - Eng<i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li>Eng</li>-->
-                    <!--                                <li>Ban</li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">My Account <i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li><a href="#">My Account</a></li>-->
-                    <!--                                <li><a href="#">Order History</a></li>-->
-                    <!--                                <li><a href="#">Transactions</a></li>-->
-                    <!--                                <li><a href="#">Downloads</a></li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                    </ul>-->
+
                 </nav>
                 <div class="off-canvas-bottom">
                     <div class="contact-list mb--10">
@@ -344,7 +275,6 @@
                                     <li class="cus-col-33">
                                         <h3 class="menu-title"><a href="javascript:void(0)">Blog List </a></h3>
                                         <ul class="mega-single-block">
-                                            <!-- <li><a href="blog-list.html">Full Widh (Default)</a></li> -->
                                             <li><a href="blog-list-left-sidebar.html">left Sidebar</a></li>
                                             <li><a href="blog-list-right-sidebar.html">Right Sidebar</a></li>
                                         </ul>
@@ -448,8 +378,64 @@
 
 
     </main>
-</div>
 
+    <section class="">
+        <div class="container">
+            <div class="section-title section-title--bordered">
+                <h2>YOU MAY LIKE THIS</h2>
+            </div>
+            <div class="product-slider sb-slick-slider slider-border-single-row" data-slick-setting='{
+                "autoplay": true,
+                "autoplaySpeed": 8000,
+                "slidesToShow": 4,
+                "dots":true
+            }' data-slick-responsive='[
+                {"breakpoint":1200, "settings": {"slidesToShow": 4} },
+                {"breakpoint":992, "settings": {"slidesToShow": 3} },
+                {"breakpoint":768, "settings": {"slidesToShow": 2} },
+                {"breakpoint":480, "settings": {"slidesToShow": 1} }
+            ]'>
+                <th:block th:each = "item : ${recommendProduct}">
+                    <div class="single-slide">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <a class="author" th:text="${item.author}"></a>
+                                <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                            </div>
+                            <div class="product-card--body">
+                                <div class="card-image">
+                                    <img th:src="${item.avatar}" alt="" width="100%" height="242px">
+                                    <div class="hover-contents">
+                                        <div class="hover-btns">
+                                            <a href="cart.html" class="single-btn">
+                                                <i class="fas fa-shopping-basket"></i>
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#quickModal" th:data-id ="${item.id}"
+                                               class="single-btn showProductDetails">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-block">
+                                    <th:block th:if = "${item.percentageDiscount == 0}">
+                                        <span class="price" th:text="${item.price}"></span>
+                                    </th:block>
+                                    <th:block th:if = "${item.percentageDiscount != 0}">
+                                        <span class="price" th:text="${item.lastPrice}"></span>
+                                        <del class="price-old" th:text="${item.price}"></del>
+                                        <span class="price-discount" th:text="${item.percentageDiscount +'%'}"></span>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </section>
+
+</div>
 <!-- Modal -->
 <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
      aria-labelledby="quickModal" aria-hidden="true">

@@ -2,8 +2,12 @@ package com.cg.controller.cp;
 
 
 import com.cg.model.Category;
+import com.cg.model.Export;
+import com.cg.model.Import;
 import com.cg.model.Product;
 import com.cg.service.category.CategoryService;
+import com.cg.service.product.ExportService;
+import com.cg.service.product.ImportService;
 import com.cg.service.product.ProductService;
 import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,12 @@ public class ProductCPController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ImportService importService;
+
+    @Autowired
+    private ExportService exportService;
 
     @GetMapping
     public ModelAndView showCpProductIndex() {
@@ -60,21 +70,21 @@ public class ProductCPController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable Long id) {
-
+    @GetMapping("/importHistory")
+    public ModelAndView showImportList() {
         ModelAndView modelAndView = new ModelAndView();
+        List<Import> imports = importService.findAll();
+        modelAndView.setViewName("cp/product/importHistory");
+        modelAndView.addObject("imports", imports);
+        return modelAndView;
+    }
 
-        Optional<Product> product = productService.findById(id);
-
-        if (product.isPresent()) {
-            modelAndView.setViewName("cp/product/edit");
-            modelAndView.addObject("product", product);
-        } else {
-            modelAndView.addObject("errorType", "404");
-            modelAndView.addObject("errorMsg", "Http Error Code: 404. Resource not found");
-            modelAndView.setViewName("errorPage");
-        }
+    @GetMapping("/exportHistory")
+    public ModelAndView showExportList() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Export> exports = exportService.findAll();
+        modelAndView.setViewName("cp/product/exportHistory");
+        modelAndView.addObject("exports", exports);
         return modelAndView;
     }
 

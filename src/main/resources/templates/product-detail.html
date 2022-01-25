@@ -3,6 +3,12 @@
 <head>
     <title th:text="${title}"></title>
     <th:block th:include="layout/head"/>
+    <style>
+        .product-card .product-header .author,
+        .product-card .product-header h3 {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,106 +38,20 @@
                                         class="fa fa-bars"></i>Browse
                                     categories</a>
                                 <ul class="category-menu">
-                                    <li class="cat-item has-children">
-                                        <a href="#">Arts & Photography</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Bags & Cases</a></li>
-                                            <li><a href="#">Binoculars & Scopes</a></li>
-                                            <li><a href="#">Digital Cameras</a></li>
-                                            <li><a href="#">Film Photography</a></li>
-                                            <li><a href="#">Lighting & Studio</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children mega-menu"><a href="#">Biographies</a>
-                                        <ul class="sub-menu">
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">WHEEL SIMULATORS</h3>
-                                                <ul>
-                                                    <li><a href="#">Bags & Cases</a></li>
-                                                    <li><a href="#">Binoculars & Scopes</a></li>
-                                                    <li><a href="#">Digital Cameras</a></li>
-                                                    <li><a href="#">Film Photography</a></li>
-                                                    <li><a href="#">Lighting & Studio</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Business & Money</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Calendars</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Children's Books</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Comics</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item"><a href="#">Perfomance Filters</a></li>
-                                    <li class="cat-item has-children"><a href="#">Cookbooks</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Brake Tools</a></li>
-                                            <li><a href="#">Driveshafts</a></li>
-                                            <li><a href="#">Emergency Brake</a></li>
-                                            <li><a href="#">Spools</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item "><a href="#">Accessories</a></li>
-                                    <li class="cat-item "><a href="#">Education</a></li>
-                                    <li class="cat-item hidden-menu-item"><a href="#">Indoor Living</a></li>
-                                    <li class="cat-item"><a href="#" class="js-expand-hidden-menu">More
-                                        Categories</a></li>
+
+                                    <th:block  th:each= "item : ${categories}">
+                                        <li class="cat-item has-children">
+                                            <a th:href="@{/category/__${item.slug}__}" th:text="${item.name}"></a>
+                                            <ul class="sub-menu">
+                                                <th:block th:each = "group : ${categoryGroups}">
+                                                    <th:block th:if = "${group.getCategory().getId() == item.getId()}">
+                                                        <li><a th:href= "@{/categoryGroup/__${group.slug}__}" th:text="${group.name}"></a></li>
+                                                    </th:block>
+                                                </th:block>
+                                            </ul>
+                                        </li>
+                                    </th:block>
+
                                 </ul>
                             </div>
                         </nav>
@@ -172,15 +92,6 @@
                     <nav class="off-canvas-nav">
                         <ul class="mobile-menu main-mobile-menu">
                             <li class="menu-item-has-children">
-                                <a href="/">Home</a>
-                                <!--                                <ul class="sub-menu">-->
-                                <!--                                    <li> <a href="index.html">Home One</a></li>-->
-                                <!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
-                                <!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
-                                <!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
-                                <!--                                </ul>-->
-                            </li>
-                            <li class="menu-item-has-children">
                                 <a href="#">Blog</a>
                                 <ul class="sub-menu">
                                     <li class="menu-item-has-children">
@@ -213,46 +124,6 @@
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Shop</a>
-                                <ul class="sub-menu">
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Shop Grid</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="shop-grid.html">Fullwidth</a></li>
-                                            <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
-                                            <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Shop List</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="shop-list.html">Fullwidth</a></li>
-                                            <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
-                                            <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Product Details 1</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="product-details.html">Product Details Page</a></li>
-                                            <li><a href="product-details-affiliate.html">Product Details
-                                                Affiliate</a></li>
-                                            <li><a href="product-details-group.html">Product Details Group</a></li>
-                                            <li><a href="product-details-variable.html">Product Details
-                                                Variables</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Product Details 2</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
-                                            </li>
-                                            <li><a href="product-details-right-thumbnail.html">Right Thumbnail</a>
-                                            </li>
-                                            <li><a href="product-details-left-gallery.html">Left Gallery</a></li>
-                                            <li><a href="product-details-right-gallery.html">Right Gallery</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Pages</a>
@@ -282,31 +153,7 @@
                 </div>
                 <!-- mobile menu end -->
                 <nav class="off-canvas-nav">
-                    <ul class="mobile-menu menu-block-2">
-                        <li class="menu-item-has-children">
-                            <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="cart.html">USD $</a></li>
-                                <li><a href="checkout.html">EUR €</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Lang - Eng<i class="fas fa-angle-down"></i></a>
-                            <ul class="sub-menu">
-                                <li>Eng</li>
-                                <li>Ban</li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">My Account <i class="fas fa-angle-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Order History</a></li>
-                                <li><a href="#">Transactions</a></li>
-                                <li><a href="#">Downloads</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+
                 </nav>
                 <div class="off-canvas-bottom">
                     <div class="contact-list mb--10">
@@ -326,6 +173,7 @@
         </aside>
         <!--Off Canvas Navigation End-->
     </div>
+
     <div class="sticky-init fixed-header common-sticky">
         <div class="container d-none d-lg-block">
             <div class="row align-items-center">
@@ -463,6 +311,7 @@
             </div>
         </div>
     </div>
+
     <section class="breadcrumb-section">
         <h2 class="sr-only">Site Breadcrumb</h2>
         <div class="container">
@@ -476,6 +325,7 @@
             </div>
         </div>
     </section>
+
     <main class="inner-page-sec-padding-bottom">
         <div class="container">
             <div class="row  mb--60">
@@ -483,59 +333,6 @@
                     <div class="product-details-slider sb-slick-slider arrow-type-two">
                     <img th:src="${product.avatar}" alt="product-image" width="370" height="370">
                     </div>
-<!--                    &lt;!&ndash; Product Details Slider Big Image&ndash;&gt;-->
-<!--                    <div class="product-details-slider sb-slick-slider arrow-type-two" data-slick-setting='{-->
-<!--              "slidesToShow": 1,-->
-<!--              "arrows": false,-->
-<!--              "fade": true,-->
-<!--              "draggable": false,-->
-<!--              "swipe": false,-->
-<!--              "asNavFor": ".product-slider-nav"-->
-<!--              }'>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-1.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-2.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-3.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-4.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-5.jpg" alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <!-- Product Details Slider Nav -->
-<!--                    <div class="mt&#45;&#45;30 product-slider-nav sb-slick-slider arrow-type-two" data-slick-setting='{-->
-<!--            "infinite":true,-->
-<!--              "autoplay": true,-->
-<!--              "autoplaySpeed": 8000,-->
-<!--              "slidesToShow": 4,-->
-<!--              "arrows": true,-->
-<!--              "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},-->
-<!--              "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},-->
-<!--              "asNavFor": ".product-details-slider",-->
-<!--              "focusOnSelect": true-->
-<!--              }'>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-1.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-2.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-3.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-4.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="single-slide">-->
-<!--                            <img src="/assets/image/products/product-details-5.jpg" alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <div class="col-lg-7">
                     <div class="product-details-info pl-lg--30 " id="div-product-detail"
@@ -571,9 +368,6 @@
                         </div>
                         <article class="product-details-article">
                             <h4 class="sr-only">Product Summery</h4>
-                            <!--                            <p>Long printed dress with thin adjustable straps. V-neckline and wiring under the Dust-->
-                            <!--                                with ruffles at the bottom of the-->
-                            <!--                                dress.</p>-->
                         </article>
                         <div class="add-to-cart-row">
                             <div class="count-input-block">
@@ -582,13 +376,11 @@
                             </div>
                             <div class="add-cart-btn">
                                 <a href="javascript:void(0)" class="btn btn-outlined--primary" id="add-cart-btn"><span
-                                        class="plus-icon">+</span>Add to
-                                    Cart</a>
+                                        class="plus-icon">+</span>Add to Cart</a>
                             </div>
                         </div>
                         <div class="compare-wishlist-row">
-                            <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
-                            <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
+                            <a><i class="fas fa-headphones-alt"></i> Contact Us For Help: + 0123.4567.89</a>
                         </div>
                     </div>
                 </div>
@@ -612,21 +404,6 @@
                     <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab1">
                         <article class="review-article">
                             <h1 class="sr-only">Tab Article</h1>
-                            <!--                            <p>Fashion has been creating well-designed collections since 2010. The brand offers-->
-                            <!--                                feminine designs delivering-->
-                            <!--                                stylish-->
-                            <!--                                separates and statement dresses which have since evolved into a full ready-to-wear-->
-                            <!--                                collection in which every-->
-                            <!--                                item is-->
-                            <!--                                a-->
-                            <!--                                vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful-->
-                            <!--                                elegance and unmistakable-->
-                            <!--                                signature-->
-                            <!--                                style. All the beautiful pieces are made in Italy and manufactured with the greatest-->
-                            <!--                                attention. Now Fashion-->
-                            <!--                                extends-->
-                            <!--                                to-->
-                            <!--                                a range of accessories including shoes, hats, belts and more!</p>-->
                             <p th:text="${product.description}"></p>
                         </article>
                     </div>
@@ -706,24 +483,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="tab-product-details">
-<div class="brand">
-<img src="/assets/image/others/review-tab-product-details.jpg" alt="">
-</div>
-<h5 class="meta">Reference <span class="small-text">demo_5</span></h5>
-<h5 class="meta">In stock <span class="small-text">297 Items</span></h5>
-<section class="product-features">
-<h3 class="title">Data sheet</h3>
-<dl class="data-sheet">
-  <dt class="name">Compositions</dt>
-  <dd class="value">Viscose</dd>
-  <dt class="name">Styles</dt>
-  <dd class="value">Casual</dd>
-  <dt class="name">Properties</dt>
-  <dd class="value">Maxi Dress</dd>
-</dl>
-</section>
-</div> -->
         </div>
         <!--=================================
 RELATED PRODUCTS BOOKS
@@ -731,7 +490,7 @@ RELATED PRODUCTS BOOKS
         <section class="">
             <div class="container">
                 <div class="section-title section-title--bordered">
-                    <h2>RELATED PRODUCTS</h2>
+                    <h2>YOU MAY LIKE THIS</h2>
                 </div>
                 <div class="product-slider sb-slick-slider slider-border-single-row" data-slick-setting='{
                 "autoplay": true,
@@ -744,293 +503,71 @@ RELATED PRODUCTS BOOKS
                 {"breakpoint":768, "settings": {"slidesToShow": 2} },
                 {"breakpoint":480, "settings": {"slidesToShow": 1} }
             ]'>
-                    <div class="single-slide">
-                        <div class="product-card">
-                            <div class="product-header">
-                                <a href="#" class="author">
-                                    Lpple
-                                </a>
-                                <h3><a href="product-details.html">Revolutionize Your BOOK With</a></h3>
-                            </div>
-                            <div class="product-card--body">
-                                <div class="card-image">
-                                    <img src="/assets/image/products/product-10.jpg" alt="">
-                                    <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img src="/assets/image/products/product-1.jpg" alt="">
-                                        </a>
-                                        <div class="hover-btns">
-                                            <a href="cart.html" class="single-btn">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                            <a href="compare.html" class="single-btn">
-                                                <i class="fas fa-random"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#quickModal"
-                                               class="single-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                    <th:block th:each = "item : ${recommendProduct}">
+                        <div class="single-slide">
+                            <div class="product-card">
+                                <div class="product-header">
+                                    <a class="author" th:text="${item.author}"></a>
+                                    <h3><a th:href="@{/product-details/__${item.slug}__}" th:text="${item.name}"></a></h3>
+                                </div>
+                                <div class="product-card--body">
+                                    <div class="card-image">
+                                        <img th:src="${item.avatar}" width="100%" height="242px">
+                                        <div class="hover-contents">
+                                            <div class="hover-btns">
+                                                <a href="cart.html" class="single-btn">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                                <a href="#" data-toggle="modal" data-target="#quickModal" th:data-id ="${item.id}"
+                                                   class="single-btn showProductDetails">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="price-block">
-                                    <span class="price">£51.20</span>
-                                    <del class="price-old">£51.20</del>
-                                    <span class="price-discount">20%</span>
+                                    <div class="price-block">
+                                        <th:block th:if = "${item.percentageDiscount == 0}">
+                                            <span class="price" th:text="${item.price}"></span>
+                                        </th:block>
+                                        <th:block th:if = "${item.percentageDiscount != 0}">
+                                            <span class="price" th:text="${item.lastPrice}"></span>
+                                            <del class="price-old" th:text="${item.price}"></del>
+                                            <span class="price-discount" th:text="${item.percentageDiscount +'%'}"></span>
+                                        </th:block>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="single-slide">
-                        <div class="product-card">
-                            <div class="product-header">
-                                <a href="#" class="author">
-                                    Jpple
-                                </a>
-                                <h3><a href="product-details.html">Turn Your BOOK Into High Machine</a>
-                                </h3>
-                            </div>
-                            <div class="product-card--body">
-                                <div class="card-image">
-                                    <img src="/assets/image/products/product-2.jpg" alt="">
-                                    <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img src="/assets/image/products/product-1.jpg" alt="">
-                                        </a>
-                                        <div class="hover-btns">
-                                            <a href="cart.html" class="single-btn">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                            <a href="compare.html" class="single-btn">
-                                                <i class="fas fa-random"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#quickModal"
-                                               class="single-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <span class="price">£51.20</span>
-                                    <del class="price-old">£51.20</del>
-                                    <span class="price-discount">20%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-slide">
-                        <div class="product-card">
-                            <div class="product-header">
-                                <a href="#" class="author">
-                                    Wpple
-                                </a>
-                                <h3><a href="product-details.html">3 Ways Create Better BOOK With</a></h3>
-                            </div>
-                            <div class="product-card--body">
-                                <div class="card-image">
-                                    <img src="/assets/image/products/product-3.jpg" alt="">
-                                    <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img src="/assets/image/products/product-2.jpg" alt="">
-                                        </a>
-                                        <div class="hover-btns">
-                                            <a href="cart.html" class="single-btn">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                            <a href="compare.html" class="single-btn">
-                                                <i class="fas fa-random"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#quickModal"
-                                               class="single-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <span class="price">£51.20</span>
-                                    <del class="price-old">£51.20</del>
-                                    <span class="price-discount">20%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-slide">
-                        <div class="product-card">
-                            <div class="product-header">
-                                <a href="#" class="author">
-                                    Epple
-                                </a>
-                                <h3><a href="product-details.html">What You Can Learn From Bill Gates</a>
-                                </h3>
-                            </div>
-                            <div class="product-card--body">
-                                <div class="card-image">
-                                    <img src="/assets/image/products/product-5.jpg" alt="">
-                                    <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img src="/assets/image/products/product-4.jpg" alt="">
-                                        </a>
-                                        <div class="hover-btns">
-                                            <a href="cart.html" class="single-btn">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                            <a href="compare.html" class="single-btn">
-                                                <i class="fas fa-random"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#quickModal"
-                                               class="single-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <span class="price">£51.20</span>
-                                    <del class="price-old">£51.20</del>
-                                    <span class="price-discount">20%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-slide">
-                        <div class="product-card">
-                            <div class="product-header">
-                                <a href="#" class="author">
-                                    Hpple
-                                </a>
-                                <h3><a href="product-details.html">a Half Very Simple Things You To</a></h3>
-                            </div>
-                            <div class="product-card--body">
-                                <div class="card-image">
-                                    <img src="/assets/image/products/product-6.jpg" alt="">
-                                    <div class="hover-contents">
-                                        <a href="product-details.html" class="hover-image">
-                                            <img src="/assets/image/products/product-4.jpg" alt="">
-                                        </a>
-                                        <div class="hover-btns">
-                                            <a href="cart.html" class="single-btn">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                            <a href="compare.html" class="single-btn">
-                                                <i class="fas fa-random"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#quickModal"
-                                               class="single-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <span class="price">£51.20</span>
-                                    <del class="price-old">£51.20</del>
-                                    <span class="price-discount">20%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
             </div>
         </section>
         <!-- Modal -->
         <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
              aria-labelledby="quickModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered " role="document">
                 <div class="modal-content">
-                    <button type="button" class="close modal-close-btn ml-auto" data-dismiss="modal"
-                            aria-label="Close">
+                    <button type="button" class="close modal-close-btn ml-auto" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="product-details-modal">
                         <div class="row">
                             <div class="col-lg-5">
-                                <!-- Product Details Slider Big Image-->
-                                <div class="product-details-slider sb-slick-slider arrow-type-two"
-                                     data-slick-setting='{
-              "slidesToShow": 1,
-              "arrows": false,
-              "fade": true,
-              "draggable": false,
-              "swipe": false,
-              "asNavFor": ".product-slider-nav"
-              }'>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-1.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-2.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-3.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-4.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-5.jpg" alt="">
-                                    </div>
-                                </div>
-                                <!-- Product Details Slider Nav -->
-                                <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
-                                     data-slick-setting='{
-            "infinite":true,
-              "autoplay": true,
-              "autoplaySpeed": 8000,
-              "slidesToShow": 4,
-              "arrows": true,
-              "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},
-              "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},
-              "asNavFor": ".product-details-slider",
-              "focusOnSelect": true
-              }'>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-1.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-2.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-3.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-4.jpg" alt="">
-                                    </div>
-                                    <div class="single-slide">
-                                        <img src="/assets/image/products/product-details-5.jpg" alt="">
-                                    </div>
-                                </div>
+                                <div class="single-slide" id="avatar-product"></div>
                             </div>
                             <div class="col-lg-7 mt--30 mt-lg--30">
                                 <div class="product-details-info pl-lg--30 ">
-                                    <p class="tag-block">Tags: <a href="#">Movado</a>, <a href="#">Omega</a></p>
-                                    <h3 class="product-title">Beats EP Wired On-Ear Headphone-Black</h3>
+                                    <span class="tag-block" id="modal-author"></span>
+                                    <h3 class="product-title" id="modal-title"></h3>
                                     <ul class="list-unstyled">
                                         <li>Ex Tax: <span class="list-value"> £60.24</span></li>
-                                        <li>Brands: <a href="#" class="list-value font-weight-bold"> Canon</a></li>
-                                        <li>Product Code: <span class="list-value"> model1</span></li>
-                                        <li>Reward Points: <span class="list-value"> 200</span></li>
-                                        <li>Availability: <span class="list-value"> In Stock</span></li>
+                                        <li>Brands: <a class="list-value font-weight-bold" id="modal-brand"></a></li>
+                                        <li>Reward Points: <span class="list-value" id="modal-reward"></span></li>
+                                        <li>Availability: <span class="list-value" id="modal-status"></span></li>
                                     </ul>
                                     <div class="price-block">
-                                        <span class="price-new">£73.79</span>
-                                        <del class="price-old">£91.86</del>
+                                        <span class="price-new" id="modal-price-new"></span>
+                                        <del class="price-old" id="modal-price-old"></del>
                                     </div>
                                     <div class="rating-widget">
                                         <div class="rating-block">
@@ -1047,24 +584,19 @@ RELATED PRODUCTS BOOKS
                                     </div>
                                     <article class="product-details-article">
                                         <h4 class="sr-only">Product Summery</h4>
-                                        <p>Long printed dress with thin adjustable straps. V-neckline and wiring
-                                            under the Dust with ruffles at the bottom
-                                            of the
-                                            dress.</p>
+                                        <p id="modal-description"></p>
                                     </article>
                                     <div class="add-to-cart-row">
                                         <div class="count-input-block">
                                             <span class="widget-label">Qty</span>
-                                            <input type="number" class="form-control text-center" value="1">
+                                            <input type="number" class="form-control text-center amount-product" value="1">
                                         </div>
                                         <div class="add-cart-btn">
-                                            <a href="#" class="btn btn-outlined--primary"><span
-                                                    class="plus-icon">+</span>Add to Cart</a>
                                         </div>
                                     </div>
                                     <div class="compare-wishlist-row">
-                                        <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
-                                        <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
+                                        <span id="modal-info"></span>
+                                        <a><i class="fas fa-headphones-alt"></i> Contact Us For Help: + 0123.4567.89</a>
                                     </div>
                                 </div>
                             </div>
@@ -1104,6 +636,96 @@ Footer Area
 <script src="/assets/js/sweetalert2.min.js"></script>
 <script src="/assets/js/notify-0.4.1.min.js"></script>
 <script>
+    $(".showProductDetails").on("click", function() {
+        let id = $(this).data("id");
+        $.ajax({
+            type: "GET",
+            url: "/cp/api/products/getById/" + id,
+        }).done((product) => {
+            let linkAuthor = `Tags: <a href="#">${product.author}</a>`;
+            $("#modal-author").html(linkAuthor);
+
+            $("#modal-title").html(product.name);
+
+            $("#modal-brand").html(product.publishingCompany);
+
+            $("#modal-reward").html(product.rewardPoint);
+
+            if (product.quantity > 0) {
+                $("#modal-status").html("In Stock");
+            } else {
+                $("#modal-status").html("Out of order");
+            }
+
+            if(product.percentageDiscount > 0) {
+                $("#modal-price-new").html(product.lastPrice);
+                $("#modal-price-old").html(product.price);
+            } else {
+                $("#modal-price-new").html(product.lastPrice);
+                $("#modal-price-old").addClass("d-none");
+            }
+
+            let avatar = `<img src="${product.avatar}" alt="product-image" width="100%" height="415px">`
+
+            $("#avatar-product").html(avatar) ;
+
+            $("#modal-description").html(product.description);
+
+            let btnAddCart = `<a class="btn btn-outlined--primary" id="modal-addCart" data-id="${product.id}"><i class="fas fa-cart-plus"></i> Add to Cart</a>`;
+            $(".add-cart-btn").html(btnAddCart)
+
+            let linkInfo = `<a class="add-link" href="product-details/${product.slug}"><i class="fas fa-book-open"></i>More Information</a>`;
+            $("#modal-info").html(linkInfo);
+        });
+
+    });
+
+    function createCartDetailForModal() {
+        $(".add-cart-btn").on("click", function () {
+
+            let id_customer = $("#customer-login").data("id");
+
+            if(id_customer !=null){
+                let id_product = $("#modal-addCart").data("id");
+                let amount = $(".amount-product").val();
+
+                let cartDetailDTO = {
+                    customerId: id_customer,
+                    productId: id_product,
+                    quantity: amount
+                }
+
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: "/cp/api/cart-detail/create",
+                    data: JSON.stringify(cartDetailDTO)
+                }).done((resp) => {
+                    // $.notify("Order success , please waiting store accept  ! Thank you !", "success");
+                    App.showSuccessAlert("Add cart success ! Thank you !");
+                    $(".amount-product").val(1);
+                    $("#quickModal").modal('hide');
+                }).fail((jqXHR) => {
+                    // $.notify("Please check the information again", "error");
+                    if (amount > 1000 || amount <= 0) {
+                        App.showErrorAlert("Buy quantity must be greater than 0 and less than 1000!")
+                    } else {
+                        App.showErrorAlert("Please check the information again !")
+                    }
+                });
+            } else {
+                // App.showErrorAlert("Please login to add cart  !")
+                setTimeout(function () {
+                    window.location.href = "/login-register.html";
+                }, 500);
+            }
+        });
+    }
+    createCartDetailForModal() ;
+
     function createCartDetail() {
         $("#add-cart-btn").on("click", function () {
             // alert("ok")

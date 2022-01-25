@@ -11,28 +11,17 @@
 
 <body>
 
-<!-- Begin page -->
 <div id="wrapper">
 
-    <!-- Topbar Start -->
     <th:block th:replace="/cp/layout/top-bar"/>
-    <!-- end Topbar -->
 
-    <!-- ========== Left Sidebar Start ========== -->
     <th:block th:replace="/cp/layout/left-side-menu"/>
-    <!-- Left Sidebar End -->
-
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
 
     <div class="content-page">
         <div class="content">
 
-            <!-- Start Content-->
             <div class="container-fluid">
 
-                <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
@@ -46,7 +35,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- end page title -->
 
                 <div class="row">
                     <div class="col-md-12">
@@ -54,7 +42,7 @@
                             <a href="/cp/products/create">
                                 <button class="btn btn-success waves-effect waves-light">
                                     <i class="fas fa-plus-circle"></i>
-                                     Add new
+                                    Add new
                                 </button>
                             </a>
 
@@ -77,7 +65,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table id="scroll-horizontal-datatable" class="table w-100 nowrap">
+                                <table id="scroll-horizontal-datatable" class="table w-100 nowrap tbListProducts">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -88,48 +76,68 @@
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th class="text-center">Action</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <th:block th:each="item : ${products}">
+<!--                                    <th:block th:replace="/product/frm_modal/frm_list_product" />-->
+                                    <textarea style="display:none" id="tempProduct">
                                         <tr>
-                                            <td th:text="${item.id}"></td>
-                                             <td>
-                                                 <img th:src="${item.avatar}" alt="" width="50px" height="50px">
-                                             </td>
-                                            <td th:text="${item.name}"></td>
-                                            <td th:text="${item.categoryGroup.name}"></td>
-                                            <td th:text="${item.categoryGroup.category.name}"></td>
-                                            <td th:text="${item.quantity}"></td>
-                                            <td th:text="${item.price}"></td>
-
-                                            <th:block th:if="!${item.deleted}">
-                                                <td class="text-center">
-                                                    <a class="btn btn-outline-secondary" th:href="@{/cp/products/edit/__${item.id}__ }">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-info" th:href="@{/cp/products/import/__${item.id}__ }">
-                                                        <i class="fas fa-truck-loading"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-warning" th:href="@{/cp/products/export/__${item.id}__ }">
-                                                        <i class="fas fa-dolly"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-danger" th:href="@{/cp/products/change-active/__${item.id}__ }">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </th:block>
-
-                                            <th:block th:if="${item.deleted}">
-                                                <td class="text-center">
-                                                    <a class="btn btn-outline-success" th:href="@{/category-groups/change-active/__${item.id}__ }">
-                                                        <i class="fab fa-dropbox"></i>
-                                                    </a>
-                                                </td>
-                                            </th:block>
+                                            <td>{0}</td>
+                                            <td>
+                                                <img src="{1}" width="50px" height="50px">
+                                            </td>
+                                            <td>{2}</td>
+                                            <td>{3}</td>
+                                            <td>{4}</td>
+                                            <td>{5}</td>
+                                            <td>${6}</td>
+                                            <td>{7}</td>
                                         </tr>
-                                    </th:block>
+                                    </textarea>
+
+<!--                                    <th:block th:each="item : ${products}">-->
+<!--                                        <tr>-->
+<!--                                            <td th:text="${item.id}"></td>-->
+<!--                                            <td>-->
+<!--                                                <img th:src="${item.avatar}" alt="" width="50px" height="50px">-->
+<!--                                            </td>-->
+<!--                                            <td th:text="${item.name}"></td>-->
+<!--                                            <td th:text="${item.categoryGroup.name}"></td>-->
+<!--                                            <td th:text="${item.categoryGroup.category.name}"></td>-->
+<!--                                            <td th:text="${item.quantity}"></td>-->
+<!--                                            <td th:text="${item.price}"></td>-->
+
+<!--                                            <th:block th:if="!${item.deleted}">-->
+<!--                                                <td class="text-center">-->
+<!--                                                    <a class="btn btn-outline-info btn-edit" th:data-id="${item.id}"-->
+<!--                                                       data-toggle="tooltip" title="Edit">-->
+<!--                                                        <i class="fas fa-pencil-alt"></i>-->
+<!--                                                    </a>-->
+<!--                                                    <a class="btn btn-outline-success btn-import"-->
+<!--                                                       th:data-id="${item.id}" data-toggle="tooltip" title="Import">-->
+<!--                                                        <i class="fas fa-truck-loading"></i>-->
+<!--                                                    </a>-->
+<!--                                                    <a class="btn btn-outline-warning btn-export"-->
+<!--                                                       th:data-id="${item.id}" data-toggle="tooltip" title="Export">-->
+<!--                                                        <i class="fas fa-dolly"></i>-->
+<!--                                                    </a>-->
+<!--                                                    <a class="btn btn-outline-danger btn-suspend"-->
+<!--                                                       th:data-id="${item.id}" data-toggle="tooltip" title="Suspend">-->
+<!--                                                        <i class="far fa-trash-alt"></i>-->
+<!--                                                    </a>-->
+<!--                                                </td>-->
+<!--                                            </th:block>-->
+
+<!--                                            <th:block th:if="${item.deleted}">-->
+<!--                                                <td class="text-center">-->
+<!--                                                    <a class="btn btn-outline-success btn-active"-->
+<!--                                                       th:data-id="${item.id}" data-toggle="tooltip" title="Active">-->
+<!--                                                        <i class="fab fa-dropbox"></i>-->
+<!--                                                    </a>-->
+<!--                                                </td>-->
+<!--                                            </th:block>-->
+<!--                                        </tr>-->
+<!--                                    </th:block>-->
                                     </tbody>
                                 </table>
 
@@ -191,7 +199,66 @@
 <script src="/cp/assets/js/app.min.js"></script>
 
 <script src="/cp/assets/js/cp-app.js"></script>
+<script src="/assets/js/jquery.validate-1.19.3.min.js"></script>
+
+<script>
 
 
+    let tempProduct = jQuery.validator.format($.trim($("#tempProduct").val().toString()));
+
+    function showProductList() {
+        console.log("OKEy")
+        $.ajax({
+            type: "GET",
+            url: "/cp/api/products/getAll/",
+            xhrFields: {
+                withCredentials: true
+            }
+        }).done((data) => {
+            console.log(data);
+            $.each(data, (index, item) => {
+                let btnAction = isProductDeleted(item);
+                $(".tbListProducts").prepend($(tempProduct(item.id, item.avatar, item.name, item.categoryGroup.name, item.categoryGroup.category.name, item.quantity, item.price, btnAction)))
+            })
+        }).fail(function() {
+            App.showErrorAlert(App.ERROR_404);
+        });
+    };
+
+    function isProductDeleted(item) {
+        if (item.deleted) {
+            return `<td class="text-center">
+                <a class="btn btn-outline-success btn-active" data-id ="${item.id}" data-toggle="tooltip" title="Active">
+                    <i class="fab fa-dropbox"></i>
+                </a>
+            </td>`
+        } else {
+            return `<td class="text-center">
+                <a class="btn btn-outline-info btn-edit" data-id ="${item.id}" data-toggle="tooltip" title="Edit">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a class="btn btn-outline-success btn-import" data-id ="${item.id}" data-toggle="tooltip" title="Import">
+                    <i class="fas fa-truck-loading"></i>
+                </a>
+                <a class="btn btn-outline-warning btn-export" data-id ="${item.id}" data-toggle="tooltip" title="Export">
+                    <i class="fas fa-dolly"></i>
+                </a>
+                <a class="btn btn-outline-danger btn-suspend" data-id ="${item.id}" data-toggle="tooltip" title="Suspend">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>`
+        }
+    }
+
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+            placement: 'top'
+        })
+
+        showProductList();
+    })
+
+</script>
 </body>
 </html>

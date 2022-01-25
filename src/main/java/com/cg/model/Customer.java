@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Getter
@@ -25,16 +26,17 @@ public class Customer extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Tên không được trống")
+    @NotBlank(message = "Customer name can not be blank!")
+    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Length of Customer name must be from 2 to 50 Without special character!")
     private String name;
 
-    @NotBlank(message = "Địa chỉ không được trống")
+    @NotBlank(message = "Address can not be blank!")
     private String address;
 
-    @NotBlank(message = "Số điện thoại không được trống")
+    @NotBlank(message = "Phone can not be blank!")
     private String phone;
 
-    @NotBlank(message = "Email không được trống")
+    @NotBlank(message = "Email can not be blank!")
     private String email;
 
     @OneToOne

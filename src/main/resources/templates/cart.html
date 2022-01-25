@@ -3,6 +3,12 @@
 <head>
     <title>Pustok - Book Store HTML Template</title>
     <th:block th:include="layout/head"/>
+    <style>
+        .product-card .product-header .author,
+        .product-card .product-header h3 {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -85,16 +91,6 @@
                     <!-- mobile menu navigation start -->
                     <nav class="off-canvas-nav">
                         <ul class="mobile-menu main-mobile-menu">
-                            <!--                            <li class="menu-item-has-children">-->
-                            <!--                                <a href="#">Home</a>-->
-                            <!--&lt;!&ndash;                                <ul class="sub-menu">&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index.html">Home One</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-2.html">Home Two</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-3.html">Home Three</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-4.html">Home Four</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                    <li> <a href="index-5.html">Home Five</a></li>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                </ul>&ndash;&gt;-->
-                            <!--                            </li>-->
                             <li class="menu-item-has-children">
                                 <a href="#">Blog</a>
                                 <ul class="sub-menu">
@@ -129,46 +125,7 @@
                             <li class="menu-item-has-children">
                                 <!--                                <a href=".section-margin">shop </a>-->
                                 <a href="#">Shop</a>
-                                <!--                                <ul class="sub-menu">-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Shop Grid</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="shop-grid.html">Fullwidth</a></li>-->
-                                <!--                                            <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>-->
-                                <!--                                            <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Shop List</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="shop-list.html">Fullwidth</a></li>-->
-                                <!--                                            <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>-->
-                                <!--                                            <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Product Details 1</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="product-details.html">Product Details Page</a></li>-->
-                                <!--                                            <li><a href="product-details-affiliate.html">Product Details-->
-                                <!--                                                Affiliate</a></li>-->
-                                <!--                                            <li><a href="product-details-group.html">Product Details Group</a></li>-->
-                                <!--                                            <li><a href="product-details-variable.html">Product Details-->
-                                <!--                                                Variables</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                    <li class="menu-item-has-children">-->
-                                <!--                                        <a href="#">Product Details 2</a>-->
-                                <!--                                        <ul class="sub-menu">-->
-                                <!--                                            <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>-->
-                                <!--                                            </li>-->
-                                <!--                                            <li><a href="product-details-right-thumbnail.html">Right Thumbnail</a>-->
-                                <!--                                            </li>-->
-                                <!--                                            <li><a href="product-details-left-gallery.html">Left Gallery</a></li>-->
-                                <!--                                            <li><a href="product-details-right-gallery.html">Right Gallery</a></li>-->
-                                <!--                                        </ul>-->
-                                <!--                                    </li>-->
-                                <!--                                </ul>-->
+
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Pages</a>
@@ -198,31 +155,7 @@
                 </div>
                 <!-- mobile menu end -->
                 <nav class="off-canvas-nav">
-                    <!--                    <ul class="mobile-menu menu-block-2">-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li> <a href="cart.html">USD $</a></li>-->
-                    <!--                                <li> <a href="checkout.html">EUR €</a></li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">Lang - Eng<i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li>Eng</li>-->
-                    <!--                                <li>Ban</li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                        <li class="menu-item-has-children">-->
-                    <!--                            <a href="#">My Account <i class="fas fa-angle-down"></i></a>-->
-                    <!--                            <ul class="sub-menu">-->
-                    <!--                                <li><a href="#">My Account</a></li>-->
-                    <!--                                <li><a href="#">Order History</a></li>-->
-                    <!--                                <li><a href="#">Transactions</a></li>-->
-                    <!--                                <li><a href="#">Downloads</a></li>-->
-                    <!--                            </ul>-->
-                    <!--                        </li>-->
-                    <!--                    </ul>-->
+
                 </nav>
                 <div class="off-canvas-bottom">
                     <div class="contact-list mb--10">
@@ -259,12 +192,6 @@
                                     <!--                                    <i-->
                                     <!--                                        class="fas fa-chevron-down dropdown-arrow"></i>-->
                                 </a>
-                                <!--                                <ul class="sub-menu">-->
-                                <!--                                    <li> <a href="index.html">Home One</a></li>-->
-                                <!--                                    <li> <a href="index-2.html">Home Two</a></li>-->
-                                <!--                                    <li> <a href="index-3.html">Home Three</a></li>-->
-                                <!--                                    <li> <a href="index-4.html">Home Four</a></li>-->
-                                <!--                                </ul>-->
                             </li>
                             <!-- Shop -->
                             <li class="menu-item has-children mega-menu">
@@ -452,11 +379,8 @@
                                         </div>
                                         <div class="product-card--body">
                                             <div class="card-image">
-                                                <img th:src="${item.avatar}" alt="" width="100%" height="242px" style="margin: 0px 5px">
+                                                <img th:src="${item.avatar}" width="100%" height="242px" style="margin: 0px 5px">
                                                 <div class="hover-contents">
-                                                    <a href="product-details.html" class="hover-image">
-                                                        <img th:src="${item.avatar}" alt="">
-                                                    </a>
                                                     <div class="hover-btns">
                                                         <a href="cart.html" class="single-btn">
                                                             <i class="fas fa-shopping-basket"></i>

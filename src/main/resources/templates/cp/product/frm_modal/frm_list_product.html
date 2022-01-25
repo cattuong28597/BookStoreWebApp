@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<th:block th:fragment="frm_list_product">
+    <textarea style="display:none" id="tempProduct">
+        <tr>
+        <td>{0}</td>
+        <td>
+            <img src="{1}" width="50px" height="50px">
+        </td>
+        <td>{2}</td>
+        <td>{3}</td>
+        <td>{4}</td>
+        <td>{5}</td>
+        <td>${6}</td>
+        <td>{7}</td>
+    </tr>
+    </textarea>
+</th:block>
+

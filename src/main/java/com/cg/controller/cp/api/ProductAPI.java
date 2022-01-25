@@ -31,6 +31,12 @@ public class ProductAPI {
     @Autowired
     private AppUtils appUtils;
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Product>> findAllProduct()  {
+        List<Product> productList = productService.findAll();
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<Product> findProductById(@PathVariable Long id)  {

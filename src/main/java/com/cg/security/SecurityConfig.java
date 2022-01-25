@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/cp/api/cart-detail/update",
                         "/errorPage.html",
                         "/cp/api/products/getById/**",
+                        "/cp/api/products/getAll/",
                         "/cp/api/order/create",
                         "/logout-customer.html",
                         "/product-details/**",

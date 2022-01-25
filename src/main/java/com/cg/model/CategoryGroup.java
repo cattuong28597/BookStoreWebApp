@@ -26,8 +26,8 @@ public class CategoryGroup extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Tên nhóm danh mục không được trống")
-    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Tên nhóm danh mục phải chứa từ 2-50 ký tự và không có ký tự đặc biệt")
+    @NotBlank(message = "Name can not be blank")
+    @Pattern(regexp = "^[\\pL .,0-9()_:-]{2,50}$", message = "Length of Category Group name must be from 2 to 50 Without special character!")
     @Column(unique = true)
     private String name;
 

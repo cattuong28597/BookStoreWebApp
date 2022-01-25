@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -23,6 +26,10 @@ public class Import extends BaseEntity{
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productImport;
 
+    @Min(value = 1, message = "Amount of import can not less than 1!")
+    @Max(value = 999999999, message = "Amount of import can not more than 1 billion!")
     private int quantity;
 
+    @NotBlank(message = "Please fill some description!")
+    private String description;
 }
